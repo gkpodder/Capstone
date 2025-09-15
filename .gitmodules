@@ -1,0 +1,3 @@
+[submodule "docs/SRS-Meyer"]
+	path = docs/SRS-Meyer
+	url = https://github.com/ace-lectures/cas-handbook-req-template.git

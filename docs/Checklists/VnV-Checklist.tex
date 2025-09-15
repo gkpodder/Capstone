@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{System Verification and Validation Plan Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+\begin{itemize}
+
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid low information content phrases
+  \item Writing style
+  \end{todolist}
+
+\item Follows the template, all parts present
+  \begin{todolist}
+  \item Table of contents
+  \item Pages are numbered
+  \item Revision history included for major revisions
+  \item Sections from template are all present
+  \item Values of auxiliary constants are given (constants are used to improve
+    maintainability and to increase understandability)
+  \end{todolist}
+
+\item Grammar, spelling, presentation
+  \begin{todolist}
+  \item No spelling mistakes (use a spell checker!)
+  \item No grammar mistakes (review, ask someone else to review (at least a few
+    sections))
+  \item Paragraphs are structured well (clear topic sentence, cohesive)
+  \item Paragraphs are concise (not wordy)
+  \item No Low Information Content (LIC) phrases
+    (\href{https://www.webpages.uidaho.edu/range357/extra-refs/empty-words.htm}{List
+      of LIC phrases})
+  \item All hyperlinks work
+  \item Every figure has a caption
+  \item Every table has a heading
+  \item Symbolic names are used for quantities, rather than literal values
+  \end{todolist}
+
+\item LaTeX
+  \begin{todolist}
+  \item Template comments do not show in the pdf version, either by
+    removing them, or by turning them off.
+  \item References and labels are used so that maintenance is feasible
+\end{todolist}
+
+\item Overall qualities of documentation
+  \begin{todolist}
+\item Test cases include SPECIFIC input
+\item Test cases include EXPLICIT output
+\item Description over specification, when appropriate
+\item Plans for what to do with description data (performance, usability, etc).
+  This may involve saying what plots will be generated.
+\item Plans to quantify error for scalar values using relative error
+\item Plans to quantify error for vector and matrix values using a norm of an error
+  vector (matrix)
+\item Plans are feasible (can be accomplished with resources available)
+\item Plans are ambitious enough for an A+ effort
+\item Survey questions for usability survey are in an Appendix (if appropriate)
+\item Plans for task based inspection, if appropriate
+\item Very careful use of random testing
+\item Specific programming language is listed
+\item Specific linter tool is listed (if appropriate)
+\item Specific coding standard is given
+\item Specific unit testing framework is given
+\item Investigation of code coverage measuring tools
+\item Specific plans for Continuous Integration (CI), or an explanation that CI
+  is not being done
+\item Specific performance measuring tools listed (like Valgrind), if
+  appropriate
+\item Traceability between test cases and requirements is summarized (likely in
+  a table)
+\end{todolist}
+
+\end{itemize}
+
+\end{document}

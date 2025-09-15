@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+
+\usepackage[round]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{SRS Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+This checklist is intended to help with a high-quality SRS document. If you use
+the SRS template correctly, it will improve your project and make your life
+easier.  You shouldn't view the documentation as an unpleasant milestone, but as
+an opportunity to gain a deeper understanding of your project. This
+understanding will pay off throughout the project's duration.
+
+\begin{itemize}
+
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid
+  \href{https://www.brafton.com/blog/content-writing/anti-fluff-content-writing/}
+  {low information content phrases} (like replacing ``in order to'' with ``to'')
+  \item Writing style
+  \end{todolist}
+
+\item Follows the template, all parts present
+  \begin{todolist}
+  \item Have you selected the right template?  
+  \begin{itemize}
+  \item SRS, which is suited to scientific computing problems (rare choice
+  (suited to physical phenomena and numerical libraries))
+  \item SRS-Volere, which is a complex, comprehensive, general, template (long, repetitive)
+  \item SRS-Meyer, which is a simpler, general purpose template (reasonable scope, good generic choice)
+  \end{itemize}
+  \item Unused template folders are deleted from your repo
+  \item File name for the SRS matches the name in the template repo
+  \item Table of contents
+  \item Pages are numbered
+  \item Revision history included for major revisions
+  \item Sections from template are all present
+  \item Values of auxiliary constants are given (constants are used to improve
+    maintainability and to increase understandability)
+  \item Symbolic names are used for quantities, rather than literal values
+  \end{todolist}
+
+\item Overall qualities of documentation
+  \begin{todolist}
+  \item No statement is repeated at the same level of abstraction (for instance
+    the scope should be more abstract than the assumptions, the goal statements
+    should be more abstract than the requirements, etc.)
+  \item Someone that meets the characteristics of the intended reader could
+    learn what they need to know
+  \item Someone that meets the characteristics of the intended reader could
+    verify all of the statement made in the SRS.  That is, they do not have to
+    trust the SRS authors on any information.
+  \item SRS is unambiguous.  At least check a representative sample.
+  \item SRS is consistent.  At least check a representative sample.
+  \item SRS is validatable.  At least check a representative sample.
+  \item SRS is abstract.  At least check a representative sample.
+  \item SRS is traceable.  At least check a representative sample.
+  \item Literal symbols (like numbers) do not appear, instead being
+      represented by SYMBOLIC\_CONSTANTS (constants are given in a table in the
+      Appendix)
+\end{todolist}
+
+\item Reference Material
+  \begin{todolist}
+  \item All units introduced are listed (searching the document can help look
+    for other units that may be present, but not listed)
+  \item All symbols used in the document are listed
+  \item All symbols listed are used in the document
+  \item All abbreviations/acronyms used in the document are listed
+  \item All abbreviations/acronyms listed are used in the document
+  \end{todolist}
+  
+\item Functional Requirements
+  \begin{todolist}
+  \item All requirements are validatable
+  \item All requirements are abstract
+  \item Requirements are traceable to where the required details are found in
+    the document
+  \end{todolist}
+
+\item Nonfunctional Requirements
+  \begin{todolist}
+  \item NFRs are verifiable
+  \item Usability used for users and understandability used for programmers
+  \item Specify what you want, not how to achieve it (for instance, don't say how you will make the software maintainable via modularization, say how you will measure maintainability and your target)
+  \item NFRs point to the VnV plan for details as appropriate
+  \end{todolist}
+
+\item Requirements
+  \begin{todolist}
+  \item Requirements should trace to IMs
+  \item Rationale is provided for assumptions, scope decisions and constraints
+  \end{todolist}
+
+\item Likely and Unlikely changes
+  \begin{todolist}
+  \item Likely changes are feasible to hide in the design
+  \end{todolist}
+
+\item Avenue Rubric
+  \begin{todolist}
+  \item You have checked your work against the grading rubric on Avenue
+  \item If the grading rubric requires something not in your template, have you
+  modified the template, and included a description of the modification in the
+  document's introduction?  (For instance, you will have to add a traceability
+  matrix to the Volere template.)
+  \end{todolist}
+
+\end{itemize}
+
+Other checklists to consider can be found in the resources for the University of
+Toronto course
+\href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/}
+{CSC340F} include:
+
+\begin{itemize}
+  \item
+  \href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/reqts_checklist.pdf}
+  {Checklist for Requirements Specification Reviews}
+  \item
+  \href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/JPL_reqts_clist.pdf}
+  {Software Requirements Checklist (JPL)}
+\end{itemize}
+
+\bibliographystyle {plainnat}
+\bibliography{../../refs/References}
+
+\end{document}

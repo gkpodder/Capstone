@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{MG Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+\begin{itemize}
+ 
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid low information content phrases
+  \item Writing style
+  \item Hyperlinks should be done properly (\texttt{\textbackslash ref})
+  \end{todolist}
+
+\item Module Decomposition
+  \begin{todolist}
+  \item One module one secret (unless an explicit exception is made, with a good
+    reason) - all ``and''s should be checked.
+  \item The uses relation is a hierarchy.
+  \item Secrets are nouns (generally).
+  \item Traceability matrix between modules and requirements shows every
+    requirement is satisfied by at least on module
+  \item Traceability matrix between modules and requirements shows that every
+    module is used to satisfy at least one requirement
+  \item Traceability matrix between likely changes and modules shows a one to
+    one mapping, or, if this is not the case, explains the exceptions to this
+    rule.
+  \item Level 1 of the decomposition by secrets shows: Hardware-Hiding,
+    Behaviour-Hiding and Software Decision Hiding.
+  \item Behaviour-Hiding modules are related to the requirements
+  \item Software-Decision hiding modules are concepts that need to be
+    introduced, but are not detailed in the requirements
+  \item Each Software Decision Hiding module is used by at least one
+    Behaviour-Hiding Module (if this isn't the case, an explanation should be
+    provided)
+  \item Uses relation is not confused with a data flow chart. If you can imagine
+  an ``import B'' statement in the code for module A, then module A uses module
+  B.
+  \item The arrow in the uses relation points from module A to module B when
+  module A uses module B
+  \item Anticipated changes are a superset of the likely changes in the SRS
+  \item If there is a ``control'' module, it should be at the top of the hierarchy
+  \item Ideally the uses relation is drawn with all uses arrows pointing down,
+  with clear layers for the hierarchy
+  \end{todolist}
+
+\item MG quality
+  \begin{todolist}
+  \item Follow template
+  \item Low coupling
+  \item Satisfies information hiding
+  \item Figures can be zoomed in on (pdf better than bitmap for zooming)
+  \end{todolist}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,239 @@
+\documentclass[12pt]{article}
+
+\usepackage[round]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{SRS and CA Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+This checklist is specific to the Smith et al template \citep{SmithAndLai2005,
+SmithEtAl2007} for documenting requirements for scientific software, but many of
+the points can be abstracted and applied to other templates.
+
+\begin{itemize}
+
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid
+  \href{https://www.brafton.com/blog/content-writing/anti-fluff-content-writing/}
+  {low information content phrases} (like replacing ``in order to'' with ``to'')
+  \item Writing style
+  \end{todolist}
+
+\item Follows the template, all parts present
+  \begin{todolist}
+  \item Selected template is appropriate for the project
+  \item Unused template folders are deleted from your repo
+  \item File name for the SRS matches the name in the template repo
+  \item Table of contents
+  \item Pages are numbered
+  \item Revision history included for major revisions
+  \item Sections from template are all present
+  \item Values of auxiliary constants are given (constants are used to improve
+    maintainability and to increase understandability)
+  \item Symbolic names are used for quantities, rather than literal values
+  \end{todolist}
+
+\item Overall qualities of documentation
+  \begin{todolist}
+  \item No statement is repeated at the same level of abstraction (for instance
+    the scope should be more abstract than the assumptions, the goal statements
+    should be more abstract than the requirements, etc.)
+  \item Someone that meets the characteristics of the intended reader could
+    learn what they need to know
+  \item Someone that meets the characteristics of the intended reader could
+    verify all of the statement made in the SRS.  That is, they do not have to
+    trust the SRS authors on any information.
+  \item Terminology, definitions, symbols, TMs and DDs can be given without
+      derivation, except possibly for a source (citation), but all GDs and IMs
+      should be derived/justified.  At least check a representative sample for
+      this criteria.
+  \item SRS is unambiguous.  At least check a representative sample.
+  \item SRS is consistent.  At least check a representative sample.
+  \item SRS is validatable.  At least check a representative sample.
+  \item SRS is abstract.  At least check a representative sample.
+  \item SRS is traceable.  At least check a representative sample.
+  \item Literal symbols (like numbers) do not appear, instead being
+      represented by SYMBOLIC\_CONSTANTS (constants are given in a table in the
+      Appendix)
+\end{todolist}
+
+\item Reference Material
+  \begin{todolist}
+  \item All units introduced are listed (searching the document can help look
+    for other units that may be present, but not listed)
+  \item Units listed are each used at least once (manually searching the
+    document is a quick way to check this)
+  \item All non-SI units should be checked to see if they are really what is
+  intended.  This also applies for unit modifiers, like m, k, c, etc.  That is,
+  should mm really be m?  Unit conversion problems can occur when mixing
+  different size units.
+  \item The units balance for all equations
+  \item The names of units named after people are in lower-case
+  \item All symbols used in the document are listed in the table of symbols
+  \item All symbols listed in the table of symbols are used in the document
+  \item All symbols have unique definitions; that is, no two symbols have the
+  same definition
+  \item All abbreviations/acronyms used in the document are listed in the table
+    of abbreviations/acronyms
+  \item All abbreviations/acronyms listed in the table of abbreviations/acronyms
+    are used in the document
+  \item If a domain specific notation will be used, it has been defined in the
+    mathematical notation section
+  \end{todolist}
+
+\item Introduction
+  \begin{todolist}
+  \item Introductory blurb focuses on the problem domain
+  \item Introductory blurb includes a ``roadmap''
+  \item ``Purpose of the Document'' discusses the documentation's purpose, not
+    the program's purpose
+  \item Scope of the requirements is an abstract version of the assumptions.
+    Every item of the scope should be reflected in at least one assumption.
+  \item Characteristics of the intended reader are not confused with the user
+    characteristics
+  \item Characteristics of the intended reader are unambiguous (typically list
+  courses and their level)
+  \item The software application or library is given a name
+  \item The project is explicitly identified as either software app or library
+  \item There is a reference in the Organization of the Document section to the
+  template you are using.
+  \end{todolist}
+
+\item General System Description
+  \begin{todolist}
+  \item System context includes a figure showing the relation between the
+    software system and external entities
+  \item If the software will depend on other software, such as other libraries,
+    this is part of the system context.  Try to keep the libraries generic,
+    unless specific libraries are needed, which will mean software constaints
+    are also specified.
+  \item User characteristics are unambiguous (for instance, don't just say the user will know
+    physics, say they will know Newtonian mechanics as typically covered in the
+    first year of an engineering or science degree)
+  \item User characteristics are specific
+  \item System constraints have an appropriate rationale (a constraint without a
+    reason for that constraint is likely making the SRS less abstract than it
+    should be)
+  \end{todolist}
+
+\item Problem Description
+  \begin{todolist}
+  \item Each item of the physical system is identified and labelled
+  \item Goal statements are functional
+  \item Goal statements are abstract
+  \item Goal statements use a minimal amount of technical language,
+    understandable by non-domain experts 
+  \end{todolist}
+
+\item Solution Characteristics Specification
+  \begin{todolist}
+  \item Each assumption is ``atomic'' (no explicit or implicit ``ands'')
+  \item Assumptions are a refinement of the scope
+  \item Each assumption is referenced (invoked) at least once in the document
+  \item When the assumptions are listed, traceability is given to where they are used
+  \item If an assumption is listed as being referenced by another chunk (T, IM
+    etc), that other chunk should explicitly invoke the assumption in the
+    describing text or derivation
+  \item A link exists between each chunk and anything that references it
+  \item If the ``Ref.\ By'' field is filled in, the entities (model, definition,
+    assumption) listed explicitly include a reference to the original entity
+    (model, definition, assumption).
+  \item All GDs explicitly refine at least one TM.
+  \item All GDs invoke (use) at least one assumption.
+  \item The derivation of all GDs as refinements from other models is clear
+  \item The derivation of all IMs as refinements from other models is clear
+  \item All DD are used (referenced) by at least one other model
+  \item The IMs remain abstract
+  \item All of the inputs for an IM are used in some way to define the output for the IM
+  \item Input data constraints are given, with a rationale where appropriate
+  \item Properties of a correct solution are given (or explicitly left blank)
+  \item Equations are balanced with respect to units of all terms
+  \item All ``chunks'' (theories, definitions, models) are used (invoked,
+  referred to) at least once
+  \item All symbols used in every equation are defined in the Description
+  \end{todolist}
+  
+\item Functional Requirements
+  \begin{todolist}
+  \item IMs and (possibly) TMs and GMs are referenced as appropriate by the
+    requirements.  It is a sign that the IMs are not set correctly if there is
+    one or more IMs that are not referenced by any of the requirements.
+  \item All requirements are validatable
+  \item All requirements are abstract
+  \item Requirements are traceable to where the required details are found in
+    the document
+  \end{todolist}
+
+\item Nonfunctional Requirements
+  \begin{todolist}
+  \item NFRs are verifiable
+  \item Usability used for users and understandability used for programmers
+  \item Specify what you want, not how to achieve it (for instance, don't say how you will make the software maintainable via modularization, say how you will measure maintainability and your target)
+  \item NFRs point to the VnV plan for details as appropriate
+  \end{todolist}
+
+\item Requirements
+  \begin{todolist}
+  \item Requirements should trace to IMs
+  \item Rationale is provided for assumptions, scope decisions and constraints
+  \end{todolist}
+
+\item Likely and Unlikely changes
+  \begin{todolist}
+  \item Likely changes are feasible to hide in the design
+  \end{todolist}
+
+\item Traceability Matrices
+  \begin{todolist}
+  \item Traceability matrix is complete
+  \end{todolist}
+
+\end{itemize}
+
+Other checklists to consider can be found in the resources for the University of
+Toronto course
+\href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/}
+{CSC340F} include:
+
+\begin{itemize}
+  \item
+  \href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/reqts_checklist.pdf}
+  {Checklist for Requirements Specification Reviews}
+  \item
+  \href{https://www.cs.toronto.edu/~sme/CSC340F/2005/assignments/inspections/JPL_reqts_clist.pdf}
+  {Software Requirements Checklist (JPL)}
+\end{itemize}
+
+\bibliographystyle {plainnat}
+\bibliography{../../refs/References}
+
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\input{../Comments}
+
+\begin{document}
+
+\title{Source Code Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+\begin{itemize}
+  
+\item Identifier naming
+  \begin{todolist}
+  \item Identifier names are consistent
+  \item Identifier names are meaningful
+  \end{todolist}
+
+\item Coding
+  \begin{todolist}
+  \item Source code in the src folder
+  \item Comments on ``what'' not ``how''
+  \item Avoid hard-coded constants (other than maybe 0 or 1)
+  \item Consistent indentation
+  \item Explicit identification of coding standard being followed
+  \item Code standard is followed
+  \item Parameters in the same order for all functions
+  \end{todolist}
+
+\item Relation to other documents
+  \begin{todolist}
+  \item Descriptive name for source code files
+  \item Mapping to module guide (system architecture) is clear, may require a
+    document explicitly mapping between modules and code files
+  \item Show mapping between MIS symbols (low-level design document) and code
+  symbols
+  \end{todolist}
+
+\item Readability
+  \begin{todolist}
+  \item Code is reasonably understandable to someone that knows the
+    programming language, but is new to the project
+  \item Esoteric language features avoided when a simpler language feature
+    could be used
+  \item Incomplete code is flagged with a suitable marker, such as ``TO DO''?
+  \end{todolist}
+
+\item \wss{This checklist is not exhaustive.  More items should be added.}
+
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\input{../Comments}
+\input{../Common}
+
+\begin{document}
+
+\title{Verification and Validation Report: \progname} 
+\author{\authname}
+\date{\today}
+	
+\maketitle
+
+\pagenumbering{roman}
+
+\section{Revision History}
+
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+Date 1 & 1.0 & Notes\\
+Date 2 & 1.1 & Notes\\
+\bottomrule
+\end{tabularx}
+
+~\newpage
+
+\section{Symbols, Abbreviations and Acronyms}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  T & Test\\
+  \bottomrule
+\end{tabular}\\
+
+\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
+
+\newpage
+
+\tableofcontents
+
+\listoftables %if appropriate
+
+\listoffigures %if appropriate
+
+\newpage
+
+\pagenumbering{arabic}
+
+This document ...
+
+\section{Functional Requirements Evaluation}
+
+\section{Nonfunctional Requirements Evaluation}
+
+\subsection{Usability}
+		
+\subsection{Performance}
+
+\subsection{etc.}
+	
+\section{Comparison to Existing Implementation}	
+
+This section will not be appropriate for every project.
+
+\section{Unit Testing}
+
+\section{Changes Due to Testing}
+
+\wss{This section should highlight how feedback from the users and from 
+the supervisor (when one exists) shaped the final product.  In particular 
+the feedback from the Rev 0 demo to the supervisor (or to potential users) 
+should be highlighted.}
+
+\section{Automated Testing}
+		
+\section{Trace to Requirements}
+		
+\section{Trace to Modules}		
+
+\section{Code Coverage Metrics}
+
+\bibliographystyle{plainnat}
+\bibliography{../../refs/References}
+
+\newpage{}
+\section*{Appendix --- Reflection}
+
+The information in this section will be used to evaluate the team members on the
+graduate attribute of Reflection.
+
+\input{../Reflection.tex}
+
+\begin{enumerate}
+  \item What went well while writing this deliverable? 
+  \item What pain points did you experience during this deliverable, and how
+    did you resolve them?
+  \item Which parts of this document stemmed from speaking to your client(s) or
+  a proxy (e.g. your peers)? Which ones were not, and why?
+  \item In what ways was the Verification and Validation (VnV) Plan different
+  from the activities that were actually conducted for VnV?  If there were
+  differences, what changes required the modification in the plan?  Why did
+  these changes occur?  Would you be able to anticipate these changes in future
+  projects?  If there weren't any differences, how was your team able to clearly
+  predict a feasible amount of effort and the right tasks needed to build the
+  evidence that demonstrates the required quality?  (It is expected that most
+  teams will have had to deviate from their original VnV Plan.)
+\end{enumerate}
+
+\end{document}

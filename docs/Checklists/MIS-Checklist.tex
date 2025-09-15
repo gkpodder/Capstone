@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{MIS Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+If a team adopts a documentation approach that does not use an MIS, then some of
+the items in this checklist will not apply.
+
+\begin{itemize}
+ 
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid low information content phrases
+  \item Writing style
+  \item Hyperlinks should be done properly (\texttt{\textbackslash ref})
+  \item Every module's specification starts on a new page
+  \end{todolist}
+
+\item MIS Module Classifications
+  \begin{todolist}
+  \item Types that only hold data (records) are modelled as exported types.  For
+    instance, the StdntAllocTypes module in A2:
+    \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/A2/A2.pdf})
+  \item Types that have data (state) and behaviour are modelled as ADTs.  The
+    MIS should use the keyword \textbf{Template}.  An example is the BoardT ADT
+    given at
+    \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/A3/A3Soln/A3P1_Spec.pdf}
+  \item Abstract objects are used when there is only one instance.  There is
+    state and behaviour.  This most
+    often comes up for ``global'' reader and writer modules.  For instance, a
+    module that does logging.  Abstract objects do NOT use the word Template in
+    the main header.  An example is given in the SALst module of A2:
+    \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/A2/A2.pdf}
+    \item Library modules are used when there is only behaviour, no state.  They
+      are defined as Modules, but State Variables and Environment Variable
+      fields say ``None.''
+  \item If the module's MIS can be parameterized by type, then the keyword
+    \textbf{Generic} is used.  Generic modules are usually also Template
+    modules, but not necessarily.  An example is given in the Generic Stack
+    Module (Stack(T)) given in A3:
+    \url{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/blob/master/Assignments/A3/A3Soln/A3P1_Spec.pdf}
+  \item Abstract objects will have some kind of initialization method
+  \item Abstract objects will have an assumptions that programmers will
+      initialize first, or a state variable that is set from False to True when
+      the Abstract object is initialized - this state variable then needs to be
+      checked for each access program call
+  \end{todolist}
+
+  \item MIS and Mathematical syntax
+  \begin{todolist}
+  \item Exported constants are ``hard-coded'' literal values, not variables.
+    Constants are values that are known at specification (and therefore compile)
+    time.  Explicit constant values are provided in the MIS, not left to be
+    filled in later.  (They can be changed later, but specific values should be given.)
+  \item Operations do not mix incorrect types.  For instance, a character is not
+    added to an integer, an integer is not ``anded'' with a Boolean, etc.
+  \item Our
+    \href{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/-/blob/master/MISFormat/MISFormat.pdf}
+    {modified Hoffmann and Strooper notation} is used, or any new notation is
+    clearly defined.
+  \item Notation is consistent throughout the document.
+  \item All arguments to a method are used in the specification of the method in
+  the semantics section
+  \item All local functions are used somewhere in the modules's specification.
+  \item The uses relation is for the modules that need to be referenced to
+  completely define the specification.  If parts of the exported interface from
+  those modules are not needed, then the modules aren't listed under Uses.
+  \end{todolist}
+
+\item MIS Semantics for each module
+  \begin{todolist}
+  \item Each access program does something -- either an output, or a state
+    transition
+  \item Access programs either change the state of something, or have an output.
+    Only rarely should an access program do both (as it does for the constructor
+    in an ADT.)
+  \item If there is an entry in the state transition, then the state of
+    something changes.  The state change might be the local state variables, the
+    state variables for another module, or an environment variable.
+  \item Outputs use $out := ...$
+  \item Exceptions use $exc := ...$
+  \item If the state invariant is satisfied before an access program call, it
+    will remain satisfied after the call
+  \item State invariant is initially satisfied
+  \item Local functions make the specification easier to read (there is no
+    requirement that the local functions will actually be implemented in code)
+  \item Modules that deal with files, the keyboard, or the screen, have
+    environment variables to represent these respective entities
+  \item Symbols are from SRS - not yet translated to code names (that is use
+    $\theta$, not \texttt{theta})
+  \end{todolist}
+
+\item MIS Quality inspection for each module
+  \begin{todolist}
+  \item Consistent
+  \item Essential
+  \item General
+  \item Implementation independent
+  \item Minimal
+  \item High cohesion
+  \item Opaque (information hiding)
+  \item Correct level of abstraction (mentioning JSON or using Python's init
+  syntax is too low-level)
+  \end{todolist}
+
+\item MIS Completeness
+  \begin{todolist}
+  \item All types introduced in the spec are defined somewhere
+  \item All modules in MG are in the MIS
+  \item All required sections of the template are present for all modules
+  \end{todolist}
+
+\end{itemize}
+
+\end{document}

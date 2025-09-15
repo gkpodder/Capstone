@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+
+\usepackage[round]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{Development Plan Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+The Development Plan records important decision for the team on the agreed upon
+approach for the project.
+
+\begin{itemize}
+\item Follows writing checklist (full checklist provided in a separate document)
+  \begin{todolist}
+  \item \LaTeX{} points
+  \item Structure
+  \item Spelling, grammar, attention to detail
+  \item Avoid low information content phrases
+  \item Writing style
+  \item Hyperlinks should be done properly (\texttt{\textbackslash ref})
+  \end{todolist}
+
+\item Document
+  \begin{todolist}
+  \item Follows outline in template repo (minor changes are okay, as long as
+  rubric items are covered)
+  \item Document makes decisions (not an empty exercise).  Decisions can be changed later.
+  \item PoC demo plans are included (they can be changed later if necessary)
+  \item Risk used to plan PoC is clearly expressed
+  \end{todolist}
+
+\item{Team Charter}
+\begin{todolist}
+  \item Trigger for a problem is quantified
+  \item Consequence of problematic behaviour is expressed
+  \item Exercise of planning team charter is done with sincerity
+  \end{todolist}
+
+\end{itemize}
+
+\end{document}

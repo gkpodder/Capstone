@@ -1,0 +1,240 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\title{Development Plan\\\progname}
+
+\author{\authname}
+
+\date{}
+
+\input{../Comments}
+\input{../Common}
+
+\begin{document}
+
+\maketitle
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+Date1 & Name(s) & Description of changes\\
+Date2 & Name(s) & Description of changes\\
+... & ... & ...\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage{}
+
+\wss{Put your introductory blurb here.  Often the blurb is a brief roadmap of
+what is contained in the report.}
+
+\wss{Additional information on the development plan can be found in the
+\href{https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/L02b_POCAndDevPlan/POCAndDevPlan.pdf?ref_type=heads}
+{lecture slides}.}
+
+\section{Confidential Information?}
+
+\wss{State whether your project has confidential information from industry, or
+not.  If there is confidential information, point to the agreement you have in
+place.}
+
+\wss{For most teams this section will just state that there is no confidential
+information to protect.}
+\section{IP to Protect}
+
+\wss{State whether there is IP to protect.  If there is, point to the agreement.
+All students who are working on a project that requires an IP agreement are also
+required to sign the ``Intellectual Property Guide Acknowledgement.''}
+
+\section{Copyright License}
+
+\wss{What copyright license is your team adopting.  Point to the license in your
+repo.}
+
+\section{Team Meeting Plan}
+
+\wss{How often will you meet? where?}
+
+\wss{If the meeting is a physical location (not virtual), out of an abundance of
+caution for safety reasons you shouldn't put the location online}
+
+\wss{How often will you meet with your industry advisor?  when?  where?}
+
+\wss{Will meetings be virtual?  At least some meetings should likely be
+in-person.}
+
+\wss{How will the meetings be structured?  There should be a chair for all meetings.  There should be an agenda for all meetings.}
+
+\section{Team Communication Plan}
+
+\wss{Issues on GitHub should be part of your communication plan.}
+
+\section{Team Member Roles}
+
+\wss{You should identify the types of roles you anticipate, like notetaker,
+leader, meeting chair, reviewer.  Assigning specific people to those roles is
+not necessary at this stage.  In a student team the role of the individuals will
+likely change throughout the year.}
+
+\section{Workflow Plan}
+
+\begin{itemize}
+	\item How will you be using git, including branches, pull request, etc.?
+	\item How will you be managing issues, including template issues, issue
+	classification, etc.?
+  \item Use of CI/CD
+\end{itemize}
+
+\section{Project Decomposition and Scheduling}
+
+\begin{itemize}
+  \item How will you be using GitHub projects?
+  \item Include a link to your GitHub project
+\end{itemize}
+
+\wss{How will the project be scheduled?  This is the big picture schedule, not
+details. You will need to reproduce information that is in the course outline
+for deadlines.}
+
+\section{Proof of Concept Demonstration Plan}
+
+What is the main risk, or risks, for the success of your project?  What will you
+demonstrate during your proof of concept demonstration to convince yourself that
+you will be able to overcome this risk?
+
+\section{Expected Technology}
+
+\wss{What programming language or languages do you expect to use?  What external
+libraries?  What frameworks?  What technologies.  Are there major components of
+the implementation that you expect you will implement, despite the existence of
+libraries that provide the required functionality.  For projects with machine
+learning, will you use pre-trained models, or be training your own model?  }
+
+\wss{The implementation decisions can, and likely will, change over the course
+of the project.  The initial documentation should be written in an abstract way;
+it should be agnostic of the implementation choices, unless the implementation
+choices are project constraints.  However, recording our initial thoughts on
+implementation helps understand the challenge level and feasibility of a
+project.  It may also help with early identification of areas where project
+members will need to augment their training.}
+
+Topics to discuss include the following:
+
+\begin{itemize}
+\item Specific programming language
+\item Specific libraries
+\item Pre-trained models
+\item Specific linter tool (if appropriate)
+\item Specific unit testing framework
+\item Investigation of code coverage measuring tools
+\item Specific plans for Continuous Integration (CI), or an explanation that CI
+  is not being done
+\item Specific performance measuring tools (like Valgrind), if
+  appropriate
+\item Tools you will likely be using?
+\end{itemize}
+
+\wss{git, GitHub and GitHub projects should be part of your technology.}
+
+\section{Coding Standard}
+
+\wss{What coding standard will you adopt?}
+
+\newpage{}
+
+\section*{Appendix --- Reflection}
+
+\wss{Not required for CAS 741}
+
+\input{../Reflection.tex}
+
+\begin{enumerate}
+    \item Why is it important to create a development plan prior to starting the
+    project?
+    \item In your opinion, what are the advantages and disadvantages of using
+    CI/CD?
+    \item What disagreements did your group have in this deliverable, if any,
+    and how did you resolve them?
+\end{enumerate}
+
+\newpage{}
+
+\section*{Appendix --- Team Charter}
+
+\wss{borrows from
+\href{https://engineering.up.edu/industry_partnerships/files/team-charter.pdf}
+{University of Portland Team Charter}}
+
+\subsection*{External Goals}
+
+\wss{What are your team's external goals for this project? These are not the
+goals related to the functionality or quality fo the project.  These are the
+goals on what the team wishes to achieve with the project.  Potential goals are
+to win a prize at the Capstone EXPO, or to have something to talk about in
+interviews, or to get an A+, etc.}
+
+\subsection*{Attendance}
+
+\subsubsection*{Expectations}
+
+\wss{What are your team's expectations regarding meeting attendance (being on
+time, leaving early, missing meetings, etc.)?}
+
+\subsubsection*{Acceptable Excuse}
+
+\wss{What constitutes an acceptable excuse for missing a meeting or a deadline?
+What types of excuses will not be considered acceptable?}
+
+\subsubsection*{In Case of Emergency}
+
+\wss{What process will team members follow if they have an emergency and cannot
+attend a team meeting or complete their individual work promised for a team
+deliverable?}
+
+\subsection*{Accountability and Teamwork}
+
+\subsubsection*{Quality} 
+
+\wss{What are your team's expectations regarding the quality
+of team members' preparation for team meetings and the quality of the
+deliverables that members bring to the team?}
+
+\subsubsection*{Attitude}
+
+\wss{What are your team's expectations regarding team members' ideas,
+interactions with the team, cooperation, attitudes, and anything else regarding
+team member contributions?  Do you want to introduce a code of conduct?  Do you
+want a conflict resolution plan?  Can adopt existing codes of conduct.}
+
+\subsubsection*{Stay on Track}
+
+\wss{What methods will be used to keep the team on track? How will your team
+ensure that members contribute as expected to the team and that the team
+performs as expected? How will your team reward members who do well and manage
+members whose performance is below expectations?  What are the consequences for
+someone not contributing their fair share?}
+
+\wss{You may wish to use the project management metrics collected for the TA and
+instructor for this.}
+
+\wss{You can set target metrics for attendance, commits, etc.  What are the
+consequences if someone doesn't hit their targets?  Do they need to bring the
+coffee to the next team meeting?  Does the team need to make an appointment with
+their TA, or the instructor?  Are there incentives for reaching targets early?}
+
+\subsubsection*{Team Building}
+
+\wss{How will you build team cohesion (fun time, group rituals, etc.)? }
+
+\subsubsection*{Decision Making} 
+
+\wss{How will you make decisions in your group? Consensus?  Vote? How will you
+handle disagreements? }
+
+\end{document}

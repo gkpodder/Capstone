@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+\usepackage{enumitem}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{Final Documentation Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+The following checklist is relevant when finishing a project in the SE capstone
+course.
+
+\begin{itemize}
+  
+\item Clean-up repo
+  \begin{todolist}
+  \item Repo name is meaningful (not generic name with capstone in it)
+  \item Issues are closed (with appropriate explanation and/or changes to the
+  repo contents)
+  \item Folders for extras that are not used are deleted
+  \item Meaningful README file on GitHub landing page
+  \item LICENSE is filled in
+  \item SRS templates that were not used are deleted
+  \end{todolist}
+
+\item Changes are clear to TAs
+  \begin{todolist}
+  \item TA can see traceability between issue and change, or issue and explanation
+  \end{todolist}
+
+\item Project is easy to navigate
+  \begin{todolist}
+  \item Clear traceability between high-level and low-level design and to code
+  \item Clear traceability between test cases and requirements
+  \item Clear traceability between test cases and modules/classes
+  \end{todolist}
+
+\end{itemize}
+
+\end{document}

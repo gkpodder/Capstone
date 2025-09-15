@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+
+\usepackage[round]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    unicode=false}
+\urlstyle{same}
+
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\begin{document}
+
+\title{POC Checklist}
+\author{Spencer Smith}
+\date{\today}
+
+\maketitle
+
+% Show an item is done by   \item[\done] Frame the problem
+% Show an item will not be fixed by   \item[\wontfix] profit
+
+The Proof of Concept Demonstration is an important milestone for assessing the
+state of the project, both with respect to the project scope and the functioning
+of the team itself.
+
+\begin{itemize}
+
+\item Project Status/scope
+  \begin{todolist}
+  \item Team has a name (If the name is still TBD, create a name and issue a
+  pull request in the course repo).
+  \item Risks for POC demo are up to date in Problem Statement document (any
+  feedback from the TA has been addressed).
+  \item Planned POC demo is up to date in Problem Statement document (any
+  feedback from the TA has been addressed).
+  \item Have a clear plan on which team members will show which parts of the POC demo.
+  \item Know which devices or devices will be used for the demo.
+  \item The team has practiced the demo.
+  \item Demo will include a live demonstration of running code.
+  \item If the planned demo will be unsuccessful, the team has some ideas on how
+  to fix the problem, or redefine the scope of the project.
+  \end{todolist}
+
+\item Team Status
+  \begin{todolist}
+    
+  \item GitHub contributions page shows all team members with similar number of
+  commits, lines added, lines deleted.  When there is a difference, you should
+  determine if there is a team cooperation problem, or simply a GitHub book
+  keeping explanation.
+  \item If your team has been coauthoring work, but not using co-author commits
+  in GitHub, you plan on doing so going forward.
+  \item Team has thought about how work will be divided between team members
+  going forward.  Revisit development plan if there are any changes.
+  \end{todolist}
+
+\item Issue Tracker
+  \begin{todolist}
+    
+  \item Some of the issues created by other teams for the previous deliverables
+  have been closed.
+  \item All closed issues include an explanation of why the issue was closed.
+  The explanation could be the issue was closed because of an accepted pull
+  request, or traceability to the specific commit hash that closed the issue.
+  \item Issues aren't too big.  They are doable by a single person with a
+  reasonable amount of time.  What needs to happen for the issues to be closed
+  is clear.
+  \item There are examples of issues created by the team have been closed.
+  \item Issues created for team meetings (labelled so easy to find).
+  \item Issues created for lectures (labelled so easy to find).
+  \item Issues created for meetings with supervisor (labelled so easy to find).
+  \end{todolist}
+
+\item CI/CD
+  \begin{todolist}
+    
+  \item Planning for CI/CD has started.
+  
+  \end{todolist}
+
+\item Repo
+  \begin{todolist}
+  \item README file on landing page has content
+  \item Branches are used as appropriate
+  \end{todolist}
+
+\item Demonstration
+\begin{todolist}
+  \item Team has practice demo
+  \item Team does NOT have slides
+  \item Team knows who will be speaking
+  \item Team knows which computer they will be using
+  \end{todolist}
+\end{itemize}
+
+\end{document}

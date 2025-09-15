@@ -1,0 +1,1 @@
+Open source projects should include a Contributing file that describes how someone in the community can contribute to the project.  The Mozilla Science Lab has an article on [Wrangling Web Contributions: How to Build a CONTRIBUTING.md](https://mozillascience.github.io/working-open-workshop/contributing/)
