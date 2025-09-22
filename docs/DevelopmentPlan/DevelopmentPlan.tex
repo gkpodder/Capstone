@@ -24,7 +24,7 @@
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
 September 21, 2025 & Savinay Chhabra  & Created Draft Development Plan; Sections 1, 2, 3, 4, 5, 7\\
-September 22, 2025 & Savinay Chhabra  & Sections 6, 8\\
+September 22, 2025 & Savinay Chhabra  & Sections 6, 8\\ September 22, 2025 & Ajay Grewal & Section 9, 10, 11\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -135,47 +135,50 @@ What is the main risk, or risks, for the success of your project?  What will you
 demonstrate during your proof of concept demonstration to convince yourself that
 you will be able to overcome this risk?
 
+The main risks revolve around security, adaptability, and user trust, since the AI will have access and control to one’s 
+computer through model context protocols, functioning as the central master control program. 
+
+Granting the AI full control of the computer introduces major security risks and vulnerabilities. Since the MCP will have 
+deep access to a user’s computer, including files, settings, and applications, any vulnerabilities could lead to catastrophic 
+consequences. Malicious actors could exploit the system to steal sensitive data, install harmful software, or commit unintended 
+actions which could become destructive. This risk must be reduced by having safeguards the AI must adhere to, a thoroughly tested 
+environment, user permission before completing risky actions, and the ability to rollback changes. Hence, a robust error handling 
+and recovery system is needed so incorrect commands do not disrupt any workflows or overall user experience.
+
+Another big risk is the AI being capable enough to adapt to diverse range of computer environments. Every computer is different, 
+with certain operating systems, setups, workflows, and personal preferences. If the AI cannot accurately understand its environment, 
+it can lead to incorrect commands, actions, and overall poor experience. The AI must be capable of learning its environment in a 
+dynamic manner and customize its actions accordingly. 
+
+Furthermore, since the AI has full control of one’s computer, transparency is essential. If users feel uncertain of how the 
+AI is doing things on their computer, it can risk user trust, leading to hesitance in using the tool. Creating a clear and 
+intuitive user interface, where the technology is properly explained, will help mitigate this risk. 
+
+To address these risks, the PoC will focus on showing that the MCP and AI can safely and effectively interact with a computer, 
+learn its environment, and execute meaningful tasks while keeping user trust. 
+
+
 \section{Expected Technology}
 
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
-
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
-
-Topics to discuss include the following:
-
 \begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
+  \item Programming Language: Python for the AI agent, tool plugins, and overall backend structure. TypeScript and React for desktop UI
+  \item Agent Core Libraries: pydantic, asyncio, httpx
+  \item System Automation: For Windows we will use pywin32, UIAutomationCore; for MacOS we will use pyobjc, some AppleScript/JXA bridge; For Browser we will use Playwright
+  \item Storage/Database: SQL
+  \item Pre-trained Models: OpenAI GPT-4o-mini API for natural language understanding and generation
+  \item Local LLM For Future (if needed)
+  \item Linter Tools: pylint, Prettier, ESLint
+  \item CI/CD: Git, Github
 \end{itemize}
-
-\wss{git, GitHub and GitHub projects should be part of your technology.}
-
 \section{Coding Standard}
 
 The team will strictly adhere to and follow the following coding standards to ensure clarity, maintainablity and readability:
 \begin{itemize}
-  \item 
+  \item Python code will follow PEP 8 guidelines, using pylint for linting.
+  \item TypeScript code will follow the Airbnb style guide, using Prettier for formatting and ESLint for linting.
+  \item Git and GitHub will be used for version control, with feature branching and pull requests for code reviews.
+  \item Unit tests, integration tests, and exploratory tests will be performed to ensure code works before merging.
 \end{itemize}
-\wss{What coding standard will you adopt?}
 
 \newpage{}
 
