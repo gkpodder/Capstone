@@ -22,9 +22,7 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+September 22, 2025 & Savinay Chhabra & Created Draft Development Plan\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -38,57 +36,69 @@ what is contained in the report.}
 \href{https://gitlab.cas.mcmaster.ca/courses/capstone/-/blob/main/Lectures/L02b_POCAndDevPlan/POCAndDevPlan.pdf?ref_type=heads}
 {lecture slides}.}
 
+This report outlines the development plan for the Aura Voice AI Assistant. 
+The document details the project workflow, team structure, communication plan, IP and Copyright Licensing and Scheduling information.
+
+
 \section{Confidential Information?}
 
-\wss{State whether your project has confidential information from industry, or
-not.  If there is confidential information, point to the agreement you have in
-place.}
+There is no confidential information to protect.
 
-\wss{For most teams this section will just state that there is no confidential
-information to protect.}
 \section{IP to Protect}
 
-\wss{State whether there is IP to protect.  If there is, point to the agreement.
-All students who are working on a project that requires an IP agreement are also
-required to sign the ``Intellectual Property Guide Acknowledgement.''}
+There is no IP to protect.
 
 \section{Copyright License}
 
-\wss{What copyright license is your team adopting.  Point to the license in your
-repo.}
+This project adopts the MIT License. LICENSE file can be found \href{https://github.com/gkpodder/Capstone/blob/main/LICENSE}
+{here}.}
 
 \section{Team Meeting Plan}
-
-\wss{How often will you meet? where?}
-
-\wss{If the meeting is a physical location (not virtual), out of an abundance of
-caution for safety reasons you shouldn't put the location online}
-
-\wss{How often will you meet with your industry advisor?  when?  where?}
-
-\wss{Will meetings be virtual?  At least some meetings should likely be
-in-person.}
-
-\wss{How will the meetings be structured?  There should be a chair for all meetings.  There should be an agenda for all meetings.}
+The Team will meet every Wednesday from 4:00PM - 4:45PM in person. Campus library meeting rooms will be booked weekly, depending on availability.
+\begin{itemize}
+  \item A rotating chair will lead each meeting and prepare the meeting\'s agenda in advance.
+  \item A rotating notetaker will record meeting minutes, action items and decisions made in the meeting.
+  \item Feature requests and Decisions will be documented using Github Issues
+  \item Meetings with graduate students speacializing in Human-Computer Interfaces will occur biweekly. These will either be virtual or in-person depending on availability.
+\end{itemize}
 
 \section{Team Communication Plan}
 
-\wss{Issues on GitHub should be part of your communication plan.}
+Urgent issues or clarifications will be communicated through Discord. Discord will also be used for any virtual meetings between the team. 
+Meetings with industry advisors and graduate students will take place over MS Teams if held virtually. 
+Github issues will the the source of truth for techincal information and progress tracking.
 
 \section{Team Member Roles}
+
+
 
 \wss{You should identify the types of roles you anticipate, like notetaker,
 leader, meeting chair, reviewer.  Assigning specific people to those roles is
 not necessary at this stage.  In a student team the role of the individuals will
 likely change throughout the year.}
 
+\begin{table}[!h]
+\caption{Team Member Roles} \label{TblMemberRoles}
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+\textbf{Role} & \textbf{Responsibilities} & \textbf{Member(s}\\
+\midrule
+Meeting Chair & Sets meeting agenda and leads weekly meetings & Rotates weekly\\
+Note Taker & Records meeting minutes and decisions & Rotates weekly\\
+Team Liaison & Primary point of contact for project supervision and industry advisors & Savinay Chhabra \\
+Subject Matter Expert & Develops deep knowledge of the project\'s domain & Gourob Podder \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \section{Workflow Plan}
 
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
-  \item Use of CI/CD
+  \item Each Feature/Bug/Defect will have a Github Issue created for it. This issue will included detailed information along with current progress, assignee and appropriate labels. Github Projects will be used to track all incoming and in-progress issues.
+	\item Each Issue will a branch for any associated development work to be done.
+	\item Once the author is satisfied with their solution, they can put up a Pull Request to merge their changes into the main branch. Each Pull request must link to one or more issues and have a detailed description of the changes made and the user impact of those changes.
+	\item After the Pull Request has been raised and all required pre-submit checks have succeded, the author can add the "Review Needed" label to their PR.
+	\item Each PR must have at least 2 reviewers. After the reviewers have approved, the PR can be merged and the associated issues can be closed.
 \end{itemize}
 
 \section{Project Decomposition and Scheduling}
@@ -173,7 +183,7 @@ Topics to discuss include the following:
 
 \subsection*{External Goals}
 
-\wss{What are your team's external goals for this project? These are not the
+\wss{What are your team\'s external goals for this project? These are not the
 goals related to the functionality or quality fo the project.  These are the
 goals on what the team wishes to achieve with the project.  Potential goals are
 to win a prize at the Capstone EXPO, or to have something to talk about in
@@ -183,7 +193,7 @@ interviews, or to get an A+, etc.}
 
 \subsubsection*{Expectations}
 
-\wss{What are your team's expectations regarding meeting attendance (being on
+\wss{What are your team\'s expectations regarding meeting attendance (being on
 time, leaving early, missing meetings, etc.)?}
 
 \subsubsection*{Acceptable Excuse}
@@ -201,13 +211,13 @@ deliverable?}
 
 \subsubsection*{Quality} 
 
-\wss{What are your team's expectations regarding the quality
-of team members' preparation for team meetings and the quality of the
+\wss{What are your team\'s expectations regarding the quality
+of team members\' preparation for team meetings and the quality of the
 deliverables that members bring to the team?}
 
 \subsubsection*{Attitude}
 
-\wss{What are your team's expectations regarding team members' ideas,
+\wss{What are your team\'s expectations regarding team members\' ideas,
 interactions with the team, cooperation, attitudes, and anything else regarding
 team member contributions?  Do you want to introduce a code of conduct?  Do you
 want a conflict resolution plan?  Can adopt existing codes of conduct.}
@@ -224,7 +234,7 @@ someone not contributing their fair share?}
 instructor for this.}
 
 \wss{You can set target metrics for attendance, commits, etc.  What are the
-consequences if someone doesn't hit their targets?  Do they need to bring the
+consequences if someone doesn\'t hit their targets?  Do they need to bring the
 coffee to the next team meeting?  Does the team need to make an appointment with
 their TA, or the instructor?  Are there incentives for reaching targets early?}
 
