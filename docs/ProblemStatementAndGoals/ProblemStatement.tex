@@ -22,8 +22,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
+September 22, 2025 & Gourob Podder  & Initial Draft\\
+September 22, 2025 & Gourob Podder  & Revised All Sections; Added Reflection\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -39,51 +39,71 @@ Date2 & Name(s) & Description of changes\\
 information.}
 
 \subsection{Problem}
+Many individuals face barriers when interacting with computers due to physical disabilities, age-related impairments, or limited familiarity with digital devices. Traditional input methods such as keyboards, mice, and graphical user interfaces can create exclusion, preventing these users from accessing essential digital services, educational resources, and communication tools. This digital divide not only limits independence but also reduces opportunities for social and professional participation.
+
+The problem, therefore, is the lack of an intuitive, accessible, and inclusive interface that enables these users to interact with computers effectively without relying on traditional input devices.
 
 \subsection{Inputs and Outputs}
+\textbf{Inputs:}
+\begin{itemize}
+    \item User-provided spoken language, expressed as commands, requests, or questions.
+    \item Contextual information about the user's environment and preferences.
+    \item System status and feedback information.
+\end{itemize}
 
-\wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
-Use abstraction so that you can avoid details.}
+\textbf{Outputs:}
+\begin{itemize}
+    \item System-generated responses delivered in natural language.
+    \item Corresponding system actions/tasklists that reflect the interpreted intent of the input.
+\end{itemize}
 
 \subsection{Stakeholders}
+\begin{itemize}
+    \item Primary Users: Individuals with disabilities, elderly users, or people with limited digital literacy who require accessible interaction with computers.
+    \item Secondary Users: Caregivers, educators, and family members who assist primary users.
+    \item Organizations: Institutions and workplaces seeking to provide inclusive technology solutions.
+    \item Developers/Researchers: Teams advancing assistive technology and inclusive design.
 
 \subsection{Environment}
+Hardware: A standard personal computer equipped with a microphone and speakers.
 
-\wss{Hardware and Software Environment}
+Software: Runs on a general-purpose operating system like Windows or MacOS with support for speech input and output. The system is intended to be platform-agnostic and should not rely on specialized hardware beyond audio input/output.
 
 \section{Goals}
+\begin{enumerate}
+    \item Achieve at least 90\% speech recognition accuracy for supported languages in quiet environments.
+    \item Provide spoken responses with a latency of less than 2 seconds for common commands.
+    \item Enable users to complete at least 80\% of core computer tasks (e.g., opening files, browsing the web, writing documents) entirely through voice commands.
+    \item Improve task completion rates for primary users by 20\% compared to traditional input methods (measured through usability studies).
+    \item Attain a user satisfaction rating of 4 out of 5 or higher in accessibility-focused usability tests.
+\end{enumerate}
 
 \section{Stretch Goals}
+\begin{enumerate}
+    \item Support multiple languages and dialects, achieving at least 85\% recognition accuracy in each.
+    \item Implement adaptive personalization to reduce recognition errors by 15\% for frequent users by learning their speech patterns.
+    \item Enable multimodal interaction, such as combining voice with simple gestures or touch, to increase task flexibility by at least 10\%.
+    \item Provide offline functionality capable of executing at least 50\% of core commands without internet access.
+\end{enumerate}
 
 \section{Extras}
-
-\wss{For CAS 741: State whether the project is a research project. This
-designation, with the approval (or request) of the instructor, can be modified
-over the course of the term.}
-
-\wss{For SE Capstone: List your extras.  Potential extras include usability
-testing, code walkthroughs, user documentation, formal proof, GenderMag
-personas, Design Thinking, etc.  (The full list is on the course outline and in
-Lecture 02.) Normally the number of extras will be two.  Approval of the extras
-will be part of the discussion with the instructor for approving the project.
-The extras, with the approval (or request) of the instructor, can be modified
-over the course of the term.}
+\begin{enumerate}
+    \item \textbf{Usability Testing} : Conduct structured usability studies with target user groups (e.g., individuals with disabilities, elderly users, and those with limited digital literacy). Testing will measure ease of use, task completion rates, and overall satisfaction to ensure Proxi effectively addresses accessibility needs.
+    \item \textbf{User Documentation} : Provide clear, accessibility-focused documentation and onboarding materials, including written guides and simple audio-based tutorials, to support users in adopting and effectively using Proxi.
+\end{enumerate}
 
 \newpage{}
 
 \section*{Appendix --- Reflection}
+\subsection*{What went well while writing this deliverable}
+Writing this deliverable went smoothly in terms of clearly defining the problem and its scope. The abstraction of inputs and outputs helped us focus on the high-level functionality of Proxi without getting bogged down in implementation details. We were able to identify stakeholders, environments, and goals in a structured manner, ensuring that the documentation aligned closely with the Capstone rubric. Additionally, framing measurable goals allowed us to clearly demonstrate the value and impact of the project, which strengthened the overall proposal.
 
-\wss{Not required for CAS 741}
+\subsection*{Pain points experienced and how they were resolved}
+One challenge we encountered was ensuring that the inputs, outputs, and goals were sufficiently abstract while still being precise and measurable. Initially, our examples were too concrete, mentioning specific applications or tasks, which could have limited the perceived generality of the system. We resolved this by rephrasing inputs as ``spoken language commands'' and outputs as ``system responses and actions reflecting user intent.'' Another difficulty was translating high-level goals into measurable outcomes. We overcame this by defining clear metrics such as speech recognition accuracy, response latency, task completion rates, and user satisfaction scores.
 
-\input{../Reflection.tex}
+\subsection*{Adjusting the scope of goals for Capstone suitability}
+We carefully calibrated the goals to ensure the project remained feasible within the Capstone timeline. While Proxi’s long-term vision could include multi-language support, offline functionality, and multimodal input, we focused the core goals on voice-based interaction, accessibility, and measurable improvements in task completion and user satisfaction. This balance ensures the project is ambitious enough to demonstrate meaningful innovation in assistive technology, while remaining manageable in scope for a senior design project. Stretch goals were included to outline potential extensions without inflating the baseline expectations.
 
-\begin{enumerate}
-    \item What went well while writing this deliverable? 
-    \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
-    \item How did you and your team adjust the scope of your goals to ensure
-    they are suitable for a Capstone project (not overly ambitious but also of
-    appropriate complexity for a senior design project)?
-\end{enumerate}  
+\input{../Reflection.tex} 
 
 \end{document}
