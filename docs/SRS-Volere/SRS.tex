@@ -54,26 +54,124 @@ Date 2 & 1.1 & Notes\\
 ~\newpage
 \section{Purpose of the Project}
 \subsection{User Business}
-\lips
+Proxi is an AI-powered desktop assistant that lets people operate a computer
+entirely through natural speech. It targets users who face barriers with traditional
+input devices (keyboard, mouse, complex UIs) and organizations that want to provide
+inclusive access to essential digital tasks (communication, learning, work). Proxi
+augments independence and reduces the digital divide by turning voice into safe,
+precise computer actions. While accessibility is the primary driver, Proxi is
+equally intended for general users who want faster, lower‑friction workflows so it
+benefits both disabled and non‑disabled users.
+
 \subsection{Goals of the Project}
-\lips
+\begin{description}
+\item[G-1 (Latency)] Spoken system responses for common commands shall begin within 
+$\leq$ 2.0 s from end-of-speech in a quiet environment.
+
+\item[G-2 (Recognition Accuracy)] Command recognition accuracy for supported 
+language(s) in quiet environment shall be $\geq$ 90\% intent-level accuracy.
+
+\item[G-3 (Task Coverage)] Users from the primary user group shall complete $\geq$ 
+80\% of a predefined core task suite (open app/file, browse, compose, save, 
+schedule) using voice or keyboard.
+
+\item[G-4 (Effectiveness)] Compared to baseline (traditional input for same users), 
+Proxi shall improve task completion rate by $\geq$ 20\%.
+
+\item[G-5 (Satisfaction)] Accessibility-focused usability tests shall yield 4.0/5.0 satisfaction score.
+
+\item[G-6 (Stretch Goals)] Voice recognition improvements, offline capabilities, 
+multimodal interaction support, personalized profiles, enhanced accessibility
+\end{description}
 \section{Stakeholders}
 \subsection{Client}
-\lips
+The clients for this project are the SFWRENG 4G06A Capstone teaching team at 
+McMaster University (course Instructor and assigned Teaching Assistants), serving 
+as the product owners on behalf of the department. Their mandate is to ensure the 
+solution meets accessibility, usability, and engineering quality standards 
+appropriate for a capstone deliverable and potential real‑world piloting within 
+academic environments. They provide domain expectations (accessibility best 
+practices, privacy/compliance constraints in academic settings) and approve scope 
+and milestones.
 \subsection{Customer}
-\lips
+Our customers are the end-users and organizations that will deploy Proxi to enable 
+inclusive and more efficient computer use:
+\begin{itemize}
+\item \textbf{Educational institutions} (libraries, computer labs, accessibility services) 
+  seeking hands-free or low-friction access to standard desktops and web apps
+\item \textbf{Healthcare and community organizations} supporting users with motor/vision/
+  hearing challenges
+\item \textbf{General consumers and power users} who prefer faster, voice-first or mixed-
+  modality workflows
+
+\end{itemize}
+
 \subsection{Other Stakeholders}
-\lips
+Other stakeholders include any person or group with interest beyond the client and 
+the customer:
+\begin{itemize}
+\item \textbf{Team Proxi (development team):} responsible for requirements, design, 
+  implementation, testing, and deployment artefacts
+\item \textbf{Course Staff (Instructor \& TA):} guidance, assessment, feedback, and 
+  approvals
+\item \textbf{Accessibility Advisors (if engaged):} best practices for WCAG/AT compatibility
+\item \textbf{Pilot participants:} individuals who will use the system during user studies 
+  and provide feedback
+\end{itemize}
 \subsection{Hands-On Users of the Project}
-\lips
+Primary hands-on users who will directly interact with Proxi:
+\begin{itemize}
+\item \textbf{Accessibility-focused users:} People with motor impairments or 
+  temporary/situational limitations needing hands-free or simplified control
+\item \textbf{General users/power users:} Users seeking faster workflows via 
+  voice/text commands with optional keyboard/mouse confirmation
+\end{itemize}
 \subsection{Personas}
-\lips
+\begin{itemize}
+\item \textbf{P1: Amrita (72) - Elderly User:} Amrita is a retired teacher who uses her desktop to 
+check emails, pay bills, and video call her family. She struggles with small buttons, 
+complicated menus, and remembering multi-step actions, which makes her anxious about 
+using technology. She needs a way to perform common tasks more easily and with clear 
+guidance to feel confident online.
+
+\item \textbf{P2: Leo (21) - User with Motor Disability:} Leo is a computer science student who finds
+it difficult to use a keyboard or mouse due to a motor impairment. He needs to read PDFs,
+take notes, and switch between different apps for his coursework. He requires a way to 
+interact with his computer hands-free and complete his work without relying on physical 
+input.
+
+\item \textbf{P3: Ari (28) - Power User:} Ari works with spreadsheets, emails, and web tools 
+throughout the day and often repeats the same steps over and over. Switching between 
+programs slows him down, and remembering different commands and shortcuts is frustrating. 
+He needs a more efficient way to complete multi-step tasks and manage his work without 
+constant interruptions.
+\end{itemize}
 \subsection{Priorities Assigned to Users}
-\lips
+The \textbf{highest priority} users for this project are \textbf{accessibility-focused} users, 
+including elderly users like Amrita and users with motor impairments like Leo, as 
+the main goal is to improve computer access and usability for people who face 
+physical challenges or find current systems difficult to use. Their needs guide 
+the core features and design decisions of the project. \textbf{Power users} like Ari are 
+the \textbf{secondary priority} because, while they do not face accessibility barriers, 
+their focus on speed and efficiency helps shape advanced features that make the 
+system useful to a wider audience. Prioritizing these groups ensures the solution 
+is both inclusive for those who need accessibility support and valuable for 
+everyday users seeking more efficient workflows.
 \subsection{User Participation}
-\lips
+Estimated participation during the project will primarily involve end users and the
+development team. Accessibility-focused users are expected to participate for about 1
+hour per week through remote or in-lab sessions focused on usability testing,
+feedback, and formative evaluations. General users and power users will contribute
+roughly 1 hour per week by taking part in efficiency and performance testing of new
+features. Additionally, the development team will dedicate around 8–10 hours per week
+to designing, building, testing, and refining the system based on user feedback and
+project milestones.
 \subsection{Maintenance Users and Service Technicians}
-\lips
+The primary maintenance users for this project will be the development team. During the
+capstone project, they will be responsible for identifying and fixing issues, releasing 
+updates and patches, and ensuring that the system continues to function as expected throughout 
+development. They will also create and maintain documentation such as installation guides and
+user manuals to support future use and potential handoff of the project after completion.
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
