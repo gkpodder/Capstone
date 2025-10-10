@@ -917,16 +917,65 @@ We shall adopt proven patterns from familiar tools to speed delivery:
 
 \section{New Problems}
 \subsection{Effects on the Current Environment}
-\lips
+The introduction of the AI-powered assistive technology platform may alter how 
+users interact with their existing computing environment. Potential effects include:
+\begin{itemize}
+    \item Users may become dependent on natural language commands, reducing direct 
+    interaction with traditional interfaces.
+    \item Additional system resources (CPU, memory) will be used to run AI agents, 
+    which could impact performance of other applications.
+    \item There may be changes in user workflows, requiring adaptation to the system’s 
+    operational model.
+    \item The presence of AI-driven agents could introduce unexpected interactions 
+    with other software if not properly sandboxed.
+\end{itemize}
+
 \subsection{Effects on the Installed Systems}
-\lips
+Integrating the system with existing hardware and software may create compatibility 
+challenges:
+\begin{itemize}
+    \item Existing applications may require updated permissions or APIs to allow 
+    agent interactions.
+    \item System updates (OS or applications) may temporarily disrupt AI agent 
+    functionality.
+    \item The system may necessitate installation of additional software libraries 
+    or frameworks, which could conflict with pre-existing software.
+    \item Increased network usage for cloud-based AI services could affect other 
+    applications relying on the same connectivity.
+\end{itemize}
+
 \subsection{Potential User Problems}
-\lips
-\subsection{Limitations in the Anticipated Implementation Environment That May
-Inhibit the New Product}
-\lips
+While the system is designed to enhance accessibility, users may encounter challenges:
+\begin{itemize}
+    \item Misinterpretation of voice commands may lead to incorrect task execution.
+    \item Users may feel discomfort or distrust if the system performs unexpected 
+    actions.
+    \item Cognitive overload may occur if the system provides too much feedback 
+    or prompts.
+    \item Users with atypical speech patterns or accents may experience reduced 
+    recognition accuracy.
+\end{itemize}
+
+\subsection{Limitations in the Anticipated Implementation Environment That May Inhibit the New Product}
+Certain environmental and technical limitations may restrict the effectiveness of 
+the platform:
+\begin{itemize}
+    \item Limited or unstable internet connectivity could hinder cloud-based speech 
+    recognition or AI planning.
+    \item Hardware constraints (low-end processors, insufficient RAM) may slow down 
+    task execution.
+    \item Applications with restrictive APIs/security measures may not allow full 
+    agent interaction.
+\end{itemize}
+
 \subsection{Follow-Up Problems}
-\lips
+After deployment, additional challenges may emerge that require monitoring and mitigation:
+\begin{itemize}
+    \item Continuous maintenance will be needed to ensure compatibility with 
+    updated applications and OS versions.
+    \item Security and privacy risks from storing or processing user data must be 
+    actively managed.
+\end{itemize}
 
 \section{Tasks}
 \subsection{Project Planning}
@@ -948,9 +997,36 @@ created is potentially a local configuration file generated. Nothing else needs 
 \lips
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
-\lips
+\begin{itemize}
+    \item The system shall include a user manual explaining installation, setup,
+     and configuration procedures.  
+    \item The documentation shall provide step-by-step instructions for performing
+     common tasks via speech and text commands.  
+    \item The manual shall include troubleshooting guidance for common issues such
+     as misinterpreted commands, failed task execution, or connectivity problems.  
+    \item The documentation shall provide an explanation of accessibility features,
+     including options for speech rate, font size, and interface contrast.  
+    \item The system shall include inline help or tooltips within the interface for
+     immediate guidance during use.  
+    \item Documentation shall be available in multiple formats, including PDF, 
+    HTML, and context-sensitive help within the software.
+\end{itemize}
+
 \subsection{Training Requirements}
-\lips
+There isn't a dedicated training program for the system but the user will be 
+provided with example scenarios that they can follow to build intuition on how 
+to direct the agentic system.
+
+\begin{itemize}
+    \item Users shall be able to complete an introductory tutorial that demonstrates
+     how to issue commands and interact with the AI agents.  
+    \item The system shall provide interactive training sessions or guided exercises
+     to familiarize users with core functionalities such as sending emails, managing 
+     files, and performing web searches.  
+    \item Training materials shall include examples of natural language commands, 
+    including variations in phrasing to account for diverse user speech patterns.  
+
+\end{itemize}
 
 \section{Waiting Room}
 These are good ideas we’re keeping on the side for now, as they are not the most urgent.
