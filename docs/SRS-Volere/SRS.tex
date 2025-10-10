@@ -835,7 +835,22 @@ These are good ideas we’re keeping on the side for now, as they are not the mo
 \end{itemize}
 
 \section{Ideas for Solution}
-\lips
+Proxi should stay simple and safe. The main idea is a small desktop app that listens for a request, confirms anything risky in 
+plain language, and then runs a scoped action through a set of MCP tools.
+\begin{itemize}
+  \item \textbf{Local MCP server:} A set of processes expose a bunch of safe tools (open app, open file, browse, save/move/rename, 
+  click buttons on screen, etc.). Each tool runs with low privilege and only within user approved scopes
+  \item \textbf{Lightweight UI:} A simple AI with options for users click, type, or speak. The UI shows status (listening, thinking, ready), captions for spoken output, and a few big buttons (listen, stop, undo, approve).
+
+  \item \textbf{Voice in, text out (with captions):} Use a STT engine for microphone input and TTS for spoken output. Always show 
+  captions to the text that is coming out/in.
+  \item \textbf{Simple intent handling:} Map common phrases to a small set of intents using prompts/templates (Open app, Open file, 
+  browse, save/move/rename). If unclear, ask one short follow up.
+  \item \textbf{Safety by default:} Permission scopes (folders/apps) are chosen at setup and can be edited or approved by the user 
+  later. Destructive operations always require an explicit approval from the user.
+  \item \textbf{Traceability:} Keep a short, local audit log. Any sensitive information should be kept out of the audit logs.
+\end{itemize}
+
 
 \newpage{}
 \section*{Appendix --- Reflection}
