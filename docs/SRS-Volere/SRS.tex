@@ -9,6 +9,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -262,9 +263,129 @@ involved in the Project}
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-\lips
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{Business_Model.png}
+  \caption{Business Data Model}
+  \label{fig:business-data-model}
+\end{figure}
 \subsection{Data Dictionary}
-\lips
+
+\subsubsection*{User}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+userId & UUID & Unique identifier for a user \\
+displayName & String & Name shown in confirmations/UI \\
+role & Enum & Authorization role (\textit{Standard}, \textit{Admin}) \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Device}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+deviceId & UUID & Logical device identity \\
+osFamily & Enum & OS family (\textit{Windows}/\textit{macOS}) \\
+osVersion & String & OS version string \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Session}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+sessionId & UUID & Logical dialog/control session \\
+startedAt / endedAt & Timestamp & Session start/end \\
+status & Enum & \textit{Active}, \textit{Ended}, or \textit{Error} \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Command}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+commandId & UUID & Captured user request \\
+modality & Enum & \textit{Voice}, \textit{Text}, or \textit{Mixed} \\
+rawText & String & Transcribed/typed command text \\
+timestamp & Timestamp & Capture time \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Intent}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+intentId & UUID & Normalized goal \\
+name & Enum/String & Label \\
+confidence & Float & Classifier confidence (0.0--1.0) \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Plan}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+planId & UUID & Ordered set of actions \\
+summary & String & One-line description \\
+status & Enum & \textit{Proposed}, \textit{Running}, \textit{Succeeded}, \textit{Failed} \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Action}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+actionId & UUID & Atomic operation \\
+toolId & UUID & Tool to invoke \\
+parameters & JSON & Tool inputs (schema-validated) \\
+result & JSON & Tool outputs/return \\
+riskLevel & Enum & \textit{Low}, \textit{Medium}, \textit{High} \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Tool}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+toolId & UUID & Unique tool capability \\
+name & String & Human-friendly tool name \\
+description & String & Purpose/constraints \\
+isDestructive & Boolean & Writes/installs/deletes \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{Confirmation}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}}
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+confirmationId & UUID & Approval record \\
+method & Enum & \textit{GUI} or \textit{Voice} \\
+approvedAt & Timestamp & Time of approval \\
+\bottomrule
+\end{tabularx}\par\medskip
+
+\subsubsection*{AuditLog}
+\noindent\begin{tabularx}{\textwidth}{@{} l l X @{}} 
+\toprule
+\textbf{Attribute} & \textbf{Type} & \textbf{Description} \\
+\midrule
+auditId & UUID & Append-only log entry \\
+eventType & Enum & example: \textit{CommandCaptured}, \textit{ActionSucceeded} \\
+details & String/JSON & Minimal facts about the event \\
+createdAt & Timestamp & When the entry was written \\
+\bottomrule
+\end{tabularx}\par\medskip
+
 
 \section{The Scope of the Product}
 \subsection{Product Boundary}
