@@ -281,13 +281,73 @@ Tools the AI use can only run in a user permission scope, meaning it can only ac
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
-\lips
+In the current computing landscape, many individuals face barriers when interacting 
+with traditional computer interfaces such as keyboards, mice, and complex graphical 
+user interfaces. People with motor disabilities, visual impairments, elderly users, 
+or those lacking technical proficiency often struggle to perform basic computer tasks 
+efficiently. Existing digital assistants (e.g., Siri, Alexa, or Google Assistant) 
+provide limited task execution and lack deep integration with desktop environments 
+or productivity applications. As a result, accessibility remains a significant challenge, 
+and there is a growing demand for more adaptive, intelligent, and inclusive systems 
+that can understand user intent through natural language and perform meaningful 
+actions across software environments.
 \subsection{The Context of the Work}
-\lips
+The proposed project aims to develop an AI-powered assistive technology platform 
+designed to improve computer accessibility by leveraging natural language processing, 
+speech recognition, and intelligent task automation. The system will act as an intermediary 
+between the user and the computer, interpreting spoken or textual commands and 
+executing them through modular software agents. These agents will be capable of 
+reasoning, planning, and performing actions such as sending emails, browsing the 
+web, or managing files. The work will combine accessibility design principles with 
+AI technologies to create an inclusive experience that empowers users who cannot 
+easily interact with conventional input devices.
 \subsection{Work Partitioning}
-\lips
+The work will be divided into the following major components:
+\begin{enumerate}
+    \item \textbf{Input and Recognition Layer:} Responsible for capturing and processing user input through speech recognition or text interfaces.
+    \item \textbf{Natural Language Understanding (NLU):} Converts the user’s intent into structured commands that can be acted upon by the agent system.
+    \item \textbf{Agent Planning and Execution Layer:} Deploys intelligent agents capable of reasoning, planning, and interacting with tools or APIs to achieve user goals.
+    \item \textbf{Feedback and Output Layer:} Returns the results of executed actions to the user through text or synthesized speech, ensuring clarity and accessibility.
+    \item \textbf{Accessibility and Usability Design:} Focused on interface simplicity, adaptive behavior, and inclusive design for users with various needs.
+    \item \textbf{Evaluation and Testing:} Involves user studies and performance evaluation to ensure reliability, accuracy, and user satisfaction.
+\end{enumerate}
 \subsection{Specifying a Business Use Case (BUC)}
-\lips
+\textbf{BUC–01: Intelligent Accessibility Assistant}
+
+\noindent
+\textbf{Primary Actor:} User (individual with limited mobility or low computer literacy)\\
+\textbf{Goal:} To perform computer-based tasks through natural speech or text commands without relying on traditional input devices.
+
+\noindent
+\textbf{Preconditions:}
+\begin{itemize}
+    \item The user has access to a device with a microphone, speaker, and internet connectivity.
+    \item The assistive system is installed and running in the background.
+\end{itemize}
+
+\noindent
+\textbf{Main Flow:}
+\begin{enumerate}
+    \item The user issues a command such as “Open my email and send a message to my doctor.”
+    \item The system processes the speech or text input and identifies the intended task.
+    \item The planning agent determines which actions or tools are required to complete the task.
+    \item The system executes the corresponding steps (e.g., opens an email client, composes a message, and sends it).
+    \item The system provides feedback to the user confirming the task completion.
+\end{enumerate}
+
+\noindent
+\textbf{Alternative Flows:}
+\begin{itemize}
+    \item If the system cannot interpret the user’s request, it will ask clarifying questions.
+    \item If a required tool or permission is missing, the system will notify the user and suggest corrective actions.
+\end{itemize}
+
+\noindent
+\textbf{Postconditions:}
+\begin{itemize}
+    \item The requested action is completed successfully or an appropriate message is returned.
+    \item The system logs the interaction for future learning and performance improvement.
+\end{itemize}
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
@@ -497,7 +557,42 @@ then performs the action. If the app can’t be controlled, Proxi explains why a
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
-\lips
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2.5cm}|p{8cm}|p{5cm}|}
+\hline
+\textbf{Req\#} & \textbf{Requirement} & \textbf{Fit Criterion} \\ \hline
+
+FUNC.R.1 & The system shall accept user input through both speech and text interfaces. & Successful recognition and processing of at least 95\% of valid user speech or text commands during testing. \\ \hline
+
+FUNC.R.2 & The system shall convert speech input into text using an automatic speech recognition (ASR) module. & The transcribed text shall match user speech with at least 90\% word accuracy in controlled test conditions. \\ \hline
+
+FUNC.R.3 & The system shall interpret user intent from natural language input to determine the desired task. & In 90\% of test cases, the interpreted intent shall match the human-labeled ground truth task. \\ \hline
+
+FUNC.R.4 & The system shall plan and execute tasks by invoking one or more software agents that perform actions on behalf of the user. & The system shall successfully complete end-to-end task execution in at least 85\% of test scenarios. \\ \hline
+
+FUNC.R.5 & The system shall provide textual or spoken feedback describing the status or results of the requested task. & Each executed command shall generate a confirmation message or output within 2 seconds of task completion. \\ \hline
+
+FUNC.R.6 & The system shall maintain a short-term conversational memory to handle contextual follow-up commands. & In at least 90\% of test cases, follow-up commands dependent on prior context shall be correctly interpreted. \\ \hline
+
+FUNC.R.7 & The system shall log all user interactions and task results for analysis and traceability purposes. & Each user session shall generate a verifiable log entry containing timestamped input and outcome data. \\ \hline
+\end{tabular}
+\caption{Functional Requirements and Fit Criteria}
+\end{table}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2.5cm}|p{8cm}|p{5cm}|}
+\hline
+\textbf{Req\#} & \textbf{Requirement} & \textbf{Fit Criterion} \\ \hline
+FUNC.R.8 & The system shall operate without requiring the user to interact with low-level system interfaces (e.g., OS file paths or command-line tools). & In usability tests, 100\% of user operations shall be achievable through high-level natural language commands only. \\ \hline
+
+FUNC.R.9 & The system shall ensure that all agent actions requiring system-level access request user confirmation before execution. & Each privileged action (e.g., deleting files) shall trigger a confirmation request and require explicit user approval. \\ \hline
+\end{tabular}
+\caption{Functional Requirements and Fit Criteria - Continued}
+\end{table}
 
 \section{Look and Feel Requirements}
 
@@ -675,15 +770,50 @@ then performs the action. If the app can’t be controlled, Proxi explains why a
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{itemize}
+    \item \textbf{EPE.R.1} The system shall operate on personal computing devices
+     such as laptops, desktop computers, equipped with standard hardware
+      components, including a microphone, speakers, and a stable internet connection.
+    \item \textbf{EPE.R.2} The system shall be designed to work optimally for indoor environments
+     such as homes, offices where noise levels are moderate(under 65dB).
+    \item \textbf{EPE.R.3} The speech recognition capability shall achieve reliable
+     accuracy when the user speaks within approximately one meter of the microphone input.
+    \item \textbf{EPE.R.4} The system shall be able to operate effectively under
+     normal indoor environmental conditions, including temperatures between 15°C
+      and 30°C.
+\end{itemize}
 \subsection{Wider Environment Requirements}
-\lips
+\begin{itemize} 
+    \item \textbf{WER.R.1} The system shall integrate safely within digital ecosystems, 
+    ensuring that its automation does not interfere with other running applications.  
+    \item \textbf{WER.R.2} The system shall be designed to minimize environmental impact 
+    by reducing unnecessary computational load and optimizing resource usage.  
+\end{itemize}
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+\begin{itemize}
+    \item \textbf{IAS.R.1} The system shall provide secure APIs or middleware for integration
+     with third-party tools and applications (e.g., email, web browsers, file systems).  
+    \item \textbf{IAS.R.2} The system shall support standard communication protocols such
+     as HTTPS, MCP and RESTful API calls.  
+    \item \textbf{IAS.R.3} The system shall interact with speech recognition engines
+     (e.g., Whisper, Google ASR) and text-to-speech systems through well-defined interfaces.  
+    \item \textbf{IAS.R.4} The system shall log interactions with external systems for
+     traceability and debugging.  
+\end{itemize}
 \subsection{Productization Requirements}
-\lips
+\begin{itemize}
+    \item \textbf{PRD.R.1} The system shall be packaged as a deployable desktop or web-based
+     application with minimal setup steps.  
+    \item \textbf{PRD.R.2} The product shall include installation documentation and user
+     onboarding instructions in the github repo  
+    \item \textbf{PRD.R.3} The design shall allow modular upgrades, enabling future
+     integration of improved AI models or additional tools.   
+\end{itemize}
 \subsection{Release Requirements}
-\lips
+\begin{itemize}
+    \item \textbf{REL.R.1} The releases will follow the MAJOR.MINOR.PATCH versioning scheme.
+    \item \textbf{REL.R.2} The release package shall be version-controlled and archived for reproducibility.  
+\end{itemize}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
