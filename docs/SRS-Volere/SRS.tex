@@ -687,11 +687,26 @@ then performs the action. If the app can’t be controlled, Proxi explains why a
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
-\lips
+\begin{itemize}
+  \item \textbf{1:} The project shall include a short README and setup steps so new contributors can build and run it 
+  without help.
+  \item \textbf{2:} Adding a new MCP tool shall only require a new module and a registry entry; existing tools do not need to 
+  be changed.
+\end{itemize}
+
 \subsection{Supportability Requirements}
-\lips
+\begin{itemize}
+  \item \textbf{1:} The release shall include a simple user guide (quick start, common commands, basic troubleshooting).
+  \item \textbf{2:} The app shall offer a Report Problem button that bundles recent logs and basic system info into a ZIP with 
+  the user’s consent.
+\end{itemize}
+
 \subsection{Adaptability Requirements}
-\lips
+\begin{itemize}
+  \item \textbf{1:} The system shall run on current versions of Windows and macOS on standard hardware.
+  \item \textbf{2:} The system shall keep working if the user switches default apps by updating configuration only, no code 
+  changes.
+\end{itemize}
 
 \section{Security Requirements}
 \subsection{Access Requirements}
