@@ -194,7 +194,53 @@ user manuals to support future use and potential handoff of the project after co
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
-\lips
+\begin{description}
+  \item[MCP (Model Context Protocol)] A contract with which an AI agent can find 
+  and invoke a toolset to accomplish specific tasks.
+
+  \item[MCP Server] A local server that implements the MCP to allow AI agents
+  to discover and use the available tools.
+
+  \item[MCP Client] An AI agent that connects to the MCP server to use the provided tools.
+
+  \item[AI Agent] A software (LLM) that uses artificial intelligence to perform tasks.
+
+  \item[LLM (Large Language Model)] A type of AI model that can understand and
+  generate human language.
+
+  \item[Token] A unit of text used in LLMs to process and generate language.
+
+  \item[Sandbox] A secure environment in which code can be run and tested without
+  affecting the rest of the system.
+
+  \item[Action] A single execution of a tool with validated parameters.
+
+  \item[Plan] An ordered sequence of actions to fulfill a user intent.
+
+  \item[Command] An instruction given by the user to the AI agent.
+
+  \item[Permission Scope] Level of access that is given to the AI agent for completing actions.
+
+  \item[Confirmation Gate] A approval prompt given to the user by the AI before cpmpleting
+  risky actions.
+
+  \item[TTS (Text-to-Speech)] Tool that converts written text into spoken words.
+
+  \item[STT (Speech-to-Text)] Tool that converts spoken words into written text.
+
+  \item[Audit Log] A record of all actions taken by the AI agent.
+
+  \item[Accessibility] It is usable by people with a wide range of abilities/disabilities.
+
+  \item[User Interface (UI)] The visual elements of the software (frontend) in which a user will engage with the system.
+
+  \item[PII (Personally Identifiable Information)] Any data that could identify a specific individual.
+
+  \item[POLP (Principle of Least Privilege)] A security concept in which the AI agent will have minimum levels of access 
+  necessary to perform certain tasks.
+
+  \item[OS Automation Tools] Software on one's computer that gives the AI agent the ability to control and engage with their OS.
+\end{description}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
