@@ -750,11 +750,40 @@ then performs the action. If the app can’t be controlled, Proxi explains why a
 
 \section{Off-the-Shelf Solutions}
 \subsection{Ready-Made Products}
-\lips
+Several existing tools can cover key parts of Proxi so we do not reinvent them:
+\begin{itemize}
+  \item \textbf{Speech-to-Text (STT):} Many STT engines can perform microphone input and return text with timestamps. A lot of 
+  computers have a built in STT software that is free to use. 
+  \item \textbf{Text-to-Speech (TTS):} Open AI has its own TTS model that can be used to convert text to speech, such as GPT-4o 
+  mini TTS.
+  \item \textbf{Desktop Automation:} OS-level automation, such as lightweight automation libraries, can open apps, switch windows, 
+  and engage with controls.
+  \item \textbf{Language Understanding:} An API to a LLM such as GPT-4o Mini can be the head AI agent for understanding user 
+  commands and generating plans.
+  \item \textbf{Storage and Logging:} A lightweight database (SQLite) or a log file can have audit logs and MCP settings with 
+  very minimal setup.
+\end{itemize}
+
 \subsection{Reusable Components}
-\lips
+We can reuse or lightly adapt components that are common across desktop assistants:
+\begin{itemize}
+  \item \textbf{MCP tool skeletons:} A small template for tools and a registry storer so new tools are added by convention.
+  \item \textbf{OS adapters:} Adapters for Windows/macOS that present the same functions (open app, focus on window, file operations) behind one single interface.
+  \item \textbf{Prompt templates:} We can reuse existing templates for short, reusable prompts to open apps, open files, 
+  browse/search, and save/move/rename.
+\end{itemize}
+
 \subsection{Products That Can Be Copied}
-\lips
+We shall adopt proven patterns from familiar tools to speed delivery:
+\begin{itemize}
+  \item \textbf{Command palette pattern:} A single search box that finds actions and recent items, having arrow-key selection 
+  and enter to run it.
+  \item \textbf{Clear confirmation modal:} A dialog that states the action in simple language, showing what will change, and 
+  offers options for approve/cancel.
+  \item \textbf{Pre-run checklist:} A simple setup that asks for microphone permission, automation permission, and desktop 
+  control on first use. Whenever app access is needed, permission will be simply requested from the user once again for its 
+  access before executing any further commands.
+\end{itemize}
 
 \section{New Problems}
 \subsection{Effects on the Current Environment}
