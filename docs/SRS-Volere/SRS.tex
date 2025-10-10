@@ -10,6 +10,7 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{float}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -415,12 +416,83 @@ createdAt & Timestamp & When the entry was written \\
 
 
 \section{The Scope of the Product}
+
 \subsection{Product Boundary}
-\lips
+Proxi is a desktop helper that lets people run their computer with short voice or text commands. In this project, Proxi listens, 
+figures out what the user means, asks for a quick confirmation when needed, and then carries out the task on the local machine through tools (MCP).
+
+\textbf{In-Scope Features:}
+\begin{itemize}
+  \item \textbf{Input and understanding:} Listen for a request, interpret the intent, and ask a brief follow-up 
+  if there are multiple matches. Learn about the user's system and common tasks as time goes on to make Proxi more efficient.
+  \item \textbf{Desktop actions via MCP:} Perform common tasks such as: open an app or file, learn and interact with user apps, browse/search, save/move/rename files using 
+  local tools with least privilege access.
+  \item \textbf{Safety and privacy:} Ask before anything destructive, offer a simple undo when possible, and keep a short audit 
+  trail of what happened.
+  \item \textbf{Accessible, plain language:} Show captions for spoken output, use readable defaults (contrast/size), and support 
+  keyboard or voice for every step.
+\end{itemize}
+
+\textbf{Out-of-Scope Features:}
+\begin{itemize}
+  \item Replacing full third-party apps (complete email client, calendar, or browser).
+  \item Unattended background automation, remote administration, or multiple users controlling the same desktop session.
+  \item Offline language understanding/generation, enterprise policy management, or default long-term cloud storage of user data.
+\end{itemize}
+
 \subsection{Product Use Case Table}
-\lips
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{2.8cm}|p{2.0cm}|p{3.2cm}|p{3.2cm}|p{2.6cm}|}
+\hline
+\textbf{Use Case} & \textbf{Actors} & \textbf{Description} & \textbf{Preconditions} & \textbf{Outcome} \\
+\hline
+PUC-01: Open Application & User & Open a named app. & App installed; automation allowed. & App launched or focused. \\
+\hline
+PUC-02: Open and Read File & User & Open a file; preview/read. & File exists; within scope. & File opened; content visible. \\
+\hline
+PUC-03: Browse and Search & User & Go to a URL or search. & Browser available; internet on. & Page or results shown. \\
+\hline
+PUC-04: Compose Draft & User & Create a short email/message draft. & Default mail/editor set. & Draft opens prefilled. \\
+\hline
+PUC-05: Save/Organize File & User & Save As, move, or rename. & Paths allowed; confirm overwrite. & Operation completed; confirmed. \\
+\hline
+PUC-06: Interact with User Apps & User & Perform simple actions in an open app (click, type, select). & Target app is open; within allowed scope. & Action done or clear reason shown. \\
+\hline
+\end{tabular}
+\caption{Product Use Case Table}
+\label{tab:puc-table}
+\end{table}
+
 \subsection{Individual Product Use Cases (PUC's)}
-\lips
+
+\textbf{PUC-01: Open Application}  
+The user asks Proxi to open an application by name. If there are several matches, Proxi lists them and the user picks one. Proxi 
+checks permissions, opens or focuses the app, and confirms success. If the app isn’t available, Proxi explains why and suggests 
+the next step.
+
+\textbf{PUC-02: Open and Read File}  
+The user asks to open or read a file. Proxi resolves the path or name within the allowed scope, opens it in the default viewer, 
+and can read a section aloud or give a short summary on request. If the file can’t be accessed, Proxi says why and offers 
+alternatives.
+
+\textbf{PUC-03: Browse and Search}  
+The user says to go to a certain URL or to search for something, Proxi validates the URL or forms a search, opens the default 
+browser, and lands on the right page. If the link looks unsafe, Proxi warns the user and asks for confirmation.
+
+\textbf{PUC-04: Compose Draft}  
+The user dictates a short message or email. Proxi extracts recipients and content, opens a new draft in the default app, and 
+fills in the fields. The user reviews and sends. If a recipient is unknown, Proxi asks for the address.
+
+\textbf{PUC-05: Save/Organize File}  
+The user asks to Save as, Move, or Rename. Proxi checks the target path, handles name collisions, and asks before any overwrite. 
+After the operation, Proxi confirms what changed; if it couldn’t proceed, it explains the reason and options.
+
+\textbf{PUC-06: Interact with User Apps}  
+The user asks Proxi to do a simple action inside an app that’s already open (for example: click a menu item, type a short 
+phrase, press a button, or toggle a setting). If there’s any ambiguity, Proxi asks a brief follow-up (“Which button?”) and 
+then performs the action. If the app can’t be controlled, Proxi explains why and suggests the next step.
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
