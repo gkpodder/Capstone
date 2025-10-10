@@ -245,11 +245,30 @@ involved in the Project}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
-\lips
+\begin{description}
+  \item[1:] The Proxi's main goal is to enable hands free computer control through natural
+  language commands for disabled users, while also providing users with a more efficient workflow.
+  Tasks can include opening applications, reading and writing files, browsing the web, and scheduling events. 
+  Interaction with the proxi is voice command, while also having a textual input option. 
+  \item[2:] The system will run on desktop operating systems (Windows, macOS) and will engage with many common applications 
+  (web browsers, email clients, and documents/file browsers).
+  \item[3:] Since certain actions can be considered high risk, such as deleting files or changing system settings,
+  the system will confirm with the user before performing such risky actions that can potentially have destructive or
+  sensitive outcomes.
+\end{description}
 \subsection{Business Rules}
-\lips
+The proxi must get consent before getting or dealing with any personal data. It must also decrease the amount of data shared 
+with any external source, to only what is necessary to fulfill the user's command. Any command or action that deals with a high risk
+scenario (delete data, change system settings, install any software, etc.) must be first confirmed by the user to do so. Any actions
+done should be recorded in an audit log, allowing a track of what the AI has done. This way any incorrect actions can be traced back and reversed if necessary.
+Tools the AI use can only run in a user permission scope, meaning it can only access and do actions on what the user has access to and allowed.
 \subsection{Assumptions}
-\lips
+\begin{description}
+  \item[Hardware] The user has a working computer with a microphone and some sort of audio output, that is capable of running the software on a modern OS (Windows, MacOS).
+  \item[Permissions] The user can give the permissions the AI agent needs (microphone, screen access, and automation APIs) and can run the MCP server effectively.
+  \item[Internet] The user has a strong internet connection to use the AI agent as the LLM will run online and will require online tools (browsers, web search, etc.).
+  \item[Environment and Language] The user will be in a quiet environment in which the mic can comfortably pick up sound. The user will also talk in a supported language for interaction (English).
+\end{description}
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
