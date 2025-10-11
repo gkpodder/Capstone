@@ -185,64 +185,64 @@ user manuals to support future use and potential handoff of the project after co
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\begin{enumerate}
-    \item The application must be lightweight and run without requiring any 
+\begin{itemize}
+    \item \textbf{SOL-01}: The application must be lightweight and run without requiring any 
     speacial hardware
-    \item The application will operate without requiring user accounts or 
+    \item \textbf{SOL-02}: The application will operate without requiring user accounts or 
     signups.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Implementation Environment of the Current System}
-\begin{enumerate}
-    \item The application is designed to run on the personal computers of the 
+\begin{itemize}
+    \item \textbf{IMECS-01}: The application is designed to run on the personal computers of the 
     users running mainstream operating systems like Windows and MacOS.
-    \item The application uses standard I/O devices like mice, keyboards, mics, 
+    \item \textbf{IMECS-02}: The application uses standard I/O devices like mice, keyboards, mics, 
     and screens to interact with the user.
-    \item The software bundle includes JavaScript support, the MCP (modular 
+    \item \textbf{IMECS-03}: The software bundle includes JavaScript support, the MCP (modular 
     control platform) and any other required libraries.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Partner or Collaborative Applications}
-\begin{enumerate}
-    \item The application may use AI services via secure APIs for natural 
+\begin{itemize}
+    \item \textbf{PCA-01}: The application may use AI services via secure APIs for natural 
     language processing and logic.
-    \item Integration with external accessibility tools like screen readers may 
+    \item \textbf{PCA-02}: Integration with external accessibility tools like screen readers may 
     be supported to enhance usability for older adults and users with 
     disabilities.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Off-the-Shelf Software}
 The application will use off-the-shelf software components to reduce devlopement
  time:
- \begin{enumerate}
-    \item MCP (Modular Control Platform) will be used for accessibility and 
+ \begin{itemize}
+    \item \textbf{OTSS-01}: MCP (Modular Control Platform) will be used for accessibility and 
     interface  management.
-    \item JavaScript libraries and frameworks will be used to implement 
+    \item \textbf{OTSS-02}: JavaScript libraries and frameworks will be used to implement 
     interactive elements and handle input/output operations.
-    \item LLM services will be used to provide natural language responses and 
+    \item \textbf{OTSS-03}: LLM services will be used to provide natural language responses and 
     reasoning capabilities. The application does not require a specialized 
     model, so no additional training will be necessary. An off-the-shelf LLM is 
     sufficient to deliver accurate and reliable results for the intended 
     functionality.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Anticipated Workplace Environment}
-\begin{enumerate}
-    \item The application is expected to run on the personal computers of the 
+\begin{itemize}
+    \item \textbf{AWE-01}: The application is expected to run on the personal computers of the 
     users at their homes or assited-living facilities.
-    \item The application will be used primarily on Windows and MacOS operating 
+    \item \textbf{AWE-02}: The application will be used primarily on Windows and MacOS operating 
     systems.
-    \item The system is designed for users with limited technical experience, 
+    \item \textbf{AWE-03}: The system is designed for users with limited technical experience, 
     including older adults and people with disabilities, requiring a simple, 
     intuitive interface.
-    \item Devices may vary in screen size, input methods, and processing power, 
+    \item \textbf{AWE-04}: Devices may vary in screen size, input methods, and processing power, 
     so the app must function on standard consumer computers without 
     specialized hardware.
-    \item Environmental factors such as background noise or poor acoustics may 
+    \item \textbf{AWE-05}: Environmental factors such as background noise or poor acoustics may 
     affect voice interactions. Therefore, the application shall provide 
     alternative input methods, such as text or on-screen controls, to ensure 
     usability when voice input is infeasible.
-\end{enumerate}
+\end{itemize}
 
 
 \subsection{Schedule Constraints}
@@ -965,31 +965,31 @@ FUNC.R.9 & The system shall ensure that all agent actions requiring system-level
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\begin{enumerate}
-    \item \textbf{Open Access:} The application will be available publicly 
+\begin{itemize}
+    \item \textbf{ACS-01} :The application will be available publicly 
     and no user registration or account is required.
-    \item \textbf{Permission Access:} Any necessary permissions, such as 
-    microphone or screen access, must be explicitly granted by the user.
-\end{enumerate}
+    \item \textbf{ACS-02} :Any necessary permissions, such as 
+    itemize or screen access, must be explicitly granted by the user.
+\end{itemize}
 
 
 \subsection{Integrity Requirements}
-\begin{enumerate}
-    \item \textbf{Data Integrity:} The system shall ensure that any stored 
+\begin{itemize}
+    \item \textbf{INT-01}: The system shall ensure that any stored 
     or transmitted data is protected from unauthorized alteration or corruption.
-\end{enumerate}
+\end{itemize}
 
 
 
 \subsection{Privacy Requirements}
-\begin{enumerate}
-    \item \textbf{User Data Storage:} Any stored user data will be stored 
+\begin{itemize}
+    \item \textbf{PRIV-01}: Any stored user data will be stored 
     acording to PIPEDA.
-    \item \textbf{Third Party Data Storage:} If any external APIs are used, only 
+    \item \textbf{PRIV-01}: If any external APIs are used, only 
     minimal, non identifiable data may be transmitted. These services must 
     adhere to GDPR. The user must also explicitly accept the privacy policies 
     of these third party services.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Audit Requirements}
 There are no audit requirements for the application. The application does not 
@@ -998,42 +998,42 @@ tracking or verification. There is nothing that requires audits or security
 reviews. The privacy focused design eliminates the need for audit trails.
 
 \subsection{Immunity Requirements}
-\begin{enumerate}
-    \item \textbf{Secure Practices:} The application must be to prevent DDos 
+\begin{itemize}
+    \item \textbf{IMM-01}: The application must be to prevent DDos 
     Attacks, SQL injection, and unauthorized access.
-    \item \textbf{Third Party Safety:} All third party libraries and 
+    \item \textbf{IMM-02}: All third party libraries and 
     dependencies must be up to date and scanned for vulnerabilities.
-\end{enumerate}
+\end{itemize}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\begin{enumerate}
-    \item \textbf{Respectful and Neutral Interaction:} The application shall use
+\begin{itemize}
+    \item \textbf{CULR-01}: The application shall use
     polite, culurally neutral language, avoid slangs and any references that may
     confuse or offend users.
-    \item \textbf{Language Support:} The application shall support multiple
+    \item \textbf{CULR-02}: The application shall support multiple
     languages and will allow users to interact in their preferred language.
-\end{enumerate}
+\end{itemize}
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
-\begin{enumerate}
-    \item \textbf{Adherence to PIPEDA:} The application will adhere to PIPEDA 
+\begin{itemize}
+    \item \textbf{LGL-01}: The application will adhere to PIPEDA 
     for any stored user data.
-    \item \textbf{Copyright and IP:} The application shall be distributed under
+    \item \textbf{LGL-02}: The application shall be distributed under
     the MIT license; allowing for free use, modification and distribution as
     long as the original license and copyright notice is also included.
-\end{enumerate}
+\end{itemize}
 
 
 \subsection{Standards Compliance Requirements}
-\begin{enumerate}
-    \item \textbf{Adherence to Accessibility Standards:} The application will
+\begin{itemize}
+    \item \textbf{STDCOMP-01}: The application will
     follow WCAG 2 to ensure accessibility for users with disabilities.
-    \item \textbf{Adherence to Coding Standards:} The application should 
+    \item \textbf{STDCOMP-02}: The application should 
     follow ISO 25010 and ISO 27001 to ensure delivery of high quality and secure
     software.
-\end{enumerate}
+\end{itemize}
 
 
 \section{Open Issues}
