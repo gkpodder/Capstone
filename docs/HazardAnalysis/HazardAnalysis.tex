@@ -3,6 +3,10 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{float} 
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -36,9 +40,11 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+10/10/2025 & Amanbeer Minhas & Added Sections 2, 4 and reflection\\
+10/10/2025 & Gourob Podder & Added Sections 1, 3 and reflection\\
+10/10/2025 & Savinay Chhabra & Added Sections 5 and reflection\\
+10/10/2025 & Ajay Singh Grewal & Added Sections 6, 7 and reflection\\
+
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -169,14 +175,91 @@ everyday use.
 
 \section{Failure Mode and Effect Analysis}
 
-\wss{Include your FMEA table here. This is the most important part of this document.}
-\wss{The safety requirements in the table do not have to have the prefix SR.
-The most important thing is to show traceability to your SRS. You might trace to
-requirements you have already written, or you might need to add new
-requirements.}
-\wss{If no safety requirement can be devised, other mitigation strategies can be
-entered in the table, including strategies involving providing additional
-documentation, and/or test cases.}
+\begin{table}[H]
+\centering
+\begin{tiny}
+\setlength{\tabcolsep}{2pt}
+
+\caption{Failure Modes and Effects Analysis (FMEA) Table}
+\label{tab:fmea}
+
+\begin{tabularx}{\textwidth}{
+    |>{\raggedright\arraybackslash}p{1.2cm}
+    |>{\raggedright\arraybackslash}X
+    |>{\raggedright\arraybackslash}X
+    |c 
+    |>{\raggedright\arraybackslash}X 
+    |c
+    |c
+    |>{\raggedright\arraybackslash}p{2.3cm}
+    |c
+    |c|
+}
+\toprule
+\multicolumn{1}{|c|}{\textbf{Component}} &
+\multicolumn{1}{c|}{\textbf{Failure Mode}} &
+\multicolumn{1}{c|}{\textbf{Effect of Failure}} &
+\multicolumn{1}{c|}{\textbf{S}} & % Abbreviated
+\multicolumn{1}{c|}{\textbf{Cause of Failure}} &
+\multicolumn{1}{c|}{\textbf{O}} & % Abbreviated
+\multicolumn{1}{c|}{\textbf{D}} & % Abbreviated
+\multicolumn{1}{c|}{\textbf{Recommended Action}} &
+\multicolumn{1}{c|}{\textbf{SR Ref.}} &
+\multicolumn{1}{c|}{\textbf{Ref. ID}} \\
+\midrule
+
+Speech-to-Text (STT)&Misinterprets voice commands&Wrong action or no action 
+taken&8&Background noise, accent, poor mic&5&6&Improve model, noise filtering, 
+allow correction&POA.R.1&H1-1\\ \hline
+
+Command Interpreter&Fails to understand user intent&Task not completed or 
+incorrect action&7&Ambiguous phrasing or missing context&4&6&Add clarification 
+prompts, context handling&FUNC.R.3&H2-1\\ \hline
+
+MCP Integration Layer&Wrong tool triggered&Unintended app or function 
+runs&8&Incorrect mapping, version mismatch&4&6&Validate inputs, add fallback 
+defaults&SAF.R.2&H3-1\\ \hline
+OS Automation&Command crashes or freezes&User tasks fail or system 
+slows&6&Permission errors, unresponsive apps&5&5&Retry logic, timeouts, 
+graceful error handling&ROFT.R.2&H4-1\\ \hline
+
+Confirmation Layer&Fails to ask for confirmation&Accidental deletion or system 
+changes&9&Logic bug or skipped validation&3&7&Mandatory confirmation before 
+high-risk actions&SAF.R.1&H5-1\\ \hline
+
+Accessibility Layer&Screen reader or assistive tools fail&Users with 
+disabilities cannot use system&9&Missing WCAG compliance, poor ARIA&4&6&Test 
+with AT, comply with WCAG 2.2 and AODA&ACC.R.2&H6-1\\ \hline
+
+Text-to-Speech Feedback&Response delayed or missing&User repeats commands or is 
+confused&5&High load, slow network, TTS errors&5&5&Optimize response, add status 
+indicator&SAL.R.1&H7-1\\ \hline
+
+Update \& Deployment&New release breaks features&Commands stop working&6&Lack of
+ regression testing&4&5&Automated tests, rollback support&LON.R.2&H8-1\\ \hline
+
+Logging System&Missing logs or corrupted data&Harder to debug and trace 
+issues&5&Logging disabled or storage full&4&5&Continuous logging, storage 
+monitoring&ROFT.R.1&H9-1\\ \hline
+
+OS Compatibility&Inconsistent performance across OS&Features fail on some 
+platforms&7&API differences, OS permissions&4&5&Multi-OS testing, abstraction 
+layers&EPE.R.1&H10-1\\ \hline
+
+\end{tabularx}
+
+\vspace{10pt}
+
+% Legend
+\begin{tabular}{ll}
+\textbf{Legend:} \\
+\textbf{S}: & Severity (1-10) \\
+\textbf{O}: & Occurrence (1-10) \\
+\textbf{D}: & Detection (1-10) \\
+\end{tabular}
+
+\end{tiny}
+\end{table}
 
 \section{Safety and Security Requirements}
 
@@ -207,7 +290,9 @@ Which requirements will be implemented in the future?}
     software products. Why are they important to consider?
 \end{enumerate}
 
-\section*{Reflection – Amanbeer Minhas}
+\section{Reflections}
+
+\subsection{Amanbeer Minhas Reflection}
 
 \begin{enumerate}
 \item What went well while writing this deliverable?\\
@@ -245,50 +330,36 @@ Both are important to consider because they affect user confidence,
 usability, and the overall success of the product.
 \end{enumerate}
 
-\section*{Reflection – Gourob Podder}
+\subsection{Gourob Podder Reflection}
 
 \begin{enumerate}
-    \item \textbf{What went well while writing this deliverable:}  
-    The process of identifying system boundaries and major components went 
-    smoothly because the project architecture was already conceptually clear from 
-    prior SRS work. Clearly defining modules such as the User Interface, Natural 
-    Language Understanding, and Agent Manager helped us organize potential hazards 
-    systematically. Collaboration among team members also allowed us to quickly 
-    align on how risks might manifest in both software and user interactions.
+    \item What went well while writing this deliverable?\\
+    Identifying system boundaries and major components went smoothly because the project architecture was already clear from prior SRS work. Defining modules like the User Interface, Natural Language Understanding, and Agent Manager helped organize potential hazards systematically. Team collaboration also allowed us to quickly align on how risks could manifest in both software and user interactions.
 
-    \item \textbf{Pain points and resolutions:}  
-    One major challenge was determining the level of detail appropriate for a hazard 
-    analysis without drifting into system design. It was sometimes difficult to 
-    distinguish between a “hazard” and a general usability concern. We resolved 
-    this by referring to established safety engineering definitions and by 
-    focusing on identifying sources of harm or adverse outcomes rather than 
-    design flaws. Another difficulty was quantifying abstract risks such as privacy 
-    or misinterpretation of user intent, which we addressed through scenario-based 
-    brainstorming.
+    \item What pain points did you experience during this deliverable, and how did you resolve them?\\
+    Determining the appropriate level of detail for the hazard analysis without drifting into system design was challenging. It was sometimes difficult to distinguish between a hazard and a general usability concern. We resolved this by using safety engineering definitions and focusing on sources of harm or adverse outcomes rather than design flaws. Abstract risks such as privacy or misinterpretation of user intent were addressed using scenario-based brainstorming.
 
-    \item \textbf{Previously known and newly discovered risks:}  
-    Before this deliverable, we had already recognized usability and privacy risks, 
-    such as the potential for misinterpreted commands or unauthorized data access. 
-    During the hazard analysis, new risks emerged — particularly concerning the 
-    interaction between components, like potential failures in the Task Planning 
-    module leading to unintended system actions, or risks of dependency on unreliable 
-    external APIs. These were identified as we systematically examined each subsystem 
-    and its interface boundaries, revealing points of failure that were not apparent 
-    at a higher level.
+    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones, how did they come about?\\
+    We had already recognized usability and privacy risks, like misinterpreted commands or unauthorized data access. New risks emerged during the hazard analysis, especially related to component interactions, such as potential failures in the Task Planning module or dependency on unreliable external APIs. These became apparent as we examined each subsystem and its interface boundaries.
 
-    \item \textbf{Other types of risks in software products:}  
-    Beyond physical harm, two important categories of risk are:  
-    \begin{itemize}
-        \item \textbf{Privacy and Data Security Risks:} Improper handling of user
-         data, especially for users relying on speech interfaces, can lead to 
-         breaches of sensitive personal information. Considering this is essential 
-         for maintaining user trust and legal compliance.  
-        \item \textbf{Reliability and Availability Risks:} System downtime or 
-        malfunction could prevent users from completing essential tasks, which 
-        is especially critical for those depending on assistive technologies. 
-        Evaluating and mitigating such risks ensures consistent accessibility and 
-        improves user confidence.
-    \end{itemize}
+    \item Other than the risk of physical harm, list at least 2 other types of risk in software products. Why are they important to consider?\\
+    Privacy and data security risks, such as improper handling of sensitive user data, can harm user trust and violate legal requirements. Reliability and availability risks, like system downtime or malfunctions, can prevent users from completing essential tasks, especially for assistive technologies. Both are critical for maintaining usability, accessibility, and overall user confidence.
+\end{enumerate}
+
+\subsection{Savinay Chhabra Reflection}
+
+\begin{enumerate}
+    \item What went well while writing this deliverable?\\
+    The provided template helped structure our hazards. Collaboration and work distribution went more smoothly, and we could relate hazards directly to the well-structured SRS document.
+
+    \item What pain points did you experience during this deliverable, and how did you resolve them?\\
+    Staying solution-neutral while analyzing hazards was difficult. The line between requirements and design is blurred, and we sometimes discussed solutions prematurely. We resolved this by refocusing on hazards rather than proposed solutions.
+
+    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones, how did they come about?\\
+    Initially, we focused on privacy and legal risks associated with data breaches. While performing hazard analysis, we discovered additional potential risks and mitigation strategies that were not previously considered.
+
+    \item Other than the risk of physical harm, list at least 2 other types of risk in software products. Why are they important to consider?\\
+    Legal risks due to data breaches or violations of user privacy, and compliance risks from accessibility failures in design. Both are important because they affect user trust, legal standing, and the usability of the product.
 \end{enumerate}
 
 
