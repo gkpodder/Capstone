@@ -263,13 +263,129 @@ layers&EPE.R.1&H10-1\\ \hline
 
 \section{Safety and Security Requirements}
 
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
+\subsection{Safety Requirements}
+Although Proxi doesn't interact with any hardware, a user's files or settings 
+could still be impacted by a poorly written or confusing command. We'll keep 
+things straightforward and cautious to keep people safe:
+
+\begin{description}
+  \item[SAS.R.1 — Confirm before risky changes.]  
+  For anything that can alter files or sensitive settings we should 
+  show a short message asking the user to press the approve button 
+  before proceeding.
+
+  \emph{Why:} This prevents any accidental damage from such requests.  
+
+  \emph{How we’ll check:} In testing, every destructive or high level action 
+  should have an approval.
+
+  \item[SAS.R.2 — Easy undo for common file actions.]  
+  When possible, there should be a simple undo option that uses the OS recycle 
+  bin or copy-back.
+
+  \emph{Why:} This way there is recovery if Proxi makes a mistake. 
+
+  \emph{How we’ll check:} Run tests that can restore the original file in
+  at at least 7/10 of cases.
+
+  \item[SAS.R.3 — Least privilege tool scopes.]  
+  MCP tools run inside only folders and apps the user has chosen to allow.
+
+  \emph{Why:} This limits from any bad commands affecting unrelated areas.
+
+  \emph{How we’ll check:} Make sure that any attempt to access something out of 
+  scope is first requested from the user.
+
+  \item[SAS.R.4 — Pause on low confidence.]  
+  If the confidence is low or there is any confusion from Proxi, it can ask a 
+  short question to the user before continuing forward.
+
+  \emph{Why:} Don’t guess when unsure it is better to ask if it is safe to 
+  proceed.  
+
+  \emph{How we’ll check:} Can test and experiment with low-confidence inputs 
+  that never run without clarification/approval.
+\end{description}
+
+\subsection{Security Requirements}
+We also want to avoid common security issues:
+
+\begin{description}
+  \item[SC.R.1 — Validate inputs and use allow lists.]  
+  Have clean paths, URLs, and arguments and only allow safe protocols. 
+  Random directory traversal should be blocked.
+
+  \emph{Why:} This stops not needed injections and any path traversal bugs.  
+
+  \emph{How we’ll check:} Can run tests that will check to see if there are any 
+  injection or traversing issues.
+
+  \item[SC.R.2 — Ask before sending data out.]  
+  Sending personal data needs consent from the user, and we should only send the
+  least amount of data as possible. Only data needed to complete the task should
+  be sent.
+
+  \emph{Why:} This way the user controls what leaves their computer.
+
+  \emph{How we’ll check:} Test flows can show an approval step before any data 
+  is sent.
+
+  \item[SC.R.3 — Encrypt everything in transit.]  
+  Use TLS/HTTPS for all network traffic to maximize security.
+
+  \emph{Why:} Protects against eavesdropping and man in the middle attacks.
+
+  \emph{How we’ll check:} The packet captures will show HTTPS only traffic. Any 
+  bad certifications will get simply rejected.
+
+  \item[SC.R.4 — Keep dependencies clean.]  
+  Keep libraries up to date and scan libraries before releasing for any 
+  vulnerabilities
+
+  \emph{Why:} This minimizes the risk from any known dependency vulnerabilities.
+
+  \emph{How we’ll check:} Release checklist should have 0 major vulnerabilities.
+\end{description}
 
 \section{Roadmap}
 
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
+\subsection*{What we’ll ship during the capstone}
+These are the highest-impact items for safety and trust.
+
+\begin{table}[!h]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{l X l}
+\toprule
+\textbf{ID} & \textbf{What we’ll build} & \textbf{When} \\
+\midrule
+SAS.R.1 & Confirmation step for destructive/system actions & Sprint 1 \\
+SAS.R.4 & Clarify when intent confidence is low & Sprint 1 \\
+SC.R.1 & Input validation + allow-lists in all adapters & Sprint 1–2 \\
+SC.R.2 & Consent flow for any external/network calls & Sprint 2 \\
+SAS.R.2 & One-step undo for file moves/renames/deletes & Sprint 2 \\
+SC.R.3 & HTTPS-only networking with certificate checks & Sprint 2 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Deferred / later work}
+Still useful, but can land after the demo if time is tight.
+
+\begin{table}[!h]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+\textbf{ID} & \textbf{What} & \textbf{Why later} \\
+\midrule
+SAS.R.3 & Deeper OS sandboxing beyond path scoping & More engineering effort; 
+too complicated for current scope \\
+SC.R.4 & Automated vulnerabilities scanning in CI and signed releases & Better 
+for long-term upkeep; not needed right now \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \newpage{}
 
