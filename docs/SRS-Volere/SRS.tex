@@ -27,7 +27,8 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
+\title{Software Requirements Specification for \progname: subtitle describing 
+software} 
 \author{\authname}
 \date{\today}
 	
@@ -286,17 +287,19 @@ involved in the Project}
   \item[MCP Server] A local server that implements the MCP to allow AI agents
   to discover and use the available tools.
 
-  \item[MCP Client] An AI agent that connects to the MCP server to use the provided tools.
+  \item[MCP Client] An AI agent that connects to the MCP server to use the 
+  provided tools.
 
-  \item[AI Agent] A software (LLM) that uses artificial intelligence to perform tasks.
+  \item[AI Agent] A software (LLM) that uses artificial intelligence to perform 
+  tasks.
 
   \item[LLM (Large Language Model)] A type of AI model that can understand and
   generate human language.
 
   \item[Token] A unit of text used in LLMs to process and generate language.
 
-  \item[Sandbox] A secure environment in which code can be run and tested without
-  affecting the rest of the system.
+  \item[Sandbox] A secure environment in which code can be run and tested 
+  without affecting the rest of the system.
 
   \item[Action] A single execution of a tool with validated parameters.
 
@@ -304,10 +307,11 @@ involved in the Project}
 
   \item[Command] An instruction given by the user to the AI agent.
 
-  \item[Permission Scope] Level of access that is given to the AI agent for completing actions.
+  \item[Permission Scope] Level of access that is given to the AI agent for 
+  completing actions.
 
-  \item[Confirmation Gate] A approval prompt given to the user by the AI before cpmpleting
-  risky actions.
+  \item[Confirmation Gate] A approval prompt given to the user by the AI before 
+  completing risky actions.
 
   \item[TTS (Text-to-Speech)] Tool that converts written text into spoken words.
 
@@ -315,43 +319,64 @@ involved in the Project}
 
   \item[Audit Log] A record of all actions taken by the AI agent.
 
-  \item[Accessibility] It is usable by people with a wide range of abilities/disabilities.
+  \item[Accessibility] It is usable by people with a wide range of 
+  abilities/disabilities.
 
-  \item[User Interface (UI)] The visual elements of the software (frontend) in which a user will engage with the system.
+  \item[User Interface (UI)] The visual elements of the software (frontend) in 
+  which a user will engage with the system.
 
-  \item[PII (Personally Identifiable Information)] Any data that could identify a specific individual.
+  \item[PII (Personally Identifiable Information)] Any data that could identify 
+  a specific individual.
 
-  \item[POLP (Principle of Least Privilege)] A security concept in which the AI agent will have minimum levels of access 
-  necessary to perform certain tasks.
+  \item[POLP (Principle of Least Privilege)] A security concept in which the 
+  AI agent will have minimum levels of access necessary to perform certain tasks.
 
-  \item[OS Automation Tools] Software on one's computer that gives the AI agent the ability to control and engage with their OS.
+  \item[OS Automation Tools] Software on one's computer that gives the AI agent 
+  the ability to control and engage with their OS.
 \end{description}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
 \begin{description}
-  \item[1:] The Proxi's main goal is to enable hands free computer control through natural
-  language commands for disabled users, while also providing users with a more efficient workflow.
-  Tasks can include opening applications, reading and writing files, browsing the web, and scheduling events. 
-  Interaction with the proxi is voice command, while also having a textual input option. 
-  \item[2:] The system will run on desktop operating systems (Windows, macOS) and will engage with many common applications 
-  (web browsers, email clients, and documents/file browsers).
-  \item[3:] Since certain actions can be considered high risk, such as deleting files or changing system settings,
-  the system will confirm with the user before performing such risky actions that can potentially have destructive or
-  sensitive outcomes.
+  \item[1:] The Proxi's main goal is to enable hands-free computer control
+  through natural language commands for disabled users. It also provides
+  users with a more efficient workflow. Tasks include opening applications,
+  reading and writing files, browsing the web, and scheduling events.
+  Interaction with Proxi is via voice command, with a textual input option.
+
+  \item[2:] The system will run on desktop operating systems (Windows, macOS)
+  and will engage with many common applications (web browsers, email clients,
+  and documents/file browsers).
+
+  \item[3:] Since certain actions can be considered high risk, such as deleting
+  files or changing system settings, the system will confirm with the user
+  before performing such risky actions that can potentially have destructive
+  or sensitive outcomes.
 \end{description}
 \subsection{Business Rules}
-The proxi must get consent before getting or dealing with any personal data. It must also decrease the amount of data shared 
-with any external source, to only what is necessary to fulfill the user's command. Any command or action that deals with a high risk
-scenario (delete data, change system settings, install any software, etc.) must be first confirmed by the user to do so. Any actions
-done should be recorded in an audit log, allowing a track of what the AI has done. This way any incorrect actions can be traced back and reversed if necessary.
-Tools the AI use can only run in a user permission scope, meaning it can only access and do actions on what the user has access to and allowed.
+Proxi must get user consent before accessing or handling any personal data.
+It must minimize the amount of data shared with external sources, sending only
+what is strictly needed to fulfill the user's command.
+Any command or action that involves high risk (deleting data, changing system
+settings, installing software, etc.) must be confirmed by the user before
+execution.
+All actions performed should be recorded in an audit log, allowing tracking of
+what the AI has done so incorrect actions can be traced and reversed if needed.
+Tools used by the AI can only run within a user permission scope, meaning they
+can only access and perform actions on resources the user has explicitly
+allowed.
+
 \subsection{Assumptions}
 \begin{description}
-  \item[Hardware] The user has a working computer with a microphone and some sort of audio output, that is capable of running the software on a modern OS (Windows, MacOS).
-  \item[Permissions] The user can give the permissions the AI agent needs (microphone, screen access, and automation APIs) and can run the MCP server effectively.
-  \item[Internet] The user has a strong internet connection to use the AI agent as the LLM will run online and will require online tools (browsers, web search, etc.).
-  \item[Environment and Language] The user will be in a quiet environment in which the mic can comfortably pick up sound. The user will also talk in a supported language for interaction (English).
+  \item[Hardware] The user has a working computer with a microphone and audio
+  output, capable of running the software on a modern OS (Windows, macOS).
+  \item[Permissions] The user can grant the permissions needed by the AI agent
+  (microphone, screen access, automation APIs) and can run the MCP server.
+  \item[Internet] The user has a reliable internet connection to use the AI
+  agent, as the LLM and online tools (browser, web search) require connectivity.
+  \item[Environment and Language] The user is in a quiet environment where the
+  microphone can pick up sound clearly, and will speak in a supported language
+  (English).
 \end{description}
 
 \section{The Scope of the Work}
@@ -553,26 +578,34 @@ createdAt & Timestamp & When the entry was written \\
 \section{The Scope of the Product}
 
 \subsection{Product Boundary}
-Proxi is a desktop helper that lets people run their computer with short voice or text commands. In this project, Proxi listens, 
-figures out what the user means, asks for a quick confirmation when needed, and then carries out the task on the local machine through tools (MCP).
+Proxi is a desktop helper that lets people run their computer with short voice or
+text commands. In this project, Proxi listens, figures out what the user means,
+asks for a quick confirmation when needed, and then carries out the task on the
+local machine through tools (MCP).
 
 \textbf{In-Scope Features:}
 \begin{itemize}
-  \item \textbf{Input and understanding:} Listen for a request, interpret the intent, and ask a brief follow-up 
-  if there are multiple matches. Learn about the user's system and common tasks as time goes on to make Proxi more efficient.
-  \item \textbf{Desktop actions via MCP:} Perform common tasks such as: open an app or file, learn and interact with user apps, browse/search, save/move/rename files using 
-  local tools with least privilege access.
-  \item \textbf{Safety and privacy:} Ask before anything destructive, offer a simple undo when possible, and keep a short audit 
-  trail of what happened.
-  \item \textbf{Accessible, plain language:} Show captions for spoken output, use readable defaults (contrast/size), and support 
-  keyboard or voice for every step.
+  \item \textbf{Input and understanding:} Listen for a request, interpret the
+  intent, and ask a brief follow-up if there are multiple matches. Learn about
+  the user's system and common tasks as time goes on to make Proxi more
+  efficient.
+  \item \textbf{Desktop actions via MCP:} Perform common tasks such as: open an
+  app or file, learn and interact with user apps, browse/search, save/move/rename
+  files using local tools with least privilege access.
+  \item \textbf{Safety and privacy:} Ask before anything destructive, offer a
+  simple undo when possible, and keep a short audit trail of what happened.
+  \item \textbf{Accessible, plain language:} Show captions for spoken output, use
+  readable defaults (contrast/size), and support keyboard or voice for every step.
 \end{itemize}
 
 \textbf{Out-of-Scope Features:}
 \begin{itemize}
-  \item Replacing full third-party apps (complete email client, calendar, or browser).
-  \item Unattended background automation, remote administration, or multiple users controlling the same desktop session.
-  \item Offline language understanding/generation, enterprise policy management, or default long-term cloud storage of user data.
+  \item Replacing full third-party apps (complete email client, calendar, or
+  browser).
+  \item Unattended background automation, remote administration, or multiple users
+  controlling the same desktop session.
+  \item Offline language understanding/generation, enterprise policy management,
+  or default long-term cloud storage of user data.
 \end{itemize}
 
 \subsection{Product Use Case Table}
@@ -581,20 +614,27 @@ figures out what the user means, asks for a quick confirmation when needed, and 
 \renewcommand{\arraystretch}{1.15}
 \begin{tabular}{|p{2.8cm}|p{2.0cm}|p{3.2cm}|p{3.2cm}|p{2.6cm}|}
 \hline
-\textbf{Use Case} & \textbf{Actors} & \textbf{Description} & \textbf{Preconditions} & \textbf{Outcome} \\
+\textbf{Use Case} & \textbf{Actors} & \textbf{Description} & \textbf{Preconditions}
+& \textbf{Outcome} \\
 \hline
-PUC-01: Open Application & User & Open a named app. & App installed; automation allowed. & App launched or focused. \\
+PUC-01: Open Application & User & Open a named app. & App installed; automation
+allowed. & App launched or focused. \\
 \hline
-PUC-02: Open and Read File & User & Open a file; preview/read. & File exists; within scope. & File opened; content visible. \\
+PUC-02: Open and Read File & User & Open a file; preview/read. & File exists;
+within scope. & File opened; content visible. \\
 \hline
-PUC-03: Browse and Search & User & Go to a URL or search. & Browser available; internet on. & Page or results shown. \\
+PUC-03: Browse and Search & User & Go to a URL or search. & Browser available;
+internet on. & Page or results shown. \\
 \hline
-PUC-04: Compose Draft & User & Create a short email/message draft. & Default mail/editor set. & Draft opens prefilled. \\
+PUC-04: Compose Draft & User & Create a short email/message draft. & Default
+mail/editor set. & Draft opens prefilled. \\
 \hline
-PUC-05: Save/Organize File & User & Save As, move, or rename. & Paths allowed; confirm overwrite. & Operation completed; confirmed. \\
+PUC-05: Save/Organize File & User & Save As, move, or rename. & Paths allowed;
+confirm overwrite. & Operation completed; confirmed. \\
 \hline
-PUC-06: Interact with User Apps & User & Perform simple actions in an open app (click, type, select). & Target app is open; within 
-allowed scope. & Action done or clear reason shown. \\
+PUC-06: Interact with User Apps & User & Perform simple actions in an open app
+(click, type, select). & Target app is open; within allowed scope. & Action done
+or clear reason shown. \\
 \hline
 \end{tabular}
 \caption{Product Use Case Table}
@@ -604,31 +644,39 @@ allowed scope. & Action done or clear reason shown. \\
 \subsection{Individual Product Use Cases (PUC's)}
 
 \textbf{PUC-01: Open Application}  
-The user asks Proxi to open an application by name. If there are several matches, Proxi lists them and the user picks one. Proxi 
-checks permissions, opens or focuses the app, and confirms success. If the app isn’t available, Proxi explains why and suggests 
-the next step.
+The user asks Proxi to open an application by name. If there are several matches,
+Proxi lists them and the user picks one. Proxi checks permissions, opens or
+focuses the app, and confirms success. If the app isn’t available, Proxi explains
+why and suggests the next step.
 
 \textbf{PUC-02: Open and Read File}  
-The user asks to open or read a file. Proxi resolves the path or name within the allowed scope, opens it in the default viewer, 
-and can read a section aloud or give a short summary on request. If the file can’t be accessed, Proxi says why and offers 
-alternatives.
+The user asks to open or read a file. Proxi resolves the path or name within the
+allowed scope, opens it in the default viewer, and can read a section aloud or
+give a short summary on request. If the file can’t be accessed, Proxi says why
+and offers alternatives.
 
 \textbf{PUC-03: Browse and Search}  
-The user says to go to a certain URL or to search for something, Proxi validates the URL or forms a search, opens the default 
-browser, and lands on the right page. If the link looks unsafe, Proxi warns the user and asks for confirmation.
+The user says to go to a certain URL or to search for something, Proxi validates
+the URL or forms a search, opens the default browser, and lands on the right
+page. If the link looks unsafe, Proxi warns the user and asks for confirmation.
 
 \textbf{PUC-04: Compose Draft}  
-The user dictates a short message or email. Proxi extracts recipients and content, opens a new draft in the default app, and 
-fills in the fields. The user reviews and sends. If a recipient is unknown, Proxi asks for the address.
+The user dictates a short message or email. Proxi extracts recipients and
+content, opens a new draft in the default app, and fills in the fields. The user
+reviews and sends. If a recipient is unknown, Proxi asks for the address.
 
 \textbf{PUC-05: Save/Organize File}  
-The user asks to Save as, Move, or Rename. Proxi checks the target path, handles name collisions, and asks before any overwrite. 
-After the operation, Proxi confirms what changed; if it couldn’t proceed, it explains the reason and options.
+The user asks to Save as, Move, or Rename. Proxi checks the target path, handles
+name collisions, and asks before any overwrite. After the operation, Proxi
+confirms what changed; if it couldn’t proceed, it explains the reason and
+options.
 
 \textbf{PUC-06: Interact with User Apps}  
-The user asks Proxi to do a simple action inside an app that’s already open (for example: click a menu item, type a short 
-phrase, press a button, or toggle a setting). If there’s any ambiguity, Proxi asks a brief follow-up (“Which button?”) and 
-then performs the action. If the app can’t be controlled, Proxi explains why and suggests the next step.
+The user asks Proxi to do a simple action inside an app that’s already open (for
+example: click a menu item, type a short phrase, press a button, or toggle a
+setting). If there’s any ambiguity, Proxi asks a brief follow-up (“Which
+button?”) and then performs the action. If the app can’t be controlled, Proxi
+explains why and suggests the next step.
 
 \section{Functional Requirements}
 \subsection{Functional Requirements}
@@ -893,24 +941,26 @@ FUNC.R.9 & The system shall ensure that all agent actions requiring system-level
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
 \begin{itemize}
-  \item \textbf{1:} The project shall include a short README and setup steps so new contributors can build and run it 
-  without help.
-  \item \textbf{2:} Adding a new MCP tool shall only require a new module and a registry entry; existing tools do not need to 
-  be changed.
+  \item \textbf{1:} The project shall include a short README and setup steps so new
+  contributors can build and run it without help.
+  \item \textbf{2:} Adding a new MCP tool shall only require a new module and a
+  registry entry; existing tools do not need to be changed.
 \end{itemize}
 
 \subsection{Supportability Requirements}
 \begin{itemize}
-  \item \textbf{1:} The release shall include a simple user guide (quick start, common commands, basic troubleshooting).
-  \item \textbf{2:} The app shall offer a Report Problem button that bundles recent logs and basic system info into a ZIP with 
-  the user’s consent.
+  \item \textbf{1:} The release shall include a simple user guide (quick start,
+  common commands, basic troubleshooting).
+  \item \textbf{2:} The app shall offer a Report Problem button that bundles recent
+  logs and basic system info into a ZIP with the user’s consent.
 \end{itemize}
 
 \subsection{Adaptability Requirements}
 \begin{itemize}
-  \item \textbf{1:} The system shall run on current versions of Windows and macOS on standard hardware.
-  \item \textbf{2:} The system shall keep working if the user switches default apps by updating configuration only, no code 
-  changes.
+  \item \textbf{1:} The system shall run on current versions of Windows and macOS
+  on standard hardware.
+  \item \textbf{2:} The system shall keep working if the user switches default apps
+  by updating configuration only, no code changes.
 \end{itemize}
 
 \section{Security Requirements}
@@ -1008,37 +1058,42 @@ reviews. The privacy focused design eliminates the need for audit trails.
 \subsection{Ready-Made Products}
 Several existing tools can cover key parts of Proxi so we do not reinvent them:
 \begin{itemize}
-  \item \textbf{Speech-to-Text (STT):} Many STT engines can perform microphone input and return text with timestamps. A lot of 
-  computers have a built in STT software that is free to use. 
-  \item \textbf{Text-to-Speech (TTS):} Open AI has its own TTS model that can be used to convert text to speech, such as GPT-4o 
-  mini TTS.
-  \item \textbf{Desktop Automation:} OS-level automation, such as lightweight automation libraries, can open apps, switch windows, 
-  and engage with controls.
-  \item \textbf{Language Understanding:} An API to a LLM such as GPT-4o Mini can be the head AI agent for understanding user 
-  commands and generating plans.
-  \item \textbf{Storage and Logging:} A lightweight database (SQLite) or a log file can have audit logs and MCP settings with 
-  very minimal setup.
+  \item \textbf{Speech-to-Text (STT):} Many STT engines can perform microphone
+  input and return text with timestamps. Many computers have built-in STT
+  software that is free to use.
+  \item \textbf{Text-to-Speech (TTS):} OpenAI has its own TTS model that can
+  convert text to speech, such as GPT-4o mini TTS.
+  \item \textbf{Desktop Automation:} OS-level automation libraries can open
+  apps, switch windows, and engage with controls.
+  \item \textbf{Language Understanding:} An API to a LLM such as GPT-4o Mini
+  can be the head AI agent for understanding user commands and generating plans.
+  \item \textbf{Storage and Logging:} A lightweight database (SQLite) or a log
+  file can store audit logs and MCP settings with minimal setup.
 \end{itemize}
 
 \subsection{Reusable Components}
-We can reuse or lightly adapt components that are common across desktop assistants:
+We can reuse or lightly adapt components that are common across desktop
+assistants:
 \begin{itemize}
-  \item \textbf{MCP tool skeletons:} A small template for tools and a registry storer so new tools are added by convention.
-  \item \textbf{OS adapters:} Adapters for Windows/macOS that present the same functions (open app, focus on window, file operations) behind one single interface.
-  \item \textbf{Prompt templates:} We can reuse existing templates for short, reusable prompts to open apps, open files, 
-  browse/search, and save/move/rename.
+  \item \textbf{MCP tool skeletons:} A small template for tools and a registry
+  storer so new tools are added by convention.
+  \item \textbf{OS adapters:} Adapters for Windows/macOS that present the same
+  functions (open app, focus window, file operations) behind one interface.
+  \item \textbf{Prompt templates:} We can reuse templates for short, reusable
+  prompts to open apps, open files, browse/search, and save/move/rename.
 \end{itemize}
 
 \subsection{Products That Can Be Copied}
 We shall adopt proven patterns from familiar tools to speed delivery:
 \begin{itemize}
-  \item \textbf{Command palette pattern:} A single search box that finds actions and recent items, having arrow-key selection 
-  and enter to run it.
-  \item \textbf{Clear confirmation modal:} A dialog that states the action in simple language, showing what will change, and 
-  offers options for approve/cancel.
-  \item \textbf{Pre-run checklist:} A simple setup that asks for microphone permission, automation permission, and desktop 
-  control on first use. Whenever app access is needed, permission will be simply requested from the user once again for its 
-  access before executing any further commands.
+  \item \textbf{Command palette pattern:} A single search box that finds actions
+  and recent items, with arrow-key selection and enter to run it.
+  \item \textbf{Clear confirmation modal:} A dialog that states the action in
+  simple language, showing what will change, and offers approve/cancel options.
+  \item \textbf{Pre-run checklist:} A simple setup that asks for microphone
+  permission, automation permission, and desktop control on first use. Whenever
+  app access is needed, permission will be requested from the user again before
+  executing any further commands.
 \end{itemize}
 
 \section{New Problems}
@@ -1183,13 +1238,17 @@ broadly divided into these phases:
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-There are no special migration steps beyond just installing Proxi and granting the usual permissions on the first run 
-(microphone, automation, etc.). After that, for access to any apps and folders, Proxi will request permission again. 
-Existing workflows and applications will remain the same; users only need to familiarize themselves with the new voice/text 
-command interface.
+There are no special migration steps beyond just installing Proxi and granting
+the usual permissions on the first run (microphone, automation, etc.). After
+that, for access to any apps and folders, Proxi will request permission again.
+Existing workflows and applications will remain the same; users only need to
+familiarize themselves with the new voice/text command interface.
+
 \subsection{Data That Has to be Modified or Translated for the New System}
-No data conversion is needed. This tool works with the user’s existing files and applications as they are. The only new data 
-created is potentially a local configuration file generated. Nothing else needs to be imported or translated from previous tools.
+No data conversion is needed. This tool works with the user’s existing files and
+applications as they are. The only new data created is potentially a local
+configuration file generated. Nothing else needs to be imported or translated
+from previous tools.
 
 \section{Costs}
 To minimize costs, the project will aim to use open source and off-the-shelf 
@@ -1233,33 +1292,43 @@ to direct the agentic system.
 \end{itemize}
 
 \section{Waiting Room}
-These are good ideas we’re keeping on the side for now, as they are not the most urgent.
+These are good ideas we’re keeping on the side for now, as they are not the most
+urgent.
 \begin{itemize}
-  \item \textbf{Offline mode:} Basic voice commands without internet using a small local model.
+  \item \textbf{Offline mode:} Basic voice commands without internet using a small
+  local model.
   \item \textbf{App plugins:} Simple SDK so other people can add new MCP tools.
-  \item \textbf{Interactions with multiple devices:} Start a task on one computer and finish on another. For example, computer 
-  to computer connection.
-  \item \textbf{Custom voice:} Let users pick a voice for Text-to-Speech. A lot of TTS engines have many voices to choose from. 
-  For now we shall keep it simple with one voice.
-  \item \textbf{More languages:} Support more languages for voice commands and responses.
+  \item \textbf{Interactions with multiple devices:} Start a task on one computer
+  and finish on another. For example, computer to computer connection.
+  \item \textbf{Custom voice:} Let users pick a voice for Text-to-Speech. A lot of
+  TTS engines have many voices to choose from. For now we shall keep it simple
+  with one voice.
+  \item \textbf{More languages:} Support more languages for voice commands and
+  responses.
 \end{itemize}
 
 \section{Ideas for Solution}
-Proxi should stay simple and safe. The main idea is a small desktop app that listens for a request, confirms anything risky in 
-plain language, and then runs a scoped action through a set of MCP tools.
+Proxi should stay simple and safe. The main idea is a small desktop app that
+listens for a request, confirms anything risky in plain language, and then runs a
+scoped action through a set of MCP tools.
 \begin{itemize}
-  \item \textbf{Local MCP server:} A set of processes expose a bunch of safe tools (open app, open file, browse, save/move/rename, 
-  click buttons on screen, etc.). Each tool runs with low privilege and only within user approved scopes
-  \item \textbf{Lightweight UI:} A simple AI with options for users click, type, or speak. The UI shows status (listening, 
-  thinking, ready), captions for spoken output, and a few big buttons (listen, stop, undo, approve).
-
-  \item \textbf{Voice in, text out (with captions):} Use a STT engine for microphone input and TTS for spoken output. Always show 
-  captions to the text that is coming out/in.
-  \item \textbf{Simple intent handling:} Map common phrases to a small set of intents using prompts/templates (Open app, Open file, 
-  browse, save/move/rename). If unclear, ask one short follow up.
-  \item \textbf{Safety by default:} Permission scopes (folders/apps) are chosen at setup and can be edited or approved by the user 
-  later. Destructive operations always require an explicit approval from the user.
-  \item \textbf{Traceability:} Keep a short, local audit log. Any sensitive information should be kept out of the audit logs.
+  \item \textbf{Local MCP server:} A set of processes expose a bunch of safe tools
+  (open app, open file, browse, save/move/rename, click buttons on screen, etc.).
+  Each tool runs with low privilege and only within user approved scopes.
+  \item \textbf{Lightweight UI:} A simple AI with options for users to click, type,
+  or speak. The UI shows status (listening, thinking, ready), captions for spoken
+  output, and a few big buttons (listen, stop, undo, approve).
+  \item \textbf{Voice in, text out (with captions):} Use a STT engine for
+  microphone input and TTS for spoken output. Always show captions to the text that
+  is coming out/in.
+  \item \textbf{Simple intent handling:} Map common phrases to a small set of
+  intents using prompts/templates (Open app, Open file, browse, save/move/rename).
+  If unclear, ask one short follow up.
+  \item \textbf{Safety by default:} Permission scopes (folders/apps) are chosen at
+  setup and can be edited or approved by the user later. Destructive operations
+  always require an explicit approval from the user.
+  \item \textbf{Traceability:} Keep a short, local audit log. Any sensitive
+  information should be kept out of the audit logs.
 \end{itemize}
 
 
