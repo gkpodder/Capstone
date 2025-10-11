@@ -58,9 +58,20 @@ Date2 & Name(s) & Description of changes\\
 \wss{You can include your definition of what a hazard is here.}
 
 \section{Scope and Purpose of Hazard Analysis}
-
-\wss{You should say what \textbf{loss} could be incurred because of the
-hazards.}
+The purpose of this hazard analysis is to identify and evaluate potential
+hazards associated with the Proxi system, a voice and text driven assistant 
+designed to improve accessibility and productivity. The main losses that 
+could occur due to these hazards include unintended system actions such as 
+accidental file deletion or modification, loss or exposure of user data, 
+compromised accessibility for users with disabilities, and reduced user 
+trust caused by incorrect or misleading behavior. These hazards could also
+result in significant productivity loss if critical commands fail, execute 
+incorrectly, or if accessibility features do not function as expected. 
+Although Proxi does not control hardware or safety-critical equipment, 
+its software failures could still lead to real harm in the form of data loss,
+security breaches, inefficiency, or user frustration. The goal of this analysis
+is to understand these risks early in development and plan effective ways to 
+prevent or reduce them.
 
 \section{System Boundaries and Components}
 
@@ -71,11 +82,26 @@ each individual piece of hardware.  If your software will have a database, or an
 important library, these are also potential components.}
 
 \section{Critical Assumptions}
+The hazard analysis is based on a few key assumptions about how Proxi will
+be used and the environment it will run in:
+\begin{enumerate}
+\item The system will run on supported desktop operating systems like
+Windows, macOS, or Linux with the needed permissions already set.
+\item Users will give clear and intentional commands. Some commands may be
+misunderstood, but we do not assume the system will be used in a harmful way.
+\item The MCP integration layer, system APIs, and other tools Proxi works
+with are expected to behave as described, even though failures are still
+possible.
+\item Network issues may slow down some features, but basic local actions
+and automation will still work without an internet connection.
+\item A working microphone or similar input device is expected to be
+available and set up correctly for voice input on the user's device.
+\end{enumerate}
+These assumptions help us focus on realistic hazards and plan how to handle
+them. They guide the analysis and reflect how Proxi is expected to work in
+everyday use.
 
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
+
 
 \section{Failure Mode and Effect Analysis}
 
@@ -118,5 +144,44 @@ Which requirements will be implemented in the future?}
     appreciable risks of this form), list at least 2 other types of risk in
     software products. Why are they important to consider?
 \end{enumerate}
+
+\section*{Reflection – Amanbeer Minhas}
+
+\begin{enumerate}
+\item What went well while writing this deliverable?\\
+Writing this deliverable went well because we already had a clear idea of
+our system from the SRS and FMEA work. Breaking the project into components
+helped me think about hazards more systematically and kept the analysis
+organized. I also felt more confident in identifying potential risks and
+writing about them in a structured way.
+
+\item What pain points did you experience during this deliverable, and how
+did you resolve them?\\
+One challenge was figuring out how detailed to make each section without
+overcomplicating the document. I also found it tricky to write about hazards
+without repeating the same points as the SRS. I resolved this by focusing on
+specific examples from our project, like MCP integration and OS automation,
+and connecting them directly to potential risks.
+
+\item Which of your listed risks had your team thought of before this
+deliverable, and which did you think of while doing this deliverable? For
+the latter ones (ones you thought of while doing the Hazard Analysis), how
+did they come about?\\
+We had already thought about risks like incorrect command execution and
+permission issues earlier in the project. However, risks such as operating
+system compatibility problems and deployment-related failures came up while
+writing this hazard analysis. They became more obvious once we broke the
+system into components and looked deeper into how each part could fail.
+
+\item Other than the risk of physical harm (some projects may not have any
+appreciable risks of this form), list at least 2 other types of risk in
+software products. Why are they important to consider?\\
+One major risk is data loss or corruption, which can harm user trust and
+make the system unreliable. Another risk is accessibility failure, where
+users with limitations might not be able to use the software as intended.
+Both are important to consider because they affect user confidence,
+usability, and the overall success of the product.
+\end{enumerate}
+
 
 \end{document}
