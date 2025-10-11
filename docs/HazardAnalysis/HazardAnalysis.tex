@@ -105,10 +105,11 @@ The boundaries of the system are defined by its scope of control and interaction
     interfaces.
     \item It processes these inputs internally using natural language understanding 
     and task planning components.
-    \item It interacts with external computer applications and operating system tools
-     to perform user-requested actions (e.g., sending emails, opening documents, managing files).
-    \item It outputs responses or task results back to the user through \textbf{text} 
-    or \textbf{speech synthesis}.
+    \item It interacts with external computer applications and operating system 
+    tools to perform user-requested actions (e.g., sending emails, opening 
+    documents, managing files).
+    \item It outputs responses or task results back to the user through 
+    \textbf{text} or \textbf{speech synthesis}.
 \end{itemize}
 
 Elements outside the system boundary include:
@@ -128,28 +129,38 @@ The system can be conceptually divided into the following major components:
 
 \begin{enumerate}
     \item \textbf{User Interface Module (UI):}
-    Handles all communication with the user, including speech-to-text (STT) input, text input, and text-to-speech (TTS) or visual feedback output.
+    Handles all communication with the user, including speech-to-text (STT) 
+    input, text input, and text-to-speech (TTS) or visual feedback output.
 
     \item \textbf{Natural Language Understanding (NLU) Engine:}
-    Interprets user intent from raw speech or text input and converts it into structured commands for the planning module.
+    Interprets user intent from raw speech or text input and converts it into 
+    structured commands for the planning module.
 
     \item \textbf{Task Planning and Agent Manager:}
-    Responsible for decomposing user intent into executable subtasks, invoking specialized software agents, and monitoring task progress.
+    Responsible for decomposing user intent into executable subtasks, invoking 
+    specialized software agents, and monitoring task progress.
 
     \item \textbf{Tool and System Integration Layer:}
-    Provides controlled access to the computer’s applications and resources (e.g., file manager, web browser, email client) through APIs or system commands.
+    Provides controlled access to the computer’s applications and resources 
+    (e.g., file manager, web browser, email client) through APIs or system 
+    commands.
 
     \item \textbf{Knowledge Base and Context Manager:}
-    Maintains context about the user’s current session, preferences, and system state to support coherent interactions and task continuity.
+    Maintains context about the user’s current session, preferences, and system 
+    state to support coherent interactions and task continuity.
 
     \item \textbf{Data Storage and Logging Component:}
-    Stores session logs, error reports, and user preferences while ensuring compliance with privacy and data protection requirements.
+    Stores session logs, error reports, and user preferences while ensuring 
+    compliance with privacy and data protection requirements.
 
     \item \textbf{Security and Permissions Module:}
-    Manages access control, ensures safe execution of actions on behalf of the user, and prevents unauthorized or unsafe operations.
+    Manages access control, ensures safe execution of actions on behalf of the 
+    user, and prevents unauthorized or unsafe operations.
 \end{enumerate}
 
-These components collectively form the system boundary for hazard analysis. Hazards may arise from failures, misuse, or unexpected interactions among these components or between the system and its external environment.
+These components collectively form the system boundary for hazard analysis. 
+Hazards may arise from failures, misuse, or unexpected interactions among these 
+components or between the system and its external environment.
 
 \section{Critical Assumptions}
 The hazard analysis is based on a few key assumptions about how Proxi will
@@ -450,32 +461,102 @@ usability, and the overall success of the product.
 
 \begin{enumerate}
     \item What went well while writing this deliverable?\\
-    Identifying system boundaries and major components went smoothly because the project architecture was already clear from prior SRS work. Defining modules like the User Interface, Natural Language Understanding, and Agent Manager helped organize potential hazards systematically. Team collaboration also allowed us to quickly align on how risks could manifest in both software and user interactions.
+    Identifying system boundaries and major components went smoothly because the 
+    project architecture was already clear from prior SRS work. Defining modules 
+    like the User Interface, Natural Language Understanding, and Agent Manager 
+    helped organize potential hazards systematically. Team collaboration also 
+    allowed us to quickly align on how risks could manifest in both software and 
+    user interactions.
 
-    \item What pain points did you experience during this deliverable, and how did you resolve them?\\
-    Determining the appropriate level of detail for the hazard analysis without drifting into system design was challenging. It was sometimes difficult to distinguish between a hazard and a general usability concern. We resolved this by using safety engineering definitions and focusing on sources of harm or adverse outcomes rather than design flaws. Abstract risks such as privacy or misinterpretation of user intent were addressed using scenario-based brainstorming.
+    \item What pain points did you experience during this deliverable, 
+    and how did you resolve them?\\
+    Determining the appropriate level of detail for the hazard analysis without 
+    drifting into system design was challenging. It was sometimes difficult to 
+    distinguish between a hazard and a general usability concern. We resolved 
+    this by using safety engineering definitions and focusing on sources of harm 
+    or adverse outcomes rather than design flaws. Abstract risks such as privacy 
+    or misinterpretation of user intent were addressed using scenario-based 
+    brainstorming.
 
-    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones, how did they come about?\\
-    We had already recognized usability and privacy risks, like misinterpreted commands or unauthorized data access. New risks emerged during the hazard analysis, especially related to component interactions, such as potential failures in the Task Planning module or dependency on unreliable external APIs. These became apparent as we examined each subsystem and its interface boundaries.
+    \item Which of your listed risks had your team thought of before this 
+    deliverable, and which did you think of while doing this deliverable? For 
+    the latter ones, how did they come about?\\
+    We had already recognized usability and privacy risks, like misinterpreted 
+    commands or unauthorized data access. New risks emerged during the hazard 
+    analysis, especially related to component interactions, such as potential 
+    failures in the Task Planning module or dependency on unreliable external 
+    APIs. These became apparent as we examined each subsystem and its interface 
+    boundaries.
 
-    \item Other than the risk of physical harm, list at least 2 other types of risk in software products. Why are they important to consider?\\
-    Privacy and data security risks, such as improper handling of sensitive user data, can harm user trust and violate legal requirements. Reliability and availability risks, like system downtime or malfunctions, can prevent users from completing essential tasks, especially for assistive technologies. Both are critical for maintaining usability, accessibility, and overall user confidence.
+    \item Other than the risk of physical harm, list at least 2 other types of 
+    risk in software products. Why are they important to consider?\\
+    Privacy and data security risks, such as improper handling of sensitive user 
+    data, can harm user trust and violate legal requirements. Reliability and 
+    availability risks, like system downtime or malfunctions, can prevent users 
+    from completing essential tasks, especially for assistive technologies. Both 
+    are critical for maintaining usability, accessibility, and overall user 
+    confidence.
 \end{enumerate}
 
 \subsection{Savinay Chhabra Reflection}
 
 \begin{enumerate}
     \item What went well while writing this deliverable?\\
-    The provided template helped structure our hazards. Collaboration and work distribution went more smoothly, and we could relate hazards directly to the well-structured SRS document.
+    The provided template helped structure our hazards. Collaboration and work 
+    distribution went more smoothly, and we could relate hazards directly to the 
+    well-structured SRS document.
 
-    \item What pain points did you experience during this deliverable, and how did you resolve them?\\
-    Staying solution-neutral while analyzing hazards was difficult. The line between requirements and design is blurred, and we sometimes discussed solutions prematurely. We resolved this by refocusing on hazards rather than proposed solutions.
+    \item What pain points did you experience during this deliverable, and 
+    how did you resolve them?\\
+    Staying solution-neutral while analyzing hazards was difficult. The 
+    line between requirements and design is blurred, and we sometimes discussed 
+    solutions prematurely. We resolved this by refocusing on hazards rather than 
+    proposed solutions.
 
-    \item Which of your listed risks had your team thought of before this deliverable, and which did you think of while doing this deliverable? For the latter ones, how did they come about?\\
-    Initially, we focused on privacy and legal risks associated with data breaches. While performing hazard analysis, we discovered additional potential risks and mitigation strategies that were not previously considered.
+    \item Which of your listed risks had your team thought of before this 
+    deliverable, and which did you think of while doing this deliverable? For 
+    the latter ones, how did they come about?\\
+    Initially, we focused on privacy and legal risks associated with data 
+    breaches. While performing hazard analysis, we discovered additional 
+    potential risks and mitigation strategies that were not previously 
+    considered.
 
-    \item Other than the risk of physical harm, list at least 2 other types of risk in software products. Why are they important to consider?\\
+    \item Other than the risk of physical harm, list at least 2 other types of 
+    risk in software products. Why are they important to consider?\\
     Legal risks due to data breaches or violations of user privacy, and compliance risks from accessibility failures in design. Both are important because they affect user trust, legal standing, and the usability of the product.
+\end{enumerate}
+
+\subsection{Ajay Singh Grewal Reflection}
+\begin{enumerate}
+    \item What went well while writing this deliverable?\\
+    Turning the hazards into a bunch of short, testable requirements worked 
+    well. By adding criteria under each requirement, it made it easier to
+    understand how to verify them later. The FMEA table also helped organize
+    the hazards clearly, and breaking the system into components made it
+    easier to think about specific risks.
+
+    \item What pain points did you experience during this deliverable, and how 
+    did you resolve them?\\
+    Choosing the criteria that was realistically achievable within our time
+    frame was tricky. We had to balance between being thorough and being
+    practical. We resolved this by focusing on the highest-impact hazards
+    that were most relevant to our project scope and user needs.
+
+    \item Which of your listed risks had your team thought of before this 
+    deliverable, and which did you think of while doing this deliverable? For 
+    the latter ones, how did they come about?\\
+    Had already discussed risks like confirmation for destructive actions and
+    permission issues. While writing the hazard analysis, we identified
+    additional risks like OS compatibility and deployment-related failures.
+    
+    \item Other than the risk of physical harm, list at least 2 other types of 
+    risk in software products. Why are they important to consider?\\
+    Firstly, privacy risk associated with sending more data than needed, or 
+    sending it without user consent. This breaks user trust and can lead to
+    future disuse. Another less discussed risk is a reliability risk, where if a
+    bad update happens, a specific tools breaks, or if a bug gets introduced,
+    it can lead to the tool being unusable. This can lead to user dissatisfaction
+    and a loss of trust.
 \end{enumerate}
 
 
