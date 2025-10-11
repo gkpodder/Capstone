@@ -55,7 +55,17 @@ Date2 & Name(s) & Description of changes\\
 
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
+In the context of this project, a hazard is defined as any potential source of 
+harm or adverse effect that could result from the use, misuse, or failure of the 
+AI-powered assistive technology platform. 
+Hazards may arise from interactions between the system and the user, the system 
+and the computing environment, or from internal system errors. 
+They can manifest as physical, cognitive, or informational risks, and may affect 
+user safety, privacy, accessibility, or the integrity of computer operations.
+
+By documenting hazards in a structured and traceable manner, the development team 
+can make informed design and operational decisions, while also providing guidance 
+for future maintenance, updates, and testing of the system.
 
 \section{Scope and Purpose of Hazard Analysis}
 The purpose of this hazard analysis is to identify and evaluate possible
@@ -83,11 +93,59 @@ strategies can be planned and built into the design.
 
 \section{System Boundaries and Components}
 
-\wss{Dividing the system into components will help you brainstorm the hazards.
-You shouldn't do a full design of the components, just get a feel for the major
-ones.  For projects that involve hardware, the components will typically include
-each individual piece of hardware.  If your software will have a database, or an
-important library, these are also potential components.}
+\subsection{System Boundaries}
+
+The boundaries of the system are defined by its scope of control and interaction:
+\begin{itemize}
+    \item The system accepts user input through \textbf{speech} or \textbf{text} 
+    interfaces.
+    \item It processes these inputs internally using natural language understanding 
+    and task planning components.
+    \item It interacts with external computer applications and operating system tools
+     to perform user-requested actions (e.g., sending emails, opening documents, managing files).
+    \item It outputs responses or task results back to the user through \textbf{text} 
+    or \textbf{speech synthesis}.
+\end{itemize}
+
+Elements outside the system boundary include:
+\begin{itemize}
+    \item The underlying \textbf{operating system} and \textbf{hardware} on which 
+    the platform runs.
+    \item Third-party applications or APIs that the platform may invoke.
+    \item The user’s physical hardware devices such as microphones, speakers, or 
+    assistive peripherals.
+    \item Network infrastructure and external AI services (if used for speech 
+    recognition or task execution).
+\end{itemize}
+
+\subsection{Major System Components}
+
+The system can be conceptually divided into the following major components:
+
+\begin{enumerate}
+    \item \textbf{User Interface Module (UI):}
+    Handles all communication with the user, including speech-to-text (STT) input, text input, and text-to-speech (TTS) or visual feedback output.
+
+    \item \textbf{Natural Language Understanding (NLU) Engine:}
+    Interprets user intent from raw speech or text input and converts it into structured commands for the planning module.
+
+    \item \textbf{Task Planning and Agent Manager:}
+    Responsible for decomposing user intent into executable subtasks, invoking specialized software agents, and monitoring task progress.
+
+    \item \textbf{Tool and System Integration Layer:}
+    Provides controlled access to the computer’s applications and resources (e.g., file manager, web browser, email client) through APIs or system commands.
+
+    \item \textbf{Knowledge Base and Context Manager:}
+    Maintains context about the user’s current session, preferences, and system state to support coherent interactions and task continuity.
+
+    \item \textbf{Data Storage and Logging Component:}
+    Stores session logs, error reports, and user preferences while ensuring compliance with privacy and data protection requirements.
+
+    \item \textbf{Security and Permissions Module:}
+    Manages access control, ensures safe execution of actions on behalf of the user, and prevents unauthorized or unsafe operations.
+\end{enumerate}
+
+These components collectively form the system boundary for hazard analysis. Hazards may arise from failures, misuse, or unexpected interactions among these components or between the system and its external environment.
 
 \section{Critical Assumptions}
 The hazard analysis is based on a few key assumptions about how Proxi will
@@ -189,6 +247,52 @@ make the system unreliable. Another risk is accessibility failure, where
 users with limitations might not be able to use the software as intended.
 Both are important to consider because they affect user confidence,
 usability, and the overall success of the product.
+\end{enumerate}
+
+\section*{Reflection – Gourob Podder}
+
+\begin{enumerate}
+    \item \textbf{What went well while writing this deliverable:}  
+    The process of identifying system boundaries and major components went 
+    smoothly because the project architecture was already conceptually clear from 
+    prior SRS work. Clearly defining modules such as the User Interface, Natural 
+    Language Understanding, and Agent Manager helped us organize potential hazards 
+    systematically. Collaboration among team members also allowed us to quickly 
+    align on how risks might manifest in both software and user interactions.
+
+    \item \textbf{Pain points and resolutions:}  
+    One major challenge was determining the level of detail appropriate for a hazard 
+    analysis without drifting into system design. It was sometimes difficult to 
+    distinguish between a “hazard” and a general usability concern. We resolved 
+    this by referring to established safety engineering definitions and by 
+    focusing on identifying sources of harm or adverse outcomes rather than 
+    design flaws. Another difficulty was quantifying abstract risks such as privacy 
+    or misinterpretation of user intent, which we addressed through scenario-based 
+    brainstorming.
+
+    \item \textbf{Previously known and newly discovered risks:}  
+    Before this deliverable, we had already recognized usability and privacy risks, 
+    such as the potential for misinterpreted commands or unauthorized data access. 
+    During the hazard analysis, new risks emerged — particularly concerning the 
+    interaction between components, like potential failures in the Task Planning 
+    module leading to unintended system actions, or risks of dependency on unreliable 
+    external APIs. These were identified as we systematically examined each subsystem 
+    and its interface boundaries, revealing points of failure that were not apparent 
+    at a higher level.
+
+    \item \textbf{Other types of risks in software products:}  
+    Beyond physical harm, two important categories of risk are:  
+    \begin{itemize}
+        \item \textbf{Privacy and Data Security Risks:} Improper handling of user
+         data, especially for users relying on speech interfaces, can lead to 
+         breaches of sensitive personal information. Considering this is essential 
+         for maintaining user trust and legal compliance.  
+        \item \textbf{Reliability and Availability Risks:} System downtime or 
+        malfunction could prevent users from completing essential tasks, which 
+        is especially critical for those depending on assistive technologies. 
+        Evaluating and mitigating such risks ensures consistent accessibility and 
+        improves user confidence.
+    \end{itemize}
 \end{enumerate}
 
 
