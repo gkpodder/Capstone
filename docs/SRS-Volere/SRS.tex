@@ -698,8 +698,6 @@ FUNC.R.4 & The system shall plan and execute tasks by invoking one or more softw
 FUNC.R.5 & The system shall provide textual or spoken feedback describing the status or results of the requested task. & Each executed command shall generate a confirmation message or output within 2 seconds of task completion. \\ \hline
 
 FUNC.R.6 & The system shall maintain a short-term conversational memory to handle contextual follow-up commands. & In at least 90\% of test cases, follow-up commands dependent on prior context shall be correctly interpreted. \\ \hline
-
-FUNC.R.7 & The system shall log all user interactions and task results for analysis and traceability purposes. & Each user session shall generate a verifiable log entry containing timestamped input and outcome data. \\ \hline
 \end{tabular}
 \caption{Functional Requirements and Fit Criteria}
 \end{table}
@@ -710,8 +708,8 @@ FUNC.R.7 & The system shall log all user interactions and task results for analy
 \begin{tabular}{|p{2.5cm}|p{8cm}|p{5cm}|}
 \hline
 \textbf{Req\#} & \textbf{Requirement} & \textbf{Fit Criterion} \\ \hline
+FUNC.R.7 & The system shall log all user interactions and task results for analysis and traceability purposes. & Each user session shall generate a verifiable log entry containing timestamped input and outcome data. \\ \hline
 FUNC.R.8 & The system shall operate without requiring the user to interact with low-level system interfaces (e.g., OS file paths or command-line tools). & In usability tests, 100\% of user operations shall be achievable through high-level natural language commands only. \\ \hline
-
 FUNC.R.9 & The system shall ensure that all agent actions requiring system-level access request user confirmation before execution. & Each privileged action (e.g., deleting files) shall trigger a confirmation request and require explicit user approval. \\ \hline
 \end{tabular}
 \caption{Functional Requirements and Fit Criteria - Continued}
