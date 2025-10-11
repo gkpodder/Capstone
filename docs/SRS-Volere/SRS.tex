@@ -46,8 +46,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Notes}}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+10/10/2025 & 1.0 & Added Initial SRS\\
 \bottomrule
 \end{tabularx}
 
@@ -185,21 +184,97 @@ user manuals to support future use and potential handoff of the project after co
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\lips
+\begin{enumerate}
+    \item The application must be lightweight and run without requiring any 
+    speacial hardware
+    \item The application will operate without requiring user accounts or 
+    signups.
+\end{enumerate}
+
 \subsection{Implementation Environment of the Current System}
-\lips
+\begin{enumerate}
+    \item The application is designed to run on the personal computers of the 
+    users running mainstream operating systems like Windows and MacOS.
+    \item The application uses standard I/O devices like mice, keyboards, mics, 
+    and screens to interact with the user.
+    \item The software bundle includes JavaScript support, the MCP (modular 
+    control platform) and any other required libraries.
+\end{enumerate}
+
 \subsection{Partner or Collaborative Applications}
-\lips
+\begin{enumerate}
+    \item The application may use AI services via secure APIs for natural 
+    language processing and logic.
+    \item Integration with external accessibility tools like screen readers may 
+    be supported to enhance usability for older adults and users with 
+    disabilities.
+\end{enumerate}
+
 \subsection{Off-the-Shelf Software}
-\lips
+The application will use off-the-shelf software components to reduce devlopement
+ time:
+ \begin{enumerate}
+    \item MCP (Modular Control Platform) will be used for accessibility and 
+    interface  management.
+    \item JavaScript libraries and frameworks will be used to implement 
+    interactive elements and handle input/output operations.
+    \item LLM services will be used to provide natural language responses and 
+    reasoning capabilities. The application does not require a specialized 
+    model, so no additional training will be necessary. An off-the-shelf LLM is 
+    sufficient to deliver accurate and reliable results for the intended 
+    functionality.
+\end{enumerate}
+
 \subsection{Anticipated Workplace Environment}
-\lips
+\begin{enumerate}
+    \item The application is expected to run on the personal computers of the 
+    users at their homes or assited-living facilities.
+    \item The application will be used primarily on Windows and MacOS operating 
+    systems.
+    \item The system is designed for users with limited technical experience, 
+    including older adults and people with disabilities, requiring a simple, 
+    intuitive interface.
+    \item Devices may vary in screen size, input methods, and processing power, 
+    so the app must function on standard consumer computers without 
+    specialized hardware.
+    \item Environmental factors such as background noise or poor acoustics may 
+    affect voice interactions. Therefore, the application shall provide 
+    alternative input methods, such as text or on-screen controls, to ensure 
+    usability when voice input is infeasible.
+\end{enumerate}
+
+
 \subsection{Schedule Constraints}
-\lips
+Development will follow the planned project timeline ensuring that deliverables 
+are completed before the deadlines.
+
+\begin{table}[!h]
+\caption{Project Timeline} \label{ProjScheduling}
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+\textbf{Deliverable} & \textbf{Deadline} \\
+\midrule
+Req. Doc. and Hazard Analysis Revision 0 & October 6, 2025 \\
+V\&V Plan Revision 0 & October 27, 2025 \\
+Design Document Revision -1 & November 10, 2025 \\
+Design Document Revision 0 & January 19, 2026 \\
+Revision 0 Demonstration &  February 13, 2026\\
+V\&V Report and Extras Revision 0 & March 09, 2026 \\
+Final Demonstration (Revision 1)  &  March 29, 2026 \\
+EXPO Demonstration & TBD \\
+Final Documentation (Revision 1) & April 06, 2026 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \subsection{Budget Constraints}
-\lips
+The project budget is limited to \$500 in total expenditure. Of this \$500, 
+\$125 will be provided by the CAS department for approved expenses.
+
 \subsection{Enterprise Constraints}
-\lips
+There are no enterprise constraints for this application. The application will 
+be allowed to use any service or LLM as required as long as it adheres to the 
+budget constraints. This ensures flexibility and future adaptability.
 
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
@@ -840,25 +915,76 @@ FUNC.R.9 & The system shall ensure that all agent actions requiring system-level
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Open Access:} The application will be available publicly 
+    and no user registration or account is required.
+    \item \textbf{Permission Access:} Any necessary permissions, such as 
+    microphone or screen access, must be explicitly granted by the user.
+\end{enumerate}
+
+
 \subsection{Integrity Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Data Integrity:} The system shall ensure that any stored 
+    or transmitted data is protected from unauthorized alteration or corruption.
+\end{enumerate}
+
+
+
 \subsection{Privacy Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{User Data Storage:} Any stored user data will be stored 
+    acording to PIPEDA.
+    \item \textbf{Third Party Data Storage:} If any external APIs are used, only 
+    minimal, non identifiable data may be transmitted. These services must 
+    adhere to GDPR. The user must also explicitly accept the privacy policies 
+    of these third party services.
+\end{enumerate}
+
 \subsection{Audit Requirements}
-\lips
+There are no audit requirements for the application. The application does not 
+store user data, maintain user accounts or perform any actions that require 
+tracking or verification. There is nothing that requires audits or security 
+reviews. The privacy focused design eliminates the need for audit trails.
+
 \subsection{Immunity Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Secure Practices:} The application must be to prevent DDos 
+    Attacks, SQL injection, and unauthorized access.
+    \item \textbf{Third Party Safety:} All third party libraries and 
+    dependencies must be up to date and scanned for vulnerabilities.
+\end{enumerate}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Respectful and Neutral Interaction:} The application shall use
+    polite, culurally neutral language, avoid slangs and any references that may
+    confuse or offend users.
+    \item \textbf{Language Support:} The application shall support multiple
+    languages and will allow users to interact in their preferred language.
+\end{enumerate}
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Adherence to PIPEDA:} The application will adhere to PIPEDA 
+    for any stored user data.
+    \item \textbf{Copyright and IP:} The application shall be distributed under
+    the MIT license; allowing for free use, modification and distribution as
+    long as the original license and copyright notice is also included.
+\end{enumerate}
+
+
 \subsection{Standards Compliance Requirements}
-\lips
+\begin{enumerate}
+    \item \textbf{Adherence to Accessibility Standards:} The application will
+    follow WCAG 2 to ensure accessibility for users with disabilities.
+    \item \textbf{Adherence to Coding Standards:} The application should 
+    follow ISO 25010 and ISO 27001 to ensure delivery of high quality and secure
+    software.
+\end{enumerate}
+
 
 \section{Open Issues}
 
@@ -979,9 +1105,81 @@ After deployment, additional challenges may emerge that require monitoring and m
 
 \section{Tasks}
 \subsection{Project Planning}
-\lips
+\begin{enumerate}
+    \item The project will follow a iterative and incremental development plan. 
+    Early prototyping along with continuous feedback from beta users will help 
+    address defects early.
+    \item Core stages will include requirements, system design, development, 
+    testing, and deployment.
+    \item Developers will be responsible for coming up with test cases (unit 
+    and functional tests), so sufficient time should also be allocated to 
+    writing test cases.
+\end{enumerate}
+
 \subsection{Planning of the Development Phases}
-\lips
+Since development will be interative and incremental, the phases are not 
+strictly linear. Development and testing, in particular, will be repeated 
+iteratively as part of an incremental cycle. The Development phases will be 
+broadly divided into these phases:
+\begin{itemize}
+    \item \textbf{Requirements Phase}
+    \begin{itemize}
+        \item Identify what the system must do and it's constraints.
+        \item Come up with Functional, Non-Functional requirements.
+        \item Gather input from target users.
+    \end{itemize}
+
+    \item \textbf{System Design Phase}
+    \begin{itemize}
+        \item Create overall system architecture, high level component 
+        interactions and integrations.
+        \item Select appropriate off-the-shelf LLM model for natural language
+        processing and logic
+        \item Brainstrom and pick appropriate technology stack.
+        \item Create diagrams, mockups and data flow diagrams to aide 
+        development.
+    \end{itemize}
+
+    \item \textbf{Development Phase}
+    \begin{itemize}
+        \item Implement system according to design and feedback from previous
+        iterations.
+        \item Build the user interface using selected technology stack and 
+        integrate partner applications and technologies.
+        \item Come up with automated and manual test cases for any new features
+        added or any change in functionality. These can be added to the 
+        automated testing pipelines.
+    \end{itemize}
+
+    \item \textbf{Testing Phase}
+    \begin{itemize}
+        \item Create and conduct comprehensive test suites that include testing
+        objectives, failures, successes and stability.
+        \item Test the system with representative users, including older adults 
+        and users with disabilities, to confirm the interface is intuitive and 
+        meets accessibility standards.
+        \item Evaluate responsiveness and stability across different hardware 
+        setups, including low-spec devices.
+        \item Ensure regressions aren't introduced between successive 
+        iteractions and that new changes don't break existing features.
+        \item Document all testing results and come up with possible 
+        improvements for next development iteration.
+    \end{itemize}
+
+    \item \textbf{Deployment Phase}
+    \begin{itemize}
+        \item Ensure that instruction manuals are up to date with latest 
+        features.
+        \item Ensure installation and initial setup are simple and do not 
+        require technical expertise.
+        \item Deploy the application using the selected channel. Continuously 
+        monitor system performance and user feedback for maintenance and 
+        updates.
+        \item Maintain version control and update logs so improvements and bug 
+        fixes can be tracked systematically
+    \end{itemize}
+\end{itemize}
+
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
@@ -994,7 +1192,13 @@ No data conversion is needed. This tool works with the user’s existing files a
 created is potentially a local configuration file generated. Nothing else needs to be imported or translated from previous tools.
 
 \section{Costs}
-\lips
+To minimize costs, the project will aim to use open source and off-the-shelf 
+solutions whenever possible. Since this project is a student project as part of
+a course, development costs will not be taken into consideration. The only costs
+associated with development are related to any third-party libraries or any APIs
+used by the application. The application itself will be free to use and publicly
+available.
+
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
 \begin{itemize}
