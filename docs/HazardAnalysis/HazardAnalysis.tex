@@ -58,20 +58,28 @@ Date2 & Name(s) & Description of changes\\
 \wss{You can include your definition of what a hazard is here.}
 
 \section{Scope and Purpose of Hazard Analysis}
-The purpose of this hazard analysis is to identify and evaluate potential
-hazards associated with the Proxi system, a voice and text driven assistant 
-designed to improve accessibility and productivity. The main losses that 
-could occur due to these hazards include unintended system actions such as 
-accidental file deletion or modification, loss or exposure of user data, 
-compromised accessibility for users with disabilities, and reduced user 
-trust caused by incorrect or misleading behavior. These hazards could also
-result in significant productivity loss if critical commands fail, execute 
-incorrectly, or if accessibility features do not function as expected. 
-Although Proxi does not control hardware or safety-critical equipment, 
-its software failures could still lead to real harm in the form of data loss,
-security breaches, inefficiency, or user frustration. The goal of this analysis
-is to understand these risks early in development and plan effective ways to 
-prevent or reduce them.
+The purpose of this hazard analysis is to identify and evaluate possible
+hazards linked to the Proxi system, a voice and text driven assistant
+designed to improve accessibility and productivity for all users.
+The scope of this analysis includes the software components of Proxi such
+as the voice and text input handling, MCP integration, system automation
+features, and interaction with the desktop operating system. It also
+covers potential issues related to data handling, user commands, and
+accessibility features. Hardware failures, external network infrastructure,
+and third-party service outages are outside the scope of this analysis.
+The main losses that could occur due to these hazards include accidental
+file deletion or modification, loss or exposure of user data, compromised
+accessibility for people with disabilities, and reduced user trust caused
+by incorrect or misleading actions. These issues could also lead to major
+productivity loss if important commands fail, run incorrectly, or if key
+accessibility features stop working as expected. Even though Proxi does
+not control hardware or other safety-critical devices, failures in the
+software could still cause real harm through data loss, security breaches,
+inefficiency, or user frustration.
+The goal of this hazard analysis is to find and understand these risks
+early in the project so that effective prevention and mitigation
+strategies can be planned and built into the design.
+
 
 \section{System Boundaries and Components}
 
