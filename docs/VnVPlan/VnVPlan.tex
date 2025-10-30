@@ -3,6 +3,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -167,96 +168,314 @@ Validation activities for Project Proxi:
 \end{itemize}
 
 \section{Plan}
+This section outlines the strategy for Verification and Validation (V\&V)
+across all phases of the Project Proxi lifecycle. The plan defines the roles
+and responsibilities of the V\&V team and specifies structured approaches for
+verifying the Software Requirements Specification (SRS), Design, and
+Implementation, as well as the approach for Software Validation. This
+systematic process increases confidence in the correctness, accessibility,
+and reliability of the final system.
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
+Verification ensures that the system is built correctly and meets its stated
+requirements, while validation confirms that the right system has been built
+for its intended users. Both static techniques (reviews, inspections, and
+walkthroughs) and dynamic techniques (testing and user evaluations) are used.
+All artifacts, results, and issues are tracked through GitHub for full
+traceability between requirements, test cases, and evidence.
 
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+The V\&V activities are shared among all members of the Proxi team. Each
+member’s role leverages their technical strengths while maintaining overlap
+to ensure redundancy and consistent quality assurance. All verification tasks
+and results are peer-reviewed, documented, and tracked in GitHub.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3cm}|p{3.5cm}|p{7.5cm}|}
+\hline
+\textbf{Name} & \textbf{Role} & \textbf{V\&V Responsibilities} \\ \hline
+Savinay Chhabra & Team-Lead/ Project-Manager &
+Coordinates all V\&V activities, schedules document and design reviews,
+ensures traceability matrices are complete, and validates plan feasibility. \\
+\hline
+Amanbeer Singh Minhas & Verification Engineer / Documentation Lead &
+Authors test specifications, manages accessibility validation (WCAG 2.1 AA),
+executes FR and NFR tests, and maintains V\&V evidence and metrics. \\
+\hline
+Gourob Podder & AI/Backend Developer &
+Verifies accuracy and latency of voice-recognition and NLP modules,
+conducts integration and performance tests, and performs code inspections. \\
+\hline
+Ajay Singh Grewal & Front-End / Integration Engineer &
+Implements automated UI tests, validates responsiveness and error handling,
+and ensures cross-platform consistency and workflow reliability. \\
+\hline
+Team Proxi & Quality-Assurance and Review Team &
+Participate in peer reviews of all documents (SRS, MIS, V\&V, and Hazard
+Analysis). Execute assigned system and unit tests, record results, file issues
+on GitHub, and contribute to final validation reports \\
+\hline
+\end{tabular}
+\caption{Verification and Validation Team Roles}
+\label{tab:1}
+\end{table}
 
 \subsection{SRS Verification}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
+The Software Requirements Specification (SRS) will be verified using a
+structured review process involving internal checks, peer feedback, and
+automated validation. The goal is to confirm that all requirements are clear,
+consistent, and ready for design and testing.
 
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Stages:}
+\begin{itemize}
+\item \textbf{Internal Team Review:}  
+  Each team member reviews assigned SRS sections to ensure requirements are
+  clearly written, uniquely numbered, and testable. Feedback and questions are
+  added as GitHub issues under the ``SRS-review'' tag for tracking.
+\item \textbf{Peer Team Feedback:}  
+  Another project team will review our SRS to identify unclear or missing
+  requirements. Their comments will be discussed in a short review meeting,
+  and agreed changes will be included in the next SRS revision.
+\item \textbf{Automated Consistency and Traceability Check:}  
+  Scripts and manual scans confirm that every requirement label (FR, NFR, etc.)
+  appears in the traceability table and links to a planned test in the V\&V
+  Plan. Any missing or duplicate IDs will be flagged for correction.
+\item \textbf{Team Validation Meeting:}  
+  After all updates, the team meets to confirm that project goals such as
+  accessibility, reliability, and usability are fully captured in the SRS.
+  The final version is approved as the baseline for design and testing.
+\end{itemize}
 
-\wss{Maybe create an SRS checklist?}
+\textbf{Tools Used:}
+\begin{itemize}
+\item GitHub Issues and Projects for tracking comments and progress.
+\item Review checklists for verifying requirement structure and numbering.
+\item Simple scripts to detect missing or duplicate requirement IDs.
+\item Revision history documenting updates and approvals.
+\end{itemize}
 
 \subsection{Design Verification}
 
-\wss{Plans for design verification}
+The design of Project Proxi will be verified through focused peer reviews and
+checklists to confirm that the architecture, interfaces, and data flows align
+with the approved SRS. Each review will help identify inconsistencies or
+missing details before implementation begins.
 
-\wss{The review will include reviews by your classmates}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Activities:}
+\begin{itemize}
+\item \textbf{Internal Design Review:}  
+  Team members will examine their assigned modules to ensure the design is
+  modular, consistent with SRS requirements, and feasible for implementation.
+  Each reviewer will complete a checklist covering naming conventions,
+  interface clarity, and data flow accuracy.
 
-\wss{Create a checklists?}
+\item \textbf{Cross-Team Design Review:}  
+  Another project team will review our design document and provide feedback on
+  readability, logic, and completeness. Their comments will be logged as
+  GitHub issues tagged ``Design-review'' and resolved in the next revision.
+
+\item \textbf{Walkthrough Meeting:}  
+  The team will conduct a collaborative walkthrough where each member explains
+  their subsystem’s role and connections. This helps verify that all modules
+  integrate correctly and that there are no overlapping or missing elements.
+
+\item \textbf{Traceability Check:}  
+  A simple matrix will confirm that every major design component maps to at
+  least one SRS requirement. Any unmatched modules or requirements will be
+  flagged for revision before coding starts.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Design Review Checklist Items:}
+\begin{itemize}
+\item Module responsibilities are clear and non-overlapping.
+\item Inputs, outputs, and interfaces are well defined and consistent.
+\item Data flow diagrams reflect correct information movement.
+\item Error handling and edge cases are addressed.
+\item Design supports accessibility and responsiveness goals.
+\item Traceability to the SRS is complete for all components.
+\end{itemize}
 
 \subsection{Verification and Validation Plan Verification}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
+The Verification and Validation (V\&V) Plan itself will also be verified to
+ensure it is complete, consistent, and realistic. This review confirms that
+the plan defines clear responsibilities, test coverage, and measurable
+evidence of software quality.
 
-\wss{The review will include reviews by your classmates}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Activities:}
+\begin{itemize}
+\item \textbf{Internal Review:}  
+  Team members will inspect the V\&V Plan for completeness, logical flow, and
+  consistency with other project documents such as the SRS, MIS, and Hazard
+  Analysis. Issues will be logged on GitHub under the tag ``VnV-review''.
 
-\wss{Create a checklists?}
+\item \textbf{Peer Team Review:}  
+  A partner project team will review the plan to provide external feedback on
+  clarity, organization, and feasibility. Comments will be discussed in a team
+  meeting, and accepted suggestions will be incorporated into the next version.
+
+\item \textbf{Cross-Document Consistency Check:}  
+  The team will confirm that all V\&V activities listed here appear in other
+  relevant documents and that requirement identifiers match across artifacts.
+
+\item \textbf{Review Process Validation:}  
+  Small, intentional edits (such as removing a trace link or changing a test
+  description) will be introduced to confirm that the team’s review process
+  can detect inconsistencies. This validates the effectiveness of our review
+  workflow.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{V\&V Plan Review Checklist:}
+\begin{itemize}
+\item All documents are correctly referenced and consistent.
+\item Roles and responsibilities match Table~\ref{tab:1}.
+\item Each section clearly states its purpose and expected outcomes.
+\item Traceability between requirements and tests is complete.
+\item Internal and peer review processes are clearly defined.
+\item Plan is feasible and aligned with the project timeline and tools.
+\end{itemize}
 
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+The implementation of Project Proxi will be verified through a combination of
+dynamic and static techniques to ensure the system performs correctly,
+reliably, and according to its specified design. This section summarizes how
+unit, integration, and system testing activities will be supported by
+automated tools and structured reviews.
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+\vspace{0.5em}
+\noindent\textbf{Dynamic Verification:}
+\begin{itemize}
+\item \textbf{Unit Testing:}  
+  Each software module will have dedicated unit tests as outlined in the Unit
+  Testing Plan. Tests will confirm correct outputs, data flow, and error
+  handling for voice-processing, NLP, and UI modules. Coverage results will be
+  monitored through automated reports to ensure that all major functions are
+  exercised.
 
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
+\item \textbf{Integration and System Testing:}  
+  Combined module testing will validate interactions between the speech engine,
+  user interface, and backend components. These tests correspond directly to
+  the functional and non-functional test cases listed in this document.
+
+\item \textbf{Mutation Testing:}  
+  To evaluate the quality of our test suite, small artificial faults (mutants)
+  will be introduced into the codebase. Existing unit and system tests will be
+  rerun to confirm that they detect the injected faults. A high mutation score
+  will increase confidence in the strength and completeness of our test suite.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Static Verification:}
+\begin{itemize}
+\item \textbf{Code Walkthroughs and Inspections:}  
+  Scheduled walkthrough meetings will allow each developer to explain their
+  code and receive peer feedback on structure, readability, and consistency.
+  The final class presentation will also serve as a partial code walkthrough
+  and an opportunity to discuss implementation decisions.
+
+\item \textbf{Static Analysis Tools:}  
+  Linters and analyzers (such as ESLint, Pylint, or similar) will be used to
+  detect common issues, unused variables, and potential logic errors. Results
+  will be documented as part of the verification evidence.
+
+\item \textbf{Code Review via Pull Requests:}  
+  All implementation changes will go through GitHub pull requests with at
+  least one reviewer. Reviewers will verify coding standards, style, and
+  alignment with design diagrams.
+\end{itemize}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+Automated tools will be used throughout the implementation phase to support
+testing, continuous integration, and quality assurance. These tools help
+reduce manual effort, detect regressions early, and provide measurable
+evidence of code reliability and maintainability.
 
-\wss{If you have already done this in the development plan, you can point to
-that document.}
+\vspace{0.5em}
+\noindent\textbf{Unit Testing Framework:}
+\begin{itemize}
+\item The project will use the built-in \texttt{pytest} framework for Python to
+  create and execute unit tests. Each module will have its own test file and
+  fixtures to verify inputs, outputs, and edge cases. Test results will be
+  automatically generated after every commit.
+\end{itemize}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\vspace{0.5em}
+\noindent\textbf{Continuous Integration (CI):}
+\begin{itemize}
+\item GitHub Actions will be configured to automatically run unit, integration,
+  and system tests whenever new code is pushed. The CI workflow will include
+  static analysis, linting, and coverage checks. Test outcomes and code
+  coverage metrics will be displayed in each pull request.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Code Coverage and Reporting:}
+\begin{itemize}
+\item Tools like \texttt{coverage.py} will be used to measure how much of the source code is
+  executed during tests. Reports will include statement, branch, and function
+  coverage. The goal is to maintain at least 85\% overall coverage. Coverage
+  summaries will be included in milestone reports.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Static Analysis and Linters:}
+\begin{itemize}
+\item Static analyzers such as \texttt{pylint} and \texttt{flake8} will check for
+  syntax errors, unused variables, and potential logic flaws. These tools also
+  verify that code follows project style guidelines and maintainability rules.
+  Results will be logged and tracked as part of the verification evidence.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Build and Automation Utilities:}
+\begin{itemize}
+\item The project will use \texttt{make} commands and scripts to automate
+  environment setup, dependency installation, and test execution. This ensures
+  consistent testing results across all development machines.
+\end{itemize}
 
 \subsection{Software Validation}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
+Software validation confirms that Project Proxi satisfies user needs and
+performs as intended in realistic scenarios. The focus is on demonstrating
+that the system achieves its goals of accessibility, responsiveness, and ease
+of use for all users, including those with limited mobility or vision.
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+\vspace{0.5em}
+\noindent\textbf{Planned Validation Activities:}
+\begin{itemize}
+\item \textbf{User Testing Sessions:}  
+  A small group of peers and volunteers will perform task-based evaluations,
+  such as launching applications, dictating text, and managing files through
+  voice commands. Their feedback will measure ease of learning, efficiency,
+  and satisfaction.
 
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
+\item \textbf{Accessibility Validation:}  
+  Validation will focus on confirming compliance with WCAG 2.1 AA
+  accessibility principles. Voice feedback clarity, contrast, and response
+  times will be recorded and compared with expected usability metrics defined
+  in the SRS.
 
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
+\item \textbf{Stakeholder Review Session:}  
+  The team will present the system in a demonstration that acts as a Rev 0
+  validation milestone. Feedback from course staff and classmates will be
+  collected through short surveys and used to improve the user experience.
 
-\wss{This section might reference back to the SRS verification section.}
+\item \textbf{External Data and Comparison:}  
+  Where available, open-source voice datasets will be used to validate recognition
+  accuracy against baseline results. This ensures that the system behaves consistently
+  with established standards.
+\end{itemize}
+
 
 \section{System Tests}
 
