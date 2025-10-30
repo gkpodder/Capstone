@@ -321,62 +321,243 @@ How test will be performed:
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+In here specific tests are defined to help determine if Proxi's nonfunctional
+requirements have been met.  Every test in this will look at the requirements
+from the SRS and determine how every result will be verified.
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Look and Feels Requirements}
 
 \begin{enumerate}
+					
+\item{Test NF.LF.1 - UI Conformance and Readability\\}
+\textbf{Type:} Static inspection and Manual
+          
+\textbf{Initial State:} The latest UI build
+          
+\textbf{Input/Condition:} Walkthrough the man screens and all of the status
+indicators (listening, thinking, and ready) all with a checklist.
+          
+\textbf{Output/Result:} Presence and visibility of main controls such as listen,
+stop, and undo; minimal clutter and advanced options hidden; large targets and
+a theme toggle being present. 
+          
+\textbf{How test will be performed:} In this two reviewers will go through the
+UI and check off the items on the checklist.
 
-\item{test-id1\\}
+\textbf{Nonfunctional Requirements Covered:} APP.1 - APP.5
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\item{Test NF.LF.2 - Test Style and Iconography Check\\}
+\textbf{Type:} Static inspection and Manual
+          
+\textbf{Initial State:} Build with speech output enabled and the UI icon set 
+implemented.
+          
+\textbf{Input/Condition:} It will be a trigger system speech, with review 
+labels, captions, and icons.
+          
+\textbf{Output/Result:} Plain, short labels; synchronized on screen captions for 
+spoken output; consistent iconography with textual labelling.
+          
+\textbf{How test will be performed:} Inspecting the strings and visual elements
+and flows; record any inconsistencies found with videos and screenshots for
+evidence.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\textbf{Nonfunctional Requirements Covered:} STY.1 - STY.3
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Usability and Humanity Requirements}
 
-...
+\begin{enumerate}
+					
+\item{NF.US.1 - Task Based Usability and Learnability Study\\}
+\textbf{Type:} Dynamic with manual usability test that will have timed tasks and
+a survey.
+          
+\textbf{Initial State:} New users will get a 5 minute orientation to Proxi.
+          
+\textbf{Input/Condition:} Doing the core tasks such as opening the app, reading
+files, browsing, and saving files/actions.
+          
+\textbf{Output/Result:} A simple command button works for simple tasks; main
+actions are obvious; the participants do every task without assistance; time to
+do a repeat task decreases; examples on what to say are easily found; messages
+are simple, risky actions are confirmed, and error messages suggest next steps.
+
+\textbf{How test will be performed:} Observing timed tasks, collecting
+completion rates and any errors.
+
+\textbf{Nonfunctional Requirements Covered:} EOU.R.1 - EOU.R.3, LEA.R.1 - 
+LEA.R.2, UAP.R.1 - UAP.R.3
+
+\item{NF.US.2 - Accessibility, personalization, and AODA/WCAG conformance\\}
+\textbf{Type:} Dynamic test and accessibility inspection
+          
+\textbf{Initial State:} Build with voice only pathway enabled; captions, text
+scaling, and color contrast tools implemented.
+          
+\textbf{Input/Condition:} There is voice only interactive execution of setup
+and exit; repeated dictation sessions with captions enabled and locale set to
+English.
+          
+\textbf{Output/Result:} All actions are possible with voice only; captions,
+scaling, and contrast verified; speech model adaption over user session are 
+noticeable; Canadian english formats are used.
+
+\textbf{How test will be performed:} Run some WCAG checks, verify locale outputs,
+and have users test the voice only pathway.
+
+\textbf{Nonfunctional Requirements Covered:} ACC.R.1 - ACC.R.2, PER.R.1 - 
+PER.R.2
+
+\end{enumerate}
+
+\subsubsection{Performance Requirements}
+
+\begin{enumerate}
+
+\item{NF.PF.1 - Performance Study\\}
+\textbf{Type:} Dynamic, mostly automatic performance testing
+          
+\textbf{Initial State:} Standard hardware environment with typical system load
+          
+\textbf{Input/Condition:} Speak a small scripted set of normal commands and a few 
+malformed ones; keep one run in a quiet room and one with moderate indoor noise. 
+Let the app run for a few hours
+          
+\textbf{Output/Result:} Respond in less than 2 seconds; actions should be done
+with 80 to 90 percent accuracy; features load fast; settings are kept; rollbacks
+fast.
+
+\textbf{How test will be performed:} Time commands, tally accuracy, log resources,
+and perform updates and rollbacks.
+
+\textbf{Nonfunctional Requirements Covered:} SAL.R.1-R.2, SAF.R.1-R.2, POA.R.1-R.2,
+CAP.R.1-R.2, SOE.R.1-R.2, LON.R.1-R.2.
+
+\end{enumerate}
+
+\subsubsection{Operational and Enviromental Requirements}
+
+\begin{enumerate}
+
+\item{NF.OP.1 - Environment, ecosystem fit, interfaces, packaging, and release\\}
+\textbf{Type:} Dynamic and checklist based testing
+          
+\textbf{Initial State:} Fresh install on Windows/macOS with integrations turned
+on.
+
+\textbf{Input/Condition:} Use the app indoors, with normal environment, 
+including noise, temperature, and distance; clean install; check release info
+
+\textbf{Output/Result:} Works within env bounds; does not disrupt other apps; 
+uses secure interfaces with logs; installs easily; versioned and documented
+releases.
+
+\textbf{How test will be performed:} Spot checking tasks and env, glancing at 
+traffic + logs, running clean installs, and reviewing the releasing page. 
+
+\textbf{Nonfunctional Requirements Covered:} EPE.R.1-R.4; WER.R.1-R.2; 
+IAS.R.1-R.4; PRD.R.1-R.3; REL.R.1-R.2
+
+\end{enumerate}
+
+\subsubsection{Maintability and Support Requirements}
+
+\begin{enumerate}
+
+\item{NF.MS.1 - Onboarding, support, and adaptability\\}
+\textbf{Type:} Light task trial and checklist based testing
+          
+\textbf{Initial State:} Fresh clone; Report Problem presentable and the config 
+editable.
+
+\textbf{Input/Condition:} A new person builds and runs using the README; they add
+one small tool through the registry; generate support bundle; and change default 
+apps via the config and retry.
+
+\textbf{Output/Result:} The build run succeeds; the tool added without touching
+others; the support bundle has logs and info, it still works after the default 
+app change.
+
+\textbf{How test will be performed:} Time the setup, add and register the tool,
+click report to inspect the ZIP, and switch default apps and retest.
+
+\textbf{Nonfunctional Requirements Covered:} 14.1-1, 14.1-2; 14.2-1, 14.2-2; 
+14.3-1, 14.3-2
+
+\end{enumerate}
+
+\subsubsection{Security Requirements}
+
+\begin{enumerate}
+
+\item{NF.SEC.1 - Access, integrity, privacy, audit stance, immunity\\}
+\textbf{Type:} Permission checks and quick scans
+
+\textbf{Initial State:} Fresh install; privacy policy; dependency scanner.
+
+\textbf{Input/Condition:} Trigger sensitive actions; look for stored and sent data;
+run dependency scans.
+
+\textbf{Output/Result:} No account needed; sensitive actions require explicit grants;
+data is protected; minimal third party data accessed with consent; no audit trails
+are left; no known vulnerabilities in dependencies.
+
+\textbf{How test will be performed:} Start flows that require permissions, look 
+for traffic and logs, and run dependency scans. Run SCA scans.
+
+\textbf{Nonfunctional Requirements Covered:} ACS-01, ACS-02; INT-01; PRIV-01; 
+IMM-01, IMM-02
+
+\end{enumerate}
+
+\subsubsection{Cultural Requirements}
+
+\begin{enumerate}
+
+\item{NF.CUL.1 - Language and Tone\\}
+\textbf{Type:} Quick review of content
+
+\textbf{Initial State:} Final strings and language selector.
+
+\textbf{Input/Condition:} Scan common screens and messages. Switch languages and 
+check key screens.
+
+\textbf{Output/Result:} Polite neutral wording; multiple languages will be usable 
+for many basic flows.
+
+\textbf{How test will be performed:} Two people will go through the common screens
+and messages; one person will switch languages, complete tasks, and check key 
+screens.
+
+\textbf{Nonfunctional Requirements Covered:} CULR-01, CULR-02
+
+\end{enumerate}
+
+\subsubsection{Compliance Requirements}
+
+\begin{enumerate}
+
+\item{NF.CUL.1 - Legal and standards\\}
+\textbf{Type:} Checklist
+
+\textbf{Initial State:} Licenses, privacy policy, accessibility notes in repo
+and release.
+
+\textbf{Input/Condition:} Map behaviors to legal and standards checklist. This 
+includes PIPEDA, MIT.
+
+\textbf{Output/Result:} PIPEDA IS followed; all licenses are compatible and
+included. The given standards are followed correctly.
+
+\textbf{How test will be performed:} Check policies vs behaviors, open the
+LICENSE and release notes, do quick scan and spot check, and confirm protocols
+are secure.
+
+\textbf{Nonfunctional Requirements Covered:} CULR-01, CULR-02
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
 
