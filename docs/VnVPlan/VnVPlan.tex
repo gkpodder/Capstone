@@ -73,8 +73,8 @@ in.}
   \bottomrule
 \end{tabular}\\
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
+% \wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
+%   \citep{SRS} tables, if appropriate}
 
 \wss{Remove this section if it isn't needed}
 
@@ -88,57 +88,83 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 \section{General Information}
 
 \subsection{Summary}
-
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+The aim of this document is to layout the verification and validation plan for
+Project Proxi. Project Proxi is an AI powered voice assistant which allows it's 
+users to use their voice to interface with their computer. The general target 
+demographic for Project Proxi is seniors and individuals with disabilities who 
+wouldn't otherwise be able to use their computers for varying tasks. 
 
 \subsection{Objectives}
+The main objective of the Verification and Validation (V\&V) plan is to confirm
+that Project Proxi satisfies it's stated functional and non functional 
+requirements; and fulfuills its primary purpose of enhancing computer 
+accessibility for seniors and individuals with disabilities.
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The principal objectives that this VnV plan aims to meet are:
+\begin{itemize}
+  \item \textbf{Verify Functional Correctness:} Ensure that the features 
+  described in the SRS are implemented and behave as expected through Unit, 
+  Integration and System Level testing.
+  \item \textbf{Validate Usability and Accessibility:} demonstrate that users 
+  within the target demographic can effectively operate the system using natural
+  language commands while meeting the relevant accessibility standards like 
+  WCAG 2.
+  \item \textbf{Assess Performance and reliability:} Confirm the application 
+  meets performance, stability and error goals as defined in the SRS document.
+  \item \textbf{Hardware Compatibility Testing:} Meet verficiation goals on a 
+  variety of consumer hardware devices. Speacialized or adaptive devices will
+  not be included; only commercially available Windows/MacOS Computers.
+\end{itemize}
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+Out of scope objectives include Extensive long-term field usability studies, 
+comprehensive privacy compliance, and Speacialized Hardware Testing. The project
+will assume that any external libraries have already been verfied by their 
+respective development team. These exclusions are justified given the project's 
+limited time, budget and academic context. Verification efforts are therefore 
+directed towards objectives that help meet core software requirements.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
 
 \subsection{Challenge Level and Extras}
 
-\wss{State the challenge level (advanced, general, basic) for your project.
-Your challenge level should exactly match what is included in your problem
-statement.  This should be the challenge level agreed on between you and the
-course instructor.  You can use a pull request to update your challenge level
-(in TeamComposition.csv or Repos.csv) if your plan changes as a result of the
-VnV planning exercise.}
+This project does not include a designated challenge level, as its primary focus
+ is on the development and validation of a functional, accessible, and 
+ user-friendly AI-powered desktop assistant. The project scope aligns with the 
+ general expectations of the capstone course and emphasizes reliability, 
+ usability, and compliance with accessibility standards rather than advanced 
+ AI research or complex algorithmic innovation.
 
-\wss{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your extras (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+
+This project includes the following approved extras:
+\begin{itemize}
+  \item \textbf{User Manual:} A user manual that explains how to install, setup,
+  and use the software on a day-to-day basis.
+  \item \textbf{Usability Report:} A usability report will be developed that 
+  will assess the systems core objectives and requirements. It will summarize 
+  the results of testing as specfied in the SRS doc.
+\end{itemize}
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
-
-\citet{SRS}
-
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+The following documentation is directly relevant to the Verification and 
+Validation activities for Project Proxi:
+\begin{itemize}
+  \item \textbf{Development Plan [\citet{DevPlan}]:} This document defines the overall project 
+  workflow, timelines and milestones for the different phases of the project.
+  \item \textbf{Problem Statement and Goals [\citet{ProbStatement}]:}: This document defines the problems,
+   goals and stakeholders of the project.
+  \item \textbf{Software Requirements Specification [\citet{SRS}]:}  Describes the 
+  functional and non functional requirements of the project.
+  \item \textbf{Hazard Analysis [\citet{HazardAnalysis}]:} This document identifies any potenital sources
+  of harm or risk that may be associated with the project. Potential risks like
+  unauthorized access, misuse or data breaches and their mitigation strategies 
+  are documented here.
+  \item \textbf{Usability Report[\citet{UsabilityReport}]:} Includes results of user evaluation and beta 
+  testing during validation stage. It summarizes key findings related to the 
+  system meeting it's design and usability goals.
+  \item \textbf{User Manual [\citet{UserManual}]:} Provides documentation that explains how to 
+  install, setup and use the software. Includes helpful instruction along with 
+  walkthroughs and examples to help users with varying techincal proficiency.
+\end{itemize}
 
 \section{Plan}
 
