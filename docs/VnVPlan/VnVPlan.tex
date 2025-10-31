@@ -481,233 +481,173 @@ and system safety.
 
 \subsection{Tests for Functional Requirements}
 
-The following subsections describe the test areas and their corresponding
-functional requirements. References to the SRS ensure traceability between
-requirements and their verification procedures.
+The following tests verify that each functional requirement defined in the SRS
+has been properly implemented and behaves as intended. Each test specifies the
+type of testing, initial system state, inputs and expected results, and how the
+test will be performed.
 
-\subsubsection{Input Processing Tests (FUNC.R.1–FUNC.R.2)}
-
-These tests verify that the system correctly accepts user input via both speech
-and text, and that speech input is accurately converted into text using the ASR
-module. These correspond to the input handling constraints defined in the SRS
-Section 3.1.
-
-\paragraph{Test 1: Dual Input Interface Verification (FUNC.R.1)}
+\subsubsection{Input and Recognition Requirements (FUNC.R.1–FUNC.R.2)}
 
 \begin{enumerate}
-    \item \textbf{Purpose:} Verify that the system correctly accepts and processes
-    both speech and text commands.
-    \item \textbf{Setup:} Use a set of 100 predefined valid commands (e.g.,
-    “Open browser”, “Create a document”, “Check my email”).
-    \item \textbf{Input:} 50 commands via text input and 50 via spoken input.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Launch the system and ensure the microphone and text console
-            interfaces are active.
-            \item Issue each command once via the designated input mode.
-            \item Record whether the system successfully recognizes and processes
-            the input.
-        \end{enumerate}
-    \item \textbf{Expected Result:} At least 95\% of valid inputs (speech or text)
-    are correctly recognized and processed.
+
+\item{Test FUNC.R.1 - Speech and Text Input Acceptance\\}
+\textbf{Type:} Functional / Manual Testing
+
+\textbf{Initial State:} System initialized and idle at the main interface.
+
+\textbf{Input/Condition:} Users provide 20 valid commands — 10 by text input (keyboard)
+and 10 by speech through the microphone interface. Commands include examples like
+“Open the calendar,” “What’s the weather today?”, and “Send an email to John.”
+
+\textbf{Output/Result:} System correctly recognizes and processes at least 95\% of both
+speech and text inputs, generating the corresponding interpreted command in the console
+or display window.
+
+\textbf{How test will be performed:} Each input is logged automatically. The test supervisor
+will compare recognized commands to expected ones and calculate the success rate. Failures
+and misinterpretations will be noted for analysis.
+
+\item{Test FUNC.R.2 - Speech-to-Text Accuracy (ASR Module)\\}
+\textbf{Type:} Functional / Automated Evaluation
+
+\textbf{Initial State:} System with ASR module enabled and configured in a controlled
+acoustic environment.
+
+\textbf{Input/Condition:} 50 pre-recorded audio samples containing common computer commands
+spoken by 10 different speakers with varied accents.
+
+\textbf{Output/Result:} Transcribed text matches the ground-truth transcript with at least
+90\% word accuracy.
+
+\textbf{How test will be performed:} Audio samples will be batch-fed into the ASR module.
+Output transcripts will be compared to reference text using a word-error-rate (WER)
+metric to compute accuracy.
 \end{enumerate}
 
-\paragraph{Test 2: Speech-to-Text Accuracy (FUNC.R.2)}
-\begin{enumerate}
-    \item \textbf{Input:} 50 recorded speech commands from 10 different speakers 
-    with diverse accents and speech rates.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Feed each audio sample to the ASR module.
-            \item Capture the transcribed text output.
-            \item Compare the ASR output to the human-transcribed ground truth 
-            using word-level accuracy.
-        \end{enumerate}
-    \item \textbf{Expected Result:} The ASR module shall achieve at least 90\% 
-    word accuracy averaged across all samples.
-\end{enumerate}
-
-\subsubsection{Intent Understanding and Task Planning (FUNC.R.3–FUNC.R.4)}
-
-These tests validate the system’s ability to correctly interpret the user’s intent 
-and execute the corresponding actions via software agents. They correspond to SRS 
-requirements on natural language understanding and autonomous task execution.
-
-\paragraph{Test 3: Intent Interpretation Accuracy (FUNC.R.3)}
+\subsubsection{Intent Understanding and Task Execution (FUNC.R.3–FUNC.R.4)}
 
 \begin{enumerate}
-    \item \textbf{Purpose:} Ensure the system correctly infers user intent from 
-    natural language commands.
-    \item \textbf{Setup:} A labeled dataset of 100 commands (e.g., “Send an email
-     to John,” “Open the calculator,” “Play music”) with predefined ground truth intents.
-    \item \textbf{Input:} Each command provided as text input.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Submit each command to the system.
-            \item Record the intent as interpreted by the system.
-            \item Compare it to the ground truth label.
-        \end{enumerate}
-    \item \textbf{Expected Result:} At least 90\% of the system’s interpretations
-     match the human-labeled intent.
-\end{enumerate}
 
-\paragraph{Test 4: End-to-End Task Execution (FUNC.R.4)}
+\item{Test FUNC.R.3 - Intent Recognition Accuracy\\}
+\textbf{Type:} Functional / Automated
 
-\begin{enumerate}
-    \item \textbf{Purpose:} Verify that the system can plan and execute user tasks
-     using its agents.
-    \item \textbf{Setup:} 20 representative tasks (e.g., “Schedule a meeting,” 
-    “Open and summarize a document,” “Search the web for news headlines”).
-    \item \textbf{Input:} Commands expressed through text or speech.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Issue each task command to the system.
-            \item Observe the sequence of agent actions.
-            \item Confirm that the end goal is achieved without user intervention.
-        \end{enumerate}
-    \item \textbf{Expected Result:} At least 85\% of end-to-end tasks are completed
-     successfully.
+\textbf{Initial State:} Natural language understanding (NLU) component initialized
+with trained intent classification model.
+
+\textbf{Input/Condition:} 100 labeled user commands in natural language, each mapped
+to a known ground-truth intent (e.g., send email, open browser, play music).
+
+\textbf{Output/Result:} In at least 90\% of cases, the intent predicted by the system
+matches the labeled ground truth.
+
+\textbf{How test will be performed:} A test script feeds the commands into the NLU module.
+Predicted intents are logged and compared to human-labeled references for accuracy scoring.
+
+\item{Test FUNC.R.4 - Task Planning and Execution Success Rate\\}
+\textbf{Type:} Functional / Integration
+
+\textbf{Initial State:} System active with available software agents and network
+connectivity.
+
+\textbf{Input/Condition:} 20 representative high-level commands (e.g., “Schedule a
+meeting,” “Search the web for news,” “Summarize this document”).
+
+\textbf{Output/Result:} Agents execute actions successfully and complete tasks in at
+least 85\% of test cases.
+
+\textbf{How test will be performed:} Commands are executed sequentially. Testers verify
+that each resulting task outcome matches the intended user goal. Failures are logged
+with error cause (planning vs. execution failure).
 \end{enumerate}
 
 \subsubsection{Feedback and Responsiveness (FUNC.R.5)}
 
-These tests ensure that the system provides timely and informative feedback to 
-users following task completion, consistent with the feedback mechanisms described
- in SRS Section 3.2.
-
-\paragraph{Test 5: Task Feedback Timing (FUNC.R.5)}
-
 \begin{enumerate}
-    \item \textbf{Purpose:} Ensure the system provides feedback or confirmation 
-    promptly after task execution.
-    \item \textbf{Setup:} 20 typical user tasks executed under normal system load.
-    \item \textbf{Input:} Commands like “Create a note,” “Send a message,” and 
-    “What’s the weather today?”
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Issue each command and start a timer upon task completion.
-            \item Measure time taken for textual or spoken feedback to appear.
-        \end{enumerate}
-    \item \textbf{Expected Result:} Confirmation or feedback message appears 
-    within 2 seconds after task completion for all test cases.
+
+\item{Test FUNC.R.5 - Response Feedback Timing\\}
+\textbf{Type:} Performance / Manual Timing
+
+\textbf{Initial State:} System ready to execute user commands.
+
+\textbf{Input/Condition:} 10 varied user tasks executed (e.g., “Create a note,” “Check
+calendar,” “Send a message”).
+
+\textbf{Output/Result:} Each command generates a feedback or confirmation message within
+2 seconds of task completion.
+
+\textbf{How test will be performed:} A timer will start at the moment of task completion.
+Feedback appearance time is recorded for each trial. Average and max response times will
+be compared to the 2-second threshold.
 \end{enumerate}
 
 \subsubsection{Contextual Memory and Logging (FUNC.R.6–FUNC.R.7)}
 
-These tests verify that the system maintains short-term conversational context 
-and properly logs user interactions for traceability.
-
-\paragraph{Test 6: Contextual Follow-Up Command Handling (FUNC.R.6)}
-
 \begin{enumerate}
-    \item \textbf{Purpose:} Ensure that the system correctly interprets follow-up 
-    commands that rely on prior context.
-    \item \textbf{Setup:} 20 conversational sequences with contextual dependencies 
-    (e.g., “Open my calendar.” → “Add a meeting at 2 PM.” → “Move it to tomorrow.”)
-    \item \textbf{Input:} Commands issued sequentially through text interface.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Start a session and provide the first command.
-            \item Follow with one or more context-dependent commands.
-            \item Record whether each follow-up command is correctly interpreted 
-            in context.
-        \end{enumerate}
-    \item \textbf{Expected Result:} At least 90\% of follow-up commands are correctly 
-    interpreted using short-term memory.
-\end{enumerate}
 
-\paragraph{Test 7: Interaction and Task Logging Verification (FUNC.R.7)}
+\item{Test FUNC.R.6 - Contextual Follow-Up Command Interpretation\\}
+\textbf{Type:} Functional / Manual Sequence Test
 
-\begin{enumerate}
-    \item \textbf{Purpose:} Verify that all user interactions and outcomes are 
-    properly logged with timestamps.
-    \item \textbf{Setup:} Enable system logging and perform 10 representative user
-     sessions with varied tasks.
-    \item \textbf{Input:} Speech and text commands across multiple tasks.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Execute all sessions.
-            \item Inspect the generated log files.
-            \item Verify presence of timestamped entries for each input, system 
-            action, and outcome.
-        \end{enumerate}
-    \item \textbf{Expected Result:} Each session generates complete, timestamped 
-    logs for all interactions.
+\textbf{Initial State:} System with active short-term conversational memory.
+
+\textbf{Input/Condition:} 20 conversational command sequences (e.g., “Open my calendar” →
+“Add meeting at 2 PM” → “Move it to tomorrow”).
+
+\textbf{Output/Result:} Follow-up commands correctly interpreted in at least 90\% of
+cases based on prior context.
+
+\textbf{How test will be performed:} Each conversation sequence is entered by testers.
+The interpreted action and memory context will be reviewed to ensure proper resolution
+of pronouns and implicit references.
+
+\item{Test FUNC.R.7 - Interaction and Task Logging Verification\\}
+\textbf{Type:} Functional / Inspection
+
+\textbf{Initial State:} Logging module enabled with write access to local or cloud storage.
+
+\textbf{Input/Condition:} 10 user sessions including a mix of successful and failed
+tasks performed via speech and text.
+
+\textbf{Output/Result:} Each session generates a timestamped log containing input,
+interpreted intent, actions performed, and results.
+
+\textbf{How test will be performed:} After each session, reviewers inspect the log file
+for completeness and proper formatting (timestamp, session ID, action outcome).
 \end{enumerate}
 
 \subsubsection{Usability and Safety (FUNC.R.8–FUNC.R.9)}
 
-These tests ensure users can interact entirely through natural language and that 
-all privileged operations require explicit confirmation.
-
-\paragraph{Test 8: High-Level Command Accessibility (FUNC.R.8)}
-
 \begin{enumerate}
-    \item \textbf{Purpose:} Confirm that all user operations are achievable through 
-    natural language, without needing system-level commands.
-    \item \textbf{Setup:} Usability test with 10 participants performing 10 typical 
-    tasks (e.g., managing files, checking email, browsing web).
-    \item \textbf{Input:} Natural language commands spoken or typed by participants.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Observe and record whether participants need to use low-level interfaces 
-            (e.g., file paths or CLI commands).
-        \end{enumerate}
-    \item \textbf{Expected Result:} 100\% of tasks are completed using natural language 
-    commands only.
+
+\item{Test FUNC.R.8 - High-Level Command Usability\\}
+\textbf{Type:} Usability / Observational
+
+\textbf{Initial State:} Deployed system interface with speech and text enabled.
+
+\textbf{Input/Condition:} 10 participants attempt to complete 10 standard tasks (e.g.,
+opening documents, browsing the web, checking system info) using only natural language.
+
+\textbf{Output/Result:} 100\% of users complete tasks without needing to use low-level
+system interfaces (e.g., file paths, terminal commands).
+
+\textbf{How test will be performed:} Observers record each participant’s interactions.
+Any instance where a user needs to access a system-level interface is noted as a failure.
+
+\item{Test FUNC.R.9 - Privileged Action Confirmation\\}
+\textbf{Type:} Functional / Security Validation
+
+\textbf{Initial State:} System running with permission-sensitive agents enabled.
+
+\textbf{Input/Condition:} Privileged commands such as “Delete file,” “Shut down
+computer,” or “Access settings.”
+
+\textbf{Output/Result:} Each privileged command triggers a confirmation prompt and
+executes only after explicit user approval.
+
+\textbf{How test will be performed:} Testers issue privileged commands via both text
+and speech. Observers confirm that the system requests confirmation before any
+irreversible or high-privilege action.
 \end{enumerate}
 
-\paragraph{Test 9: Privileged Action Confirmation (FUNC.R.9)}
-
-\begin{enumerate}
-    \item \textbf{Purpose:} Ensure that all actions requiring system-level access 
-    prompt for user confirmation.
-    \item \textbf{Setup:} Prepare commands involving sensitive operations (e.g., 
-    “Delete file X,” “Shut down computer,” “Access system settings”).
-    \item \textbf{Input:} Issue each command through text and speech.
-    \item \textbf{Procedure:}
-        \begin{enumerate}
-            \item Observe whether the system generates a confirmation request before 
-            executing the action.
-            \item Record whether execution proceeds only after explicit user approval.
-        \end{enumerate}
-    \item \textbf{Expected Result:} Each privileged command triggers a confirmation 
-    request, and the action executes only upon approval.
-\end{enumerate}
-
-% \item{test-id1\\}
-
-% Control: Manual versus Automatic
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: \wss{The expected result for the given inputs.  Output is not how you
-% are going to return the results of the test.  The output is the expected
-% result.}
-
-% Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-% How test will be performed: 
-					
-% \item{test-id2\\}
-
-% Control: Manual versus Automatic
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: \wss{The expected result for the given inputs}
-
-% Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-% How test will be performed: 
-
-% \end{enumerate}
-
-% \subsubsection{Area of Testing2}
 
 
 \subsection{Tests for Nonfunctional Requirements}
