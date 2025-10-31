@@ -454,13 +454,10 @@ of use for all users, including those with limited mobility or vision.
 
 \section{System Tests}
 
-This section outlines the system-level test cases designed to verify that the
-functional requirements (FUNC.R.1-FUNC.R.9) defined in the Software Requirements
-Specification (SRS) are fully satisfied. Each test is specific and measurable,
-providing sufficient detail for replication once the system is built. The tests
-are grouped into logical areas covering input handling, natural language
-understanding, task execution, feedback mechanisms, memory management, logging,
-and system safety.
+Each test is specific and measurable, providing sufficient detail for replication 
+once the system is built. The tests are grouped into logical areas covering input 
+handling, natural language understanding, task execution, feedback mechanisms, 
+memory management, logging, and system safety.
 
 \subsection{Tests for Functional Requirements}
 
@@ -469,7 +466,7 @@ has been properly implemented and behaves as intended. Each test specifies the
 type of testing, initial system state, inputs and expected results, and how the
 test will be performed.
 
-\subsubsection{Input and Recognition Requirements (FUNC.R.1–FUNC.R.2)}
+\subsubsection{Input and Recognition Requirements}
 
 \begin{enumerate}
 
@@ -478,7 +475,7 @@ test will be performed.
 
 \textbf{Initial State:} System initialized and idle at the main interface.
 
-\textbf{Input/Condition:} Users provide 20 valid commands — 10 by text input (keyboard)
+\textbf{Input/Condition:} Users provide 20 valid commands, 10 by text input (keyboard)
 and 10 by speech through the microphone interface. Commands include examples like
 “Open the calendar,” “What’s the weather today?”, and “Send an email to John.”
 
@@ -506,8 +503,9 @@ spoken by 3 different speakers with varied accents.
 Output transcripts will be compared to reference text using a word-error-rate (WER)
 metric to compute accuracy.
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.1 - FUNC.R.2
 
-\subsubsection{Intent Understanding and Task Execution (FUNC.R.3–FUNC.R.4)}
+\subsubsection{Intent Understanding and Task Execution}
 
 \begin{enumerate}
 
@@ -542,8 +540,9 @@ least 85\% of test cases.
 that each resulting task outcome matches the intended user goal. Failures are logged
 with error cause (planning vs. execution failure).
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.3 - FUNC.R.4
 
-\subsubsection{Feedback and Responsiveness (FUNC.R.5)}
+\subsubsection{Feedback and Responsiveness}
 
 \begin{enumerate}
 
@@ -562,8 +561,9 @@ calendar,” “Send a message”).
 Feedback appearance time is recorded for each trial. Average and max response times will
 be compared to the 2-second threshold.
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.5
 
-\subsubsection{Contextual Memory and Logging (FUNC.R.6–FUNC.R.7)}
+\subsubsection{Contextual Memory and Logging }
 
 \begin{enumerate}
 
@@ -572,8 +572,8 @@ be compared to the 2-second threshold.
 
 \textbf{Initial State:} System with active short-term conversational memory.
 
-\textbf{Input/Condition:} 20 conversational command sequences (e.g., “Open my calendar” →
-“Add meeting at 2 PM” → “Move it to tomorrow”).
+\textbf{Input/Condition:} 20 conversational command sequences (e.g., “Open my calendar” then
+“Add meeting at 2 PM” then “Move it to tomorrow”).
 
 \textbf{Output/Result:} Follow-up commands correctly interpreted in at least 90\% of
 cases based on prior context.
@@ -596,8 +596,9 @@ interpreted intent, actions performed, and results.
 \textbf{How test will be performed:} After each session, reviewers inspect the log file
 for completeness and proper formatting (timestamp, session ID, action outcome).
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.6 - FUNC.R.7
 
-\subsubsection{Usability and Safety (FUNC.R.8–FUNC.R.9)}
+\subsubsection{Usability and Safety}
 
 \begin{enumerate}
 
@@ -630,6 +631,7 @@ executes only after explicit user approval.
 and speech. Observers confirm that the system requests confirmation before any
 irreversible or high-privilege action.
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.8 - FUNC.R.9
 
 
 
