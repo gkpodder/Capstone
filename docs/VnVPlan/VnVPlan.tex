@@ -4,6 +4,9 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{longtable}
+\usepackage{caption}
+
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -55,36 +58,16 @@ in.}
 
 \tableofcontents
 
-\listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
-
-\newpage
-
-\section{Symbols, Abbreviations, and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
-
-% \wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-%   \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document outlines the Verification and Validation plan for Project Proxi. 
+It explains how our team plans to check the system we're building against our 
+requirements. The plan goes over what tests will be run, how documents and designs
+will be validated and how everything connects back to the original SRS document.
+The main goal is to make sure Project Proxi is reliable, easy to use, and truly 
+helps people who will use it for accessibility.
 
 \section{General Information}
 
@@ -891,9 +874,66 @@ are secure.
 \end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
+\begin{center}
+\captionsetup{type=table}
+\caption{Requirements and Test Traceability Matrix}
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{7.5cm}|}
+\hline
+\textbf{Test ID} & \textbf{Requirement ID} & \textbf{Comment} \\ \hline
+\endfirsthead
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\ \hline
+\textbf{Test ID} & \textbf{Requirement ID} & \textbf{Comment} \\ \hline
+\endhead
+
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
+
+% --- Function Requirements ---
+FUNC.IR.1  & FUNC.R.1 & Manual Test that checks if system successfully accepted user input\\
+\hline
+FUNC.IR.2  & FUNC.R.2 & Automated Test that checks Speech to Text Accuracy \\ \hline
+FUNC.IT.1  & FUNC.R.3 & Automated Test that checks if system corrected interpreted user intent\\
+\hline
+FUNC.IT.2  & FUNC.R.4 & Integration Test that checks the system end-to-end\\
+\hline
+FUNC.FR.1  & FUNC.R.5 & Manual Test that checks if system is ready to execute user commands\\
+\hline
+FUNC.ML.1  & FUNC.R.6 & Manual Test that checks the short term memory of the model\\
+\hline
+FUNC.ML.2  & FUNC.R.7 & Automated Functional that checks if system logs are working as expected\\
+\hline
+FUNC.US.1  & FUNC.R.8 & Manual Observational test to check if users can complete task without needing low-level system interface\\
+\hline
+FUNC.US.2  & FUNC.R.9 & Automated test to make sure system doesn't use any unauthorized commands without prompting\\
+\hline
+
+% --- Non-Functional Requirements ---
+NF.LF.1 & APP.1 - APP.5 & Manual Test that covers the Appearance Requirements\\
+\hline
+NF.LF.2 & STY.1 - STY.3 & Manual Test that covers the Style Requirements\\
+\hline
+NF.US.1 & EOU.R.1 - EOU.R.3, LEA.R.1, LEA.R.2, UAP.R.1 - UAP.R.3 & Manual Test that covers the Usability, Learning, Understanding, and Politeness Requirements\\
+\hline
+NF.PF.1  & SAL.R.1-R.2, SAF.R.1-R.2, POA.R.1-R.2, CAP.R.1-R.2, SOE.R.1-R.2, LON.R.1-R.2 & Automatic Test that covers the Performance Requirements\\
+\hline
+NF.OP.1 & EPE.R.1-R.4; WER.R.1-R.2; IAS.R.1-R.4; PRD.R.1-R.3; REL.R.1-R.2 & Automatic Test that covers the Operation and Environmental Requirements\\
+\hline
+NF.MS.1 & 14.1-1, 14.1-2; 14.2-1, 14.2-2; 14.3-1, 14.3-2 & Manual Test that covers the Maintainability and Support Requirements\\
+\hline
+NF.SEC.1 & CS-01, ACS-02, INT-01, PRIV-01, IMM-01, IMM-02 & Automatic Test that covers the Security Requirements\\
+\hline
+NF.CUL.1 & CULR-01, CULR-02 & Manual Test that covers the Cultural Requirements\\
+\hline
+NF.COM.1 & LGL-01, LGL-02 & Automated Test that covers the Compliance Requirements\\
+\hline
+
+\end{longtable}
+\end{center}
 
 \section{Unit Test Description}
 
@@ -1019,7 +1059,7 @@ How test will be performed:
 \subsection{Traceability Between Test Cases and Modules}
 
 \wss{Provide evidence that all of the modules have been considered.}
-				
+
 \bibliographystyle{plainnat}
 
 \bibliography{../../refs/References}
