@@ -490,7 +490,7 @@ test will be performed.
 
 \begin{enumerate}
 
-\item{Test FUNC.R.1 - Speech and Text Input Acceptance\\}
+\item{Test FUNC.IR.1 - Speech and Text Input Acceptance\\}
 \textbf{Type:} Functional / Manual Testing
 
 \textbf{Initial State:} System initialized and idle at the main interface.
@@ -507,14 +507,14 @@ or display window.
 will compare recognized commands to expected ones and calculate the success rate. Failures
 and misinterpretations will be noted for analysis.
 
-\item{Test FUNC.R.2 - Speech-to-Text Accuracy (ASR Module)\\}
+\item{Test FUNC.IR.2 - Speech-to-Text Accuracy (ASR Module)\\}
 \textbf{Type:} Functional / Automated Evaluation
 
 \textbf{Initial State:} System with ASR module enabled and configured in a controlled
 acoustic environment.
 
 \textbf{Input/Condition:} 50 pre-recorded audio samples containing common computer commands
-spoken by 10 different speakers with varied accents.
+spoken by 3 different speakers with varied accents.
 
 \textbf{Output/Result:} Transcribed text matches the ground-truth transcript with at least
 90\% word accuracy.
@@ -528,7 +528,7 @@ metric to compute accuracy.
 
 \begin{enumerate}
 
-\item{Test FUNC.R.3 - Intent Recognition Accuracy\\}
+\item{Test FUNC.IT.1 - Intent Recognition Accuracy\\}
 \textbf{Type:} Functional / Automated
 
 \textbf{Initial State:} Natural language understanding (NLU) component initialized
@@ -543,7 +543,7 @@ matches the labeled ground truth.
 \textbf{How test will be performed:} A test script feeds the commands into the NLU module.
 Predicted intents are logged and compared to human-labeled references for accuracy scoring.
 
-\item{Test FUNC.R.4 - Task Planning and Execution Success Rate\\}
+\item{Test FUNC.IT.2 - Task Planning and Execution Success Rate\\}
 \textbf{Type:} Functional / Integration
 
 \textbf{Initial State:} System active with available software agents and network
@@ -564,7 +564,7 @@ with error cause (planning vs. execution failure).
 
 \begin{enumerate}
 
-\item{Test FUNC.R.5 - Response Feedback Timing\\}
+\item{Test FUNC.FR.1 - Response Feedback Timing\\}
 \textbf{Type:} Performance / Manual Timing
 
 \textbf{Initial State:} System ready to execute user commands.
@@ -584,7 +584,7 @@ be compared to the 2-second threshold.
 
 \begin{enumerate}
 
-\item{Test FUNC.R.6 - Contextual Follow-Up Command Interpretation\\}
+\item{Test FUNC.ML.1 - Contextual Follow-Up Command Interpretation\\}
 \textbf{Type:} Functional / Manual Sequence Test
 
 \textbf{Initial State:} System with active short-term conversational memory.
@@ -599,7 +599,7 @@ cases based on prior context.
 The interpreted action and memory context will be reviewed to ensure proper resolution
 of pronouns and implicit references.
 
-\item{Test FUNC.R.7 - Interaction and Task Logging Verification\\}
+\item{Test FUNC.ML.2 - Interaction and Task Logging Verification\\}
 \textbf{Type:} Functional / Inspection
 
 \textbf{Initial State:} Logging module enabled with write access to local or cloud storage.
@@ -618,7 +618,7 @@ for completeness and proper formatting (timestamp, session ID, action outcome).
 
 \begin{enumerate}
 
-\item{Test FUNC.R.8 - High-Level Command Usability\\}
+\item{Test FUNC.US.1 - High-Level Command Usability\\}
 \textbf{Type:} Usability / Observational
 
 \textbf{Initial State:} Deployed system interface with speech and text enabled.
@@ -632,7 +632,7 @@ system interfaces (e.g., file paths, terminal commands).
 \textbf{How test will be performed:} Observers record each participant’s interactions.
 Any instance where a user needs to access a system-level interface is noted as a failure.
 
-\item{Test FUNC.R.9 - Privileged Action Confirmation\\}
+\item{Test FUNC.US.2 - Privileged Action Confirmation\\}
 \textbf{Type:} Functional / Security Validation
 
 \textbf{Initial State:} System running with permission-sensitive agents enabled.
