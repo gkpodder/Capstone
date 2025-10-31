@@ -3,6 +3,10 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{caption}
+
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -30,332 +34,892 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+30 October 2025  & 1.0 & Added VnV plan\\
 \bottomrule
 \end{tabularx}
-
-~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
 
 \newpage
 
 \tableofcontents
 
-\listoftables
-\wss{Remove this section if it isn't needed}
-
-\listoffigures
-\wss{Remove this section if it isn't needed}
-
-\newpage
-
-\section{Symbols, Abbreviations, and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
-
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document outlines the Verification and Validation plan for Project Proxi. 
+It explains how our team plans to check the system we're building against our 
+requirements. The plan goes over what tests will be run, how documents and designs
+will be validated and how everything connects back to the original SRS document.
+The main goal is to make sure Project Proxi is reliable, easy to use, and truly 
+helps people who will use it for accessibility.
 
 \section{General Information}
 
 \subsection{Summary}
-
-\wss{Say what software is being tested.  Give its name and a brief overview of
-  its general functions.}
+The aim of this document is to layout the verification and validation plan for
+Project Proxi. Project Proxi is an AI powered voice assistant which allows it's 
+users to use their voice to interface with their computer. The general target 
+demographic for Project Proxi is seniors and individuals with disabilities who 
+wouldn't otherwise be able to use their computers for varying tasks. 
 
 \subsection{Objectives}
+The main objective of the Verification and Validation (V\&V) plan is to confirm
+that Project Proxi satisfies it's stated functional and non functional 
+requirements; and fulfuills its primary purpose of enhancing computer 
+accessibility for seniors and individuals with disabilities.
 
-\wss{State what is intended to be accomplished.  The objective will be around
-  the qualities that are most important for your project.  You might have
-  something like: ``build confidence in the software correctness,''
-  ``demonstrate adequate usability.'' etc.  You won't list all of the qualities,
-  just those that are most important.}
+The principal objectives that this VnV plan aims to meet are:
+\begin{itemize}
+  \item \textbf{Verify Functional Correctness:} Ensure that the features 
+  described in the SRS are implemented and behave as expected through Unit, 
+  Integration and System Level testing.
+  \item \textbf{Validate Usability and Accessibility:} demonstrate that users 
+  within the target demographic can effectively operate the system using natural
+  language commands while meeting the relevant accessibility standards like 
+  WCAG 2.
+  \item \textbf{Assess Performance and reliability:} Confirm the application 
+  meets performance, stability and error goals as defined in the SRS document.
+  \item \textbf{Hardware Compatibility Testing:} Meet verficiation goals on a 
+  variety of consumer hardware devices. Speacialized or adaptive devices will
+  not be included; only commercially available Windows/MacOS Computers.
+\end{itemize}
 
-\wss{You should also list the objectives that are out of scope.  You don't have 
-the resources to do everything, so what will you be leaving out.  For instance, 
-if you are not going to verify the quality of usability, state this.  It is also 
-worthwhile to justify why the objectives are left out.}
+Out of scope objectives include Extensive long-term field usability studies, 
+comprehensive privacy compliance, and Speacialized Hardware Testing. The project
+will assume that any external libraries have already been verfied by their 
+respective development team. These exclusions are justified given the project's 
+limited time, budget and academic context. Verification efforts are therefore 
+directed towards objectives that help meet core software requirements.
 
-\wss{The objectives are important because they highlight that you are aware of 
-limitations in your resources for verification and validation.  You can't do everything, 
-so what are you going to prioritize?  As an example, if your system depends on an 
-external library, you can explicitly state that you will assume that external library 
-has already been verified by its implementation team.}
 
 \subsection{Challenge Level and Extras}
 
-\wss{State the challenge level (advanced, general, basic) for your project.
-Your challenge level should exactly match what is included in your problem
-statement.  This should be the challenge level agreed on between you and the
-course instructor.  You can use a pull request to update your challenge level
-(in TeamComposition.csv or Repos.csv) if your plan changes as a result of the
-VnV planning exercise.}
+This project does not include a designated challenge level, as its primary focus
+ is on the development and validation of a functional, accessible, and 
+ user-friendly AI-powered desktop assistant. The project scope aligns with the 
+ general expectations of the capstone course and emphasizes reliability, 
+ usability, and compliance with accessibility standards rather than advanced 
+ AI research or complex algorithmic innovation.
 
-\wss{Summarize the extras (if any) that were tackled by this project.  Extras
-can include usability testing, code walkthroughs, user documentation, formal
-proof, GenderMag personas, Design Thinking, etc.  Extras should have already
-been approved by the course instructor as included in your problem statement.
-You can use a pull request to update your extras (in TeamComposition.csv or
-Repos.csv) if your plan changes as a result of the VnV planning exercise.}
+
+This project includes the following approved extras:
+\begin{itemize}
+  \item \textbf{User Manual:} A user manual that explains how to install, setup,
+  and use the software on a day-to-day basis.
+  \item \textbf{Usability Report:} A usability report will be developed that 
+  will assess the systems core objectives and requirements. It will summarize 
+  the results of testing as specfied in the SRS doc.
+\end{itemize}
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
-
-\citet{SRS}
-
-\wss{Don't just list the other documents.  You should explain why they are relevant and 
-how they relate to your VnV efforts.}
+The following documentation is directly relevant to the Verification and 
+Validation activities for Project Proxi:
+\begin{itemize}
+  \item \textbf{Development Plan [\citet{DevPlan}]:} This document defines the overall project 
+  workflow, timelines and milestones for the different phases of the project.
+  \item \textbf{Problem Statement and Goals [\citet{ProbStatement}]:}: This document defines the problems,
+   goals and stakeholders of the project.
+  \item \textbf{Software Requirements Specification [\citet{SRS}]:}  Describes the 
+  functional and non functional requirements of the project.
+  \item \textbf{Hazard Analysis [\citet{HazardAnalysis}]:} This document identifies any potenital sources
+  of harm or risk that may be associated with the project. Potential risks like
+  unauthorized access, misuse or data breaches and their mitigation strategies 
+  are documented here.
+  \item \textbf{Usability Report[\citet{UsabilityReport}]:} Includes results of user evaluation and beta 
+  testing during validation stage. It summarizes key findings related to the 
+  system meeting it's design and usability goals.
+  \item \textbf{User Manual [\citet{UserManual}]:} Provides documentation that explains how to 
+  install, setup and use the software. Includes helpful instruction along with 
+  walkthroughs and examples to help users with varying techincal proficiency.
+\end{itemize}
 
 \section{Plan}
+This section outlines the strategy for Verification and Validation (V\&V)
+across all phases of the Project Proxi lifecycle. The plan defines the roles
+and responsibilities of the V\&V team and specifies structured approaches for
+verifying the Software Requirements Specification (SRS), Design, and
+Implementation, as well as the approach for Software Validation. This
+systematic process increases confidence in the correctness, accessibility,
+and reliability of the final system.
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
+Verification ensures that the system is built correctly and meets its stated
+requirements, while validation confirms that the right system has been built
+for its intended users. Both static techniques (reviews, inspections, and
+walkthroughs) and dynamic techniques (testing and user evaluations) are used.
+All artifacts, results, and issues are tracked through GitHub for full
+traceability between requirements, test cases, and evidence.
 
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+The V\&V activities are shared among all members of the Proxi team. Each
+member’s role leverages their technical strengths while maintaining overlap
+to ensure redundancy and consistent quality assurance. All verification tasks
+and results are peer-reviewed, documented, and tracked in GitHub.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3cm}|p{3.5cm}|p{7.5cm}|}
+\hline
+\textbf{Name} & \textbf{Role} & \textbf{V\&V Responsibilities} \\ \hline
+Savinay Chhabra & Team-Lead/ Project-Manager &
+Coordinates all V\&V activities, schedules document and design reviews,
+ensures traceability matrices are complete, and validates plan feasibility. \\
+\hline
+Amanbeer Singh Minhas & Verification Engineer / Documentation Lead &
+Authors test specifications, manages accessibility validation (WCAG 2.1 AA),
+executes FR and NFR tests, and maintains V\&V evidence and metrics. \\
+\hline
+Gourob Podder & AI/Backend Developer &
+Verifies accuracy and latency of voice-recognition and NLP modules,
+conducts integration and performance tests, and performs code inspections. \\
+\hline
+Ajay Singh Grewal & Front-End / Integration Engineer &
+Implements automated UI tests, validates responsiveness and error handling,
+and ensures cross-platform consistency and workflow reliability. \\
+\hline
+Team Proxi & Quality-Assurance and Review Team &
+Participate in peer reviews of all documents (SRS, MIS, V\&V, and Hazard
+Analysis). Execute assigned system and unit tests, record results, file issues
+on GitHub, and contribute to final validation reports \\
+\hline
+\end{tabular}
+\caption{Verification and Validation Team Roles}
+\label{tab:1}
+\end{table}
 
 \subsection{SRS Verification}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
+The Software Requirements Specification (SRS) will be verified using a
+structured review process involving internal checks, peer feedback, and
+automated validation. The goal is to confirm that all requirements are clear,
+consistent, and ready for design and testing.
 
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
-
-\wss{Maybe create an SRS checklist?}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Stages:}
+\begin{itemize}
+\item \textbf{Internal Team Review:}  
+  Each team member reviews assigned SRS sections to ensure requirements are
+  clearly written, uniquely numbered, and testable. Feedback and questions are
+  added as GitHub issues under the ``SRS-review'' tag for tracking.
+\item \textbf{Peer Team Feedback:}  
+  Another project team will review our SRS to identify unclear or missing
+  requirements. Their comments will be discussed in a short review meeting,
+  and agreed changes will be included in the next SRS revision.
+\item \textbf{Automated Consistency and Traceability Check:}  
+  Scripts and manual scans confirm that every requirement label (FR, NFR, etc.)
+  appears in the traceability table and links to a planned test in the V\&V
+  Plan. Any missing or duplicate IDs will be flagged for correction.
+\item \textbf{Team Validation Meeting:}  
+  After all updates, the team meets to confirm that project goals such as
+  accessibility, reliability, and usability are fully captured in the SRS.
+  The final version is approved as the baseline for design and testing.
+\end{itemize}
 
 \subsection{Design Verification}
 
-\wss{Plans for design verification}
+The design of Project Proxi will be verified through focused peer reviews and
+checklists to confirm that the architecture, interfaces, and data flows align
+with the approved SRS. Each review will help identify inconsistencies or
+missing details before implementation begins.
 
-\wss{The review will include reviews by your classmates}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Activities:}
+\begin{itemize}
+\item \textbf{Internal Design Review:}  
+  Team members will examine their assigned modules to ensure the design is
+  modular, consistent with SRS requirements, and feasible for implementation.
+  Each reviewer will complete a checklist covering naming conventions,
+  interface clarity, and data flow accuracy.
 
-\wss{Create a checklists?}
+\item \textbf{Cross-Team Design Review:}  
+  Another project team will review our design document and provide feedback on
+  readability, logic, and completeness. Their comments will be logged as
+  GitHub issues tagged ``Design-review'' and resolved in the next revision.
+
+\item \textbf{Walkthrough Meeting:}  
+  The team will conduct a collaborative walkthrough where each member explains
+  their subsystem’s role and connections. This helps verify that all modules
+  integrate correctly and that there are no overlapping or missing elements.
+
+\item \textbf{Traceability Check:}  
+  A simple matrix will confirm that every major design component maps to at
+  least one SRS requirement. Any unmatched modules or requirements will be
+  flagged for revision before coding starts.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Design Review Checklist Items:}
+\begin{itemize}
+\item Module responsibilities are clear and non-overlapping.
+\item Inputs, outputs, and interfaces are well defined and consistent.
+\item Data flow diagrams reflect correct information movement.
+\item Error handling and edge cases are addressed.
+\item Design supports accessibility and responsiveness goals.
+\item Traceability to the SRS is complete for all components.
+\end{itemize}
 
 \subsection{Verification and Validation Plan Verification}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
+The Verification and Validation (V\&V) Plan itself will also be verified to
+ensure it is complete, consistent, and realistic. This review confirms that
+the plan defines clear responsibilities, test coverage, and measurable
+evidence of software quality.
 
-\wss{The review will include reviews by your classmates}
+\vspace{0.5em}
+\noindent\textbf{Planned Verification Activities:}
+\begin{itemize}
+\item \textbf{Internal Review:}  
+  Team members will inspect the V\&V Plan for completeness, logical flow, and
+  consistency with other project documents such as the SRS, MIS, and Hazard
+  Analysis. Issues will be logged on GitHub under the tag ``VnV-review''.
 
-\wss{Create a checklists?}
+\item \textbf{Peer Team Review:}  
+  A partner project team will review the plan to provide external feedback on
+  clarity, organization, and feasibility. Comments will be discussed in a team
+  meeting, and accepted suggestions will be incorporated into the next version.
+
+\item \textbf{Cross-Document Consistency Check:}  
+  The team will confirm that all V\&V activities listed here appear in other
+  relevant documents and that requirement identifiers match across artifacts.
+
+\item \textbf{Review Process Validation:}  
+  Small, intentional edits (such as removing a trace link or changing a test
+  description) will be introduced to confirm that the team’s review process
+  can detect inconsistencies. This validates the effectiveness of our review
+  workflow.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{V\&V Plan Review Checklist:}
+\begin{itemize}
+\item All documents are correctly referenced and consistent.
+\item Roles and responsibilities match Table~\ref{tab:1}.
+\item Each section clearly states its purpose and expected outcomes.
+\item Traceability between requirements and tests is complete.
+\item Internal and peer review processes are clearly defined.
+\item Plan is feasible and aligned with the project timeline and tools.
+\end{itemize}
 
 \subsection{Implementation Verification}
 
-\wss{You should at least point to the tests listed in this document and the unit
-  testing plan.}
+The implementation of Project Proxi will be verified through a combination of
+dynamic and static techniques to ensure the system performs correctly,
+reliably, and according to its specified design. This section summarizes how
+unit, integration, and system testing activities will be supported by
+automated tools and structured reviews.
 
-\wss{In this section you would also give any details of any plans for static
-  verification of the implementation.  Potential techniques include code
-  walkthroughs, code inspection, static analyzers, etc.}
+\vspace{0.5em}
+\noindent\textbf{Dynamic Verification:}
+\begin{itemize}
+\item \textbf{Unit Testing:}  
+  Each software module will have dedicated unit tests as outlined in the Unit
+  Testing Plan. Tests will confirm correct outputs, data flow, and error
+  handling for voice-processing, NLP, and UI modules. Coverage results will be
+  monitored through automated reports to ensure that all major functions are
+  exercised.
 
-\wss{The final class presentation in CAS 741 could be used as a code
-walkthrough.  There is also a possibility of using the final presentation (in
-CAS741) for a partial usability survey.}
+\item \textbf{Integration and System Testing:}  
+  Combined module testing will validate interactions between the speech engine,
+  user interface, and backend components. These tests correspond directly to
+  the functional and non-functional test cases listed in this document.
+
+\item \textbf{Mutation Testing:}  
+  To evaluate the quality of our test suite, small artificial faults (mutants)
+  will be introduced into the codebase. Existing unit and system tests will be
+  rerun to confirm that they detect the injected faults. A high mutation score
+  will increase confidence in the strength and completeness of our test suite.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Static Verification:}
+\begin{itemize}
+\item \textbf{Code Walkthroughs and Inspections:}  
+  Scheduled walkthrough meetings will allow each developer to explain their
+  code and receive peer feedback on structure, readability, and consistency.
+  The final class presentation will also serve as a partial code walkthrough
+  and an opportunity to discuss implementation decisions.
+
+\item \textbf{Static Analysis Tools:}  
+  Linters and analyzers (such as ESLint, Pylint, or similar) will be used to
+  detect common issues, unused variables, and potential logic errors. Results
+  will be documented as part of the verification evidence.
+
+\item \textbf{Code Review via Pull Requests:}  
+  All implementation changes will go through GitHub pull requests with at
+  least one reviewer. Reviewers will verify coding standards, style, and
+  alignment with design diagrams.
+\end{itemize}
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
+Automated tools will be used throughout the implementation phase to support
+testing, continuous integration, and quality assurance. These tools help
+reduce manual effort, detect regressions early, and provide measurable
+evidence of code reliability and maintainability.
 
-\wss{If you have already done this in the development plan, you can point to
-that document.}
+\vspace{0.5em}
+\noindent\textbf{Unit Testing Framework:}
+\begin{itemize}
+\item The project will use the built-in \texttt{pytest} framework for Python to
+  create and execute unit tests. Each module will have its own test file and
+  fixtures to verify inputs, outputs, and edge cases. Test results will be
+  automatically generated after every commit.
+\end{itemize}
 
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
+\vspace{0.5em}
+\noindent\textbf{Continuous Integration (CI):}
+\begin{itemize}
+\item GitHub Actions will be configured to automatically run unit, integration,
+  and system tests whenever new code is pushed. The CI workflow will include
+  static analysis, linting, and coverage checks. Test outcomes and code
+  coverage metrics will be displayed in each pull request.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Code Coverage and Reporting:}
+\begin{itemize}
+\item Tools like \texttt{coverage.py} will be used to measure how much of the source code is
+  executed during tests. Reports will include statement, branch, and function
+  coverage. The goal is to maintain at least 85\% overall coverage. Coverage
+  summaries will be included in milestone reports.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Static Analysis and Linters:}
+\begin{itemize}
+\item Static analyzers such as \texttt{pylint} and \texttt{flake8} will check for
+  syntax errors, unused variables, and potential logic flaws. These tools also
+  verify that code follows project style guidelines and maintainability rules.
+  Results will be logged and tracked as part of the verification evidence.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent\textbf{Build and Automation Utilities:}
+\begin{itemize}
+\item The project will use \texttt{make} commands and scripts to automate
+  environment setup, dependency installation, and test execution. This ensures
+  consistent testing results across all development machines.
+\end{itemize}
 
 \subsection{Software Validation}
 
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
+Software validation confirms that Project Proxi satisfies user needs and
+performs as intended in realistic scenarios. The focus is on demonstrating
+that the system achieves its goals of accessibility, responsiveness, and ease
+of use for all users, including those with limited mobility or vision.
 
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
+\vspace{0.5em}
+\noindent\textbf{Planned Validation Activities:}
+\begin{itemize}
+\item \textbf{User Testing Sessions:}  
+  A small group of peers and volunteers will perform task-based evaluations,
+  such as launching applications, dictating text, and managing files through
+  voice commands. Their feedback will measure ease of learning, efficiency,
+  and satisfaction.
 
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
+\item \textbf{Accessibility Validation:}  
+  Validation will focus on confirming compliance with WCAG 2.1 AA
+  accessibility principles. Voice feedback clarity, contrast, and response
+  times will be recorded and compared with expected usability metrics defined
+  in the SRS.
 
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
+\item \textbf{Stakeholder Review Session:}  
+  The team will present the system in a demonstration that acts as a Rev 0
+  validation milestone. Feedback from course staff and classmates will be
+  collected through short surveys and used to improve the user experience.
 
-\wss{This section might reference back to the SRS verification section.}
+\item \textbf{External Data and Comparison:}  
+  Where available, open-source voice datasets will be used to validate recognition
+  accuracy against baseline results. This ensures that the system behaves consistently
+  with established standards.
+\end{itemize}
+
 
 \section{System Tests}
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+Each test is specific and measurable, providing sufficient detail for replication 
+once the system is built. The tests are grouped into logical areas covering input 
+handling, natural language understanding, task execution, feedback mechanisms, 
+memory management, logging, and system safety.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+The following tests verify that each functional requirement defined in the SRS
+has been properly implemented and behaves as intended. Each test specifies the
+type of testing, initial system state, inputs and expected results, and how the
+test will be performed.
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
-
-\subsubsection{Area of Testing1}
-
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+\subsubsection{Input and Recognition Requirements}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Test FUNC.IR.1 - Speech and Text Input Acceptance\\}
+\textbf{Type:} Functional / Manual Testing
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\textbf{Initial State:} System initialized and idle at the main interface.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\textbf{Input/Condition:} Users provide 20 valid commands, 10 by text input (keyboard)
+and 10 by speech through the microphone interface. Commands include examples like
+“Open the calendar,” “What’s the weather today?”, and “Send an email to John.”
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\textbf{Output/Result:} System correctly recognizes and processes at least 95\% of both
+speech and text inputs, generating the corresponding interpreted command in the console
+or display window.
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\textbf{How test will be performed:} Each input is logged automatically. The test supervisor
+will compare recognized commands to expected ones and calculate the success rate. Failures
+and misinterpretations will be noted for analysis.
 
-How test will be performed: 
+\item{Test FUNC.IR.2 - Speech-to-Text Accuracy (ASR Module)\\}
+\textbf{Type:} Functional / Automated Evaluation
 
+\textbf{Initial State:} System with ASR module enabled and configured in a controlled
+acoustic environment.
+
+\textbf{Input/Condition:} 50 pre-recorded audio samples containing common computer commands
+spoken by 3 different speakers with varied accents.
+
+\textbf{Output/Result:} Transcribed text matches the ground-truth transcript with at least
+90\% word accuracy.
+
+\textbf{How test will be performed:} Audio samples will be batch-fed into the ASR module.
+Output transcripts will be compared to reference text using a word-error-rate (WER)
+metric to compute accuracy.
 \end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.1 - FUNC.R.2
 
-\subsubsection{Area of Testing2}
+\subsubsection{Intent Understanding and Task Execution}
 
-...
+\begin{enumerate}
+
+\item{Test FUNC.IT.1 - Intent Recognition Accuracy\\}
+\textbf{Type:} Functional / Automated
+
+\textbf{Initial State:} Natural language understanding (NLU) component initialized
+with trained intent classification model.
+
+\textbf{Input/Condition:} 100 labeled user commands in natural language, each mapped
+to a known ground-truth intent (e.g., send email, open browser, play music).
+
+\textbf{Output/Result:} In at least 90\% of cases, the intent predicted by the system
+matches the labeled ground truth.
+
+\textbf{How test will be performed:} A test script feeds the commands into the NLU module.
+Predicted intents are logged and compared to human-labeled references for accuracy scoring.
+
+\item{Test FUNC.IT.2 - Task Planning and Execution Success Rate\\}
+\textbf{Type:} Functional / Integration
+
+\textbf{Initial State:} System active with available software agents and network
+connectivity.
+
+\textbf{Input/Condition:} 20 representative high-level commands (e.g., “Schedule a
+meeting,” “Search the web for news,” “Summarize this document”).
+
+\textbf{Output/Result:} Agents execute actions successfully and complete tasks in at
+least 85\% of test cases.
+
+\textbf{How test will be performed:} Commands are executed sequentially. Testers verify
+that each resulting task outcome matches the intended user goal. Failures are logged
+with error cause (planning vs. execution failure).
+\end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.3 - FUNC.R.4
+
+\subsubsection{Feedback and Responsiveness}
+
+\begin{enumerate}
+
+\item{Test FUNC.FR.1 - Response Feedback Timing\\}
+\textbf{Type:} Performance / Manual Timing
+
+\textbf{Initial State:} System ready to execute user commands.
+
+\textbf{Input/Condition:} 10 varied user tasks executed (e.g., “Create a note,” “Check
+calendar,” “Send a message”).
+
+\textbf{Output/Result:} Each command generates a feedback or confirmation message within
+2 seconds of task completion.
+
+\textbf{How test will be performed:} A timer will start at the moment of task completion.
+Feedback appearance time is recorded for each trial. Average and max response times will
+be compared to the 2-second threshold.
+\end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.5
+
+\subsubsection{Contextual Memory and Logging }
+
+\begin{enumerate}
+
+\item{Test FUNC.ML.1 - Contextual Follow-Up Command Interpretation\\}
+\textbf{Type:} Functional / Manual Sequence Test
+
+\textbf{Initial State:} System with active short-term conversational memory.
+
+\textbf{Input/Condition:} 20 conversational command sequences (e.g., “Open my calendar” then
+“Add meeting at 2 PM” then “Move it to tomorrow”).
+
+\textbf{Output/Result:} Follow-up commands correctly interpreted in at least 90\% of
+cases based on prior context.
+
+\textbf{How test will be performed:} Each conversation sequence is entered by testers.
+The interpreted action and memory context will be reviewed to ensure proper resolution
+of pronouns and implicit references.
+
+\item{Test FUNC.ML.2 - Interaction and Task Logging Verification\\}
+\textbf{Type:} Functional / Inspection
+
+\textbf{Initial State:} Logging module enabled with write access to local or cloud storage.
+
+\textbf{Input/Condition:} 10 user sessions including a mix of successful and failed
+tasks performed via speech and text.
+
+\textbf{Output/Result:} Each session generates a timestamped log containing input,
+interpreted intent, actions performed, and results.
+
+\textbf{How test will be performed:} After each session, reviewers inspect the log file
+for completeness and proper formatting (timestamp, session ID, action outcome).
+\end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.6 - FUNC.R.7
+
+\subsubsection{Usability and Safety}
+
+\begin{enumerate}
+
+\item{Test FUNC.US.1 - High-Level Command Usability\\}
+\textbf{Type:} Usability / Observational
+
+\textbf{Initial State:} Deployed system interface with speech and text enabled.
+
+\textbf{Input/Condition:} 10 participants attempt to complete 10 standard tasks (e.g.,
+opening documents, browsing the web, checking system info) using only natural language.
+
+\textbf{Output/Result:} 100\% of users complete tasks without needing to use low-level
+system interfaces (e.g., file paths, terminal commands).
+
+\textbf{How test will be performed:} Observers record each participant’s interactions.
+Any instance where a user needs to access a system-level interface is noted as a failure.
+
+\item{Test FUNC.US.2 - Privileged Action Confirmation\\}
+\textbf{Type:} Functional / Security Validation
+
+\textbf{Initial State:} System running with permission-sensitive agents enabled.
+
+\textbf{Input/Condition:} Privileged commands such as “Delete file,” “Shut down
+computer,” or “Access settings.”
+
+\textbf{Output/Result:} Each privileged command triggers a confirmation prompt and
+executes only after explicit user approval.
+
+\textbf{How test will be performed:} Testers issue privileged commands via both text
+and speech. Observers confirm that the system requests confirmation before any
+irreversible or high-privilege action.
+\end{enumerate}
+\textbf{Functional Requirements Covered:} FUNC.R.8 - FUNC.R.9
+
+
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+In here specific tests are defined to help determine if Proxi's nonfunctional
+requirements have been met.  Every test in this will look at the requirements
+from the SRS and determine how every result will be verified.
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Look and Feels Requirements}
 
 \begin{enumerate}
+					
+\item{Test NF.LF.1 - UI Conformance and Readability\\}
+\textbf{Type:} Static inspection and Manual
+          
+\textbf{Initial State:} The latest UI build
+          
+\textbf{Input/Condition:} Walkthrough the man screens and all of the status
+indicators (listening, thinking, and ready) all with a checklist.
+          
+\textbf{Output/Result:} Presence and visibility of main controls such as listen,
+stop, and undo; minimal clutter and advanced options hidden; large targets and
+a theme toggle being present. 
+          
+\textbf{How test will be performed:} In this two reviewers will go through the
+UI and check off the items on the checklist.
 
-\item{test-id1\\}
+\textbf{Nonfunctional Requirements Covered:} APP.1 - APP.5
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\item{Test NF.LF.2 - Test Style and Iconography Check\\}
+\textbf{Type:} Static inspection and Manual
+          
+\textbf{Initial State:} Build with speech output enabled and the UI icon set 
+implemented.
+          
+\textbf{Input/Condition:} It will be a trigger system speech, with review 
+labels, captions, and icons.
+          
+\textbf{Output/Result:} Plain, short labels; synchronized on screen captions for 
+spoken output; consistent iconography with textual labelling.
+          
+\textbf{How test will be performed:} Inspecting the strings and visual elements
+and flows; record any inconsistencies found with videos and screenshots for
+evidence.
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\textbf{Nonfunctional Requirements Covered:} STY.1 - STY.3
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Usability and Humanity Requirements}
 
-...
+\begin{enumerate}
+					
+\item{NF.US.1 - Task Based Usability and Learnability Study\\}
+\textbf{Type:} Dynamic with manual usability test that will have timed tasks and
+a survey.
+          
+\textbf{Initial State:} New users will get a 5 minute orientation to Proxi.
+          
+\textbf{Input/Condition:} Doing the core tasks such as opening the app, reading
+files, browsing, and saving files/actions.
+          
+\textbf{Output/Result:} A simple command button works for simple tasks; main
+actions are obvious; the participants do every task without assistance; time to
+do a repeat task decreases; examples on what to say are easily found; messages
+are simple, risky actions are confirmed, and error messages suggest next steps.
+
+\textbf{How test will be performed:} Observing timed tasks, collecting
+completion rates and any errors.
+
+\textbf{Nonfunctional Requirements Covered:} EOU.R.1 - EOU.R.3, LEA.R.1 - 
+LEA.R.2, UAP.R.1 - UAP.R.3
+
+\item{NF.US.2 - Accessibility, personalization, and AODA/WCAG conformance\\}
+\textbf{Type:} Dynamic test and accessibility inspection
+          
+\textbf{Initial State:} Build with voice only pathway enabled; captions, text
+scaling, and color contrast tools implemented.
+          
+\textbf{Input/Condition:} There is voice only interactive execution of setup
+and exit; repeated dictation sessions with captions enabled and locale set to
+English.
+          
+\textbf{Output/Result:} All actions are possible with voice only; captions,
+scaling, and contrast verified; speech model adaption over user session are 
+noticeable; Canadian english formats are used.
+
+\textbf{How test will be performed:} Run some WCAG checks, verify locale outputs,
+and have users test the voice only pathway.
+
+\textbf{Nonfunctional Requirements Covered:} ACC.R.1 - ACC.R.2, PER.R.1 - 
+PER.R.2
+
+\end{enumerate}
+
+\subsubsection{Performance Requirements}
+
+\begin{enumerate}
+
+\item{NF.PF.1 - Performance Study\\}
+\textbf{Type:} Dynamic, mostly automatic performance testing
+          
+\textbf{Initial State:} Standard hardware environment with typical system load
+          
+\textbf{Input/Condition:} Speak a small scripted set of normal commands and a few 
+malformed ones; keep one run in a quiet room and one with moderate indoor noise. 
+Let the app run for a few hours
+          
+\textbf{Output/Result:} Respond in less than 2 seconds; actions should be done
+with 80 to 90 percent accuracy; features load fast; settings are kept; rollbacks
+fast.
+
+\textbf{How test will be performed:} Time commands, tally accuracy, log resources,
+and perform updates and rollbacks.
+
+\textbf{Nonfunctional Requirements Covered:} SAL.R.1-R.2, SAF.R.1-R.2, POA.R.1-R.2,
+CAP.R.1-R.2, SOE.R.1-R.2, LON.R.1-R.2.
+
+\end{enumerate}
+
+\subsubsection{Operational and Enviromental Requirements}
+
+\begin{enumerate}
+
+\item{NF.OP.1 - Environment, ecosystem fit, interfaces, packaging, and release\\}
+\textbf{Type:} Dynamic and checklist based testing
+          
+\textbf{Initial State:} Fresh install on Windows/macOS with integrations turned
+on.
+
+\textbf{Input/Condition:} Use the app indoors, with normal environment, 
+including noise, temperature, and distance; clean install; check release info
+
+\textbf{Output/Result:} Works within env bounds; does not disrupt other apps; 
+uses secure interfaces with logs; installs easily; versioned and documented
+releases.
+
+\textbf{How test will be performed:} Spot checking tasks and env, glancing at 
+traffic + logs, running clean installs, and reviewing the releasing page. 
+
+\textbf{Nonfunctional Requirements Covered:} EPE.R.1-R.4; WER.R.1-R.2; 
+IAS.R.1-R.4; PRD.R.1-R.3; REL.R.1-R.2
+
+\end{enumerate}
+
+\subsubsection{Maintability and Support Requirements}
+
+\begin{enumerate}
+
+\item{NF.MS.1 - Onboarding, support, and adaptability\\}
+\textbf{Type:} Light task trial and checklist based testing
+          
+\textbf{Initial State:} Fresh clone; Report Problem presentable and the config 
+editable.
+
+\textbf{Input/Condition:} A new person builds and runs using the README; they add
+one small tool through the registry; generate support bundle; and change default 
+apps via the config and retry.
+
+\textbf{Output/Result:} The build run succeeds; the tool added without touching
+others; the support bundle has logs and info, it still works after the default 
+app change.
+
+\textbf{How test will be performed:} Time the setup, add and register the tool,
+click report to inspect the ZIP, and switch default apps and retest.
+
+\textbf{Nonfunctional Requirements Covered:} 14.1-1, 14.1-2; 14.2-1, 14.2-2; 
+14.3-1, 14.3-2
+
+\end{enumerate}
+
+\subsubsection{Security Requirements}
+
+\begin{enumerate}
+
+\item{NF.SEC.1 - Access, integrity, privacy, audit stance, immunity\\}
+\textbf{Type:} Permission checks and quick scans
+
+\textbf{Initial State:} Fresh install; privacy policy; dependency scanner.
+
+\textbf{Input/Condition:} Trigger sensitive actions; look for stored and sent data;
+run dependency scans.
+
+\textbf{Output/Result:} No account needed; sensitive actions require explicit grants;
+data is protected; minimal third party data accessed with consent; no audit trails
+are left; no known vulnerabilities in dependencies.
+
+\textbf{How test will be performed:} Start flows that require permissions, look 
+for traffic and logs, and run dependency scans. Run SCA scans.
+
+\textbf{Nonfunctional Requirements Covered:} ACS-01, ACS-02; INT-01; PRIV-01; 
+IMM-01, IMM-02
+
+\end{enumerate}
+
+\subsubsection{Cultural Requirements}
+
+\begin{enumerate}
+
+\item{NF.CUL.1 - Language and Tone\\}
+\textbf{Type:} Quick review of content
+
+\textbf{Initial State:} Final strings and language selector.
+
+\textbf{Input/Condition:} Scan common screens and messages. Switch languages and 
+check key screens.
+
+\textbf{Output/Result:} Polite neutral wording; multiple languages will be usable 
+for many basic flows.
+
+\textbf{How test will be performed:} Two people will go through the common screens
+and messages; one person will switch languages, complete tasks, and check key 
+screens.
+
+\textbf{Nonfunctional Requirements Covered:} CULR-01, CULR-02
+
+\end{enumerate}
+
+\subsubsection{Compliance Requirements}
+
+\begin{enumerate}
+
+\item{NF.CUL.1 - Legal and standards\\}
+\textbf{Type:} Checklist
+
+\textbf{Initial State:} Licenses, privacy policy, accessibility notes in repo
+and release.
+
+\textbf{Input/Condition:} Map behaviors to legal and standards checklist. This 
+includes PIPEDA, MIT.
+
+\textbf{Output/Result:} PIPEDA IS followed; all licenses are compatible and
+included. The given standards are followed correctly.
+
+\textbf{How test will be performed:} Check policies vs behaviors, open the
+LICENSE and release notes, do quick scan and spot check, and confirm protocols
+are secure.
+
+\textbf{Nonfunctional Requirements Covered:} CULR-01, CULR-02
+
+\end{enumerate}
 
 \subsection{Traceability Between Test Cases and Requirements}
+\begin{center}
+\captionsetup{type=table}
+\caption{Requirements and Test Traceability Matrix}
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{7.5cm}|}
+\hline
+\textbf{Test ID} & \textbf{Requirement ID} & \textbf{Comment} \\ \hline
+\endfirsthead
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\ \hline
+\textbf{Test ID} & \textbf{Requirement ID} & \textbf{Comment} \\ \hline
+\endhead
+
+\hline \multicolumn{3}{r}{\textit{Continued on next page}} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
+
+% --- Function Requirements ---
+FUNC.IR.1  & FUNC.R.1 & Manual Test that checks if system successfully accepted user input\\
+\hline
+FUNC.IR.2  & FUNC.R.2 & Automated Test that checks Speech to Text Accuracy \\ \hline
+FUNC.IT.1  & FUNC.R.3 & Automated Test that checks if system corrected interpreted user intent\\
+\hline
+FUNC.IT.2  & FUNC.R.4 & Integration Test that checks the system end-to-end\\
+\hline
+FUNC.FR.1  & FUNC.R.5 & Manual Test that checks if system is ready to execute user commands\\
+\hline
+FUNC.ML.1  & FUNC.R.6 & Manual Test that checks the short term memory of the model\\
+\hline
+FUNC.ML.2  & FUNC.R.7 & Automated Functional that checks if system logs are working as expected\\
+\hline
+FUNC.US.1  & FUNC.R.8 & Manual Observational test to check if users can complete task without needing low-level system interface\\
+\hline
+FUNC.US.2  & FUNC.R.9 & Automated test to make sure system doesn't use any unauthorized commands without prompting\\
+\hline
+
+% --- Non-Functional Requirements ---
+NF.LF.1 & APP.1 - APP.5 & Manual Test that covers the Appearance Requirements\\
+\hline
+NF.LF.2 & STY.1 - STY.3 & Manual Test that covers the Style Requirements\\
+\hline
+NF.US.1 & EOU.R.1 - EOU.R.3, LEA.R.1, LEA.R.2, UAP.R.1 - UAP.R.3 & Manual Test that covers the Usability, Learning, Understanding, and Politeness Requirements\\
+\hline
+NF.PF.1  & SAL.R.1-R.2, SAF.R.1-R.2, POA.R.1-R.2, CAP.R.1-R.2, SOE.R.1-R.2, LON.R.1-R.2 & Automatic Test that covers the Performance Requirements\\
+\hline
+NF.OP.1 & EPE.R.1-R.4; WER.R.1-R.2; IAS.R.1-R.4; PRD.R.1-R.3; REL.R.1-R.2 & Automatic Test that covers the Operation and Environmental Requirements\\
+\hline
+NF.MS.1 & 14.1-1, 14.1-2; 14.2-1, 14.2-2; 14.3-1, 14.3-2 & Manual Test that covers the Maintainability and Support Requirements\\
+\hline
+NF.SEC.1 & CS-01, ACS-02, INT-01, PRIV-01, IMM-01, IMM-02 & Automatic Test that covers the Security Requirements\\
+\hline
+NF.CUL.1 & CULR-01, CULR-02 & Manual Test that covers the Cultural Requirements\\
+\hline
+NF.COM.1 & LGL-01, LGL-02 & Automated Test that covers the Compliance Requirements\\
+\hline
+
+\end{longtable}
+\end{center}
 
 \section{Unit Test Description}
 
@@ -481,7 +1045,7 @@ How test will be performed:
 \subsection{Traceability Between Test Cases and Modules}
 
 \wss{Provide evidence that all of the modules have been considered.}
-				
+
 \bibliographystyle{plainnat}
 
 \bibliography{../../refs/References}
@@ -499,7 +1063,56 @@ Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
 
-\wss{This is a section that would be appropriate for some projects.}
+The purpose of this survey is to validate that Project Proxi meets its
+usability, accessibility, and satisfaction goals from the SRS. Responses
+will be collected after user testing sessions to evaluate clarity,
+efficiency, and inclusiveness. Each question below lists how the response
+will be recorded and the intent behind it.
+
+\vspace{0.5em}
+\begin{enumerate}
+
+\item \textbf{How easy was it to perform tasks using voice commands?}\\
+Response Type: 1–5 scale (Very Hard → Very Easy).\\
+Intent: Measure how intuitive and learnable the system is for new users.
+
+\item \textbf{Were system responses clear and understandable?}\\
+Response Type: 1–5 scale (Very Unclear → Very Clear).\\
+Intent: Assess clarity of feedback and correctness of system output.
+
+\item \textbf{Did the system react quickly to your commands?}\\
+Response Type: 1–5 scale (Very Slow → Very Fast).\\
+Intent: Validate perceived responsiveness and latency satisfaction.
+
+\item \textbf{How intuitive did the interface feel while completing tasks?}\\
+Response Type: 1–5 scale (Confusing → Very Intuitive).\\
+Intent: Evaluate the overall user interface flow and predictability.
+
+\item \textbf{Was visual or audio feedback easy to notice and understand?}\\
+Response Type: 1–5 scale (Not Accessible → Highly Accessible).\\
+Intent: Verify accessibility and multimodal feedback effectiveness.
+
+\item \textbf{Did you feel confident that Proxi understood your intent?}\\
+Response Type: 1–5 scale (Never → Always).\\
+Intent: Measure trust in speech recognition and NLP accuracy.
+
+\item \textbf{How satisfied are you with the overall experience?}\\
+Response Type: 1–5 scale (Very Unsatisfied → Very Satisfied).\\
+Intent: Determine overall satisfaction and user acceptance level.
+
+\item \textbf{Did you encounter confusion or frustration while using Proxi?}\\
+Response Type: Open text.\\
+Intent: Identify specific usability or interaction issues.
+
+\item \textbf{Would you consider using Proxi for daily tasks?}\\
+Response Type: Yes / No.\\
+Intent: Gauge adoption potential and long-term usability perception.
+
+\item \textbf{Do you have any comments or suggestions for improvement?}\\
+Response Type: Open text.\\
+Intent: Gather qualitative feedback for future iterations.
+
+\end{enumerate}
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -525,5 +1138,173 @@ graduate attribute of Lifelong Learning.
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
 \end{enumerate}
+
+\newpage
+\section*{Reflection --- Amanbeer Singh Minhas}
+
+\textbf{1. What went well while writing this deliverable?}  
+For this deliverable, I worked mainly on Section 3 (Plan) and Section 6.2
+(Usability Survey Questions). These sections went well because they helped
+connect the technical and human sides of our project. In Section 3, I focused
+on creating a clear roadmap for verification that was realistic for our team.
+It felt good to see how each part linked to the SRS and our earlier work.
+Section 6.2 was also rewarding because it allowed me to design usability
+questions that measure user experience in a meaningful way.
+
+\noindent\textbf{2. What pain points did you experience during this deliverable, and how
+did you resolve them?}  
+The main challenge was figuring out how much detail to include in each
+section. At first, some parts of our plan were too general, while others were
+too detailed. Finding the right balance took a few rounds of review and
+feedback. Another difficulty was maintaining consistency in tone and wording
+across sections written by different team members. I helped fix this by
+revising and merging ideas so the final version felt smooth and unified.
+
+\noindent\textbf{3. What knowledge and skills will the team collectively need to acquire
+to successfully complete the verification and validation of your project?}  
+As a team, we realized we need stronger testing and validation skills. I plan
+to improve my understanding of automated documentation, coverage metrics, and
+survey analysis. Savinay aims to deepen his knowledge of integration testing.
+Gourob wants to explore performance and stress testing for our AI modules, and
+Ajay is focusing on automated UI and accessibility verification.
+
+\noindent\textbf{4. For each of the knowledge areas and skills identified in the
+previous question, what are at least two approaches to acquiring the knowledge
+or mastering the skill? Of the identified approaches, which will each team
+member pursue, and why did they make this choice?}  
+To build the skills we identified, our team plans to rely on both formal and
+self-directed learning. We will start by reviewing course material from
+SFWRENG 3S03, which covered testing concepts such as unit testing, coverage,
+and static analysis. This will help refresh the theoretical foundation before
+moving into practical work. We also plan to read online documentation and
+tutorials on dynamic testing and usability validation to better understand
+industry practices. Each member will then apply this knowledge directly to
+our project tasks for example, by creating small prototype tests or running
+sample validation sessions. This approach keeps learning active and helps us
+improve through real application instead of only theory.
+
+\section*{Reflection --- Ajay Singh Grewal}
+
+\textbf{1. What went well while writing this deliverable?}  
+For this deliverable, I worked mainly on section 4.2 to figure out the tests
+for non-functional requirements. This section went pretty good for me because
+it allowed me to think critically about how to measure different aspects
+for our software and how to make sure it essentially meets the needs of our users.
+
+\noindent\textbf{2. What pain points did you experience during this deliverable, and how
+did you resolve them?}  
+The main challenge I had faced during this deliverable was making sure that the 
+test cases for the nonfunctional requirements made sense and were realistic to 
+do. To properly do this, I had to really think about what our software was going
+to be used for and how we could truly measure the success of these 
+nonfunctional requirements.
+
+\noindent\textbf{3. What knowledge and skills will the team collectively need to acquire
+to successfully complete the verification and validation of your project?}  
+The knowledge and skills that our team will need in order to ensure success
+in the verification and validation of our project include dynamic testing
+knowledge, static testing knowledge, and certain tool usage. I hope to improve 
+my knowledge in various testing methods that can helpy verify and validate our 
+projecet.  
+
+\noindent\textbf{4. For each of the knowledge areas and skills identified in the
+previous question, what are at least two approaches to acquiring the knowledge
+or mastering the skill? Of the identified approaches, which will each team
+member pursue, and why did they make this choice?}  
+For each of the knowledge areas and skills we indentified, our team plans to 
+use a combo of formal and self directed learning. We can start by reviewing 
+course material and by reading online articles and tutorials on relevant topics.
+Each member will then apply this learnt knowledge directly into the successful
+creation of our project. We can also do small prototype tests or run sample 
+validation sessions to help us learn better.
+
+\section*{Reflection --- Gourob Podder}
+
+\textbf{1. What went well while writing this deliverable?}  
+
+Writing this deliverable went smoothly once I established a clear mapping
+ between each functional requirement and its corresponding tests. The structure 
+ of the SRS helped guide our testing logic, and I was able to design specific, 
+ measurable, and realistic test cases for all major system components from input 
+ handling to agent-based task execution. Collaboratively, we divided responsibilities 
+ efficiently, which allowed us to maintain a consistent level of technical depth and 
+ clarity throughout the VnV plan.
+
+\noindent\textbf{2. What pain points did you experience during this deliverable, and how did you resolve them?}  
+
+One major challenge we faced was time management. Our group had to apply for an MSAF 
+(McMaster Student Absence Form) to obtain academic relief for a late submission due 
+to unexpected health issues amongst our group members. Getting approval 
+for the MSAF was a bit of a hassle — it required communication with prof and the 
+relevant university department. This delay temporarily disrupted our workflow and 
+added stress to the deliverable timeline. We resolved it by setting up a stricter internal 
+schedule after the approval to get the work completed efficiently.  
+
+\noindent\textbf{3. What knowledge and skills will the team collectively need to acquire to successfully complete the verification and validation of your project?}  
+We had to learn a lot on how testing and verification worked for black boxes
+like LLMs:  
+\begin{itemize}
+    \item Testing and evaluation of AI/NLP models (e.g., measuring intent classification 
+    accuracy and ASR performance).  
+    \item Usability testing with diverse user groups, particularly those with 
+    accessibility needs.  
+\end{itemize}
+
+\noindent\textbf{4. For each of the knowledge areas and skills identified in the previous question, what are at least two approaches to acquiring the knowledge or mastering the skill? Of the identified approaches, which will each team member pursue, and why did they make this choice?}  
+
+\begin{itemize}
+    \item \textbf{AI/NLP Testing and Evaluation:}  
+    Approaches include (1) completing online courses or tutorials on NLP evaluation 
+    (e.g., Coursera, Hugging Face documentation) and (2) implementing small-scale 
+    evaluation scripts for our ASR and intent recognition modules. I will focus 
+    on the implementation approach since I already have a strong technical 
+    background and prefer hands-on experimentation with model outputs.  
+
+    \item \textbf{Usability and Accessibility Testing:}  
+    Approaches include (1) conducting supervised user testing sessions with 
+    accessibility-focused participants One of our teammates with a human–computer 
+    interaction background will lead user testing, while I will focus on analyzing 
+    the qualitative data collected from these sessions to guide improvements.  
+\end{itemize}
+
+
+
+
+\section*{Reflection --- Savinay Chhabra}
+
+\textbf{1. What went well while writing this deliverable?}  
+The team did a much better job communicating what each team member was doing 
+well in advance. This made working on dependent sections a lot easier than 
+previous deliverables. This prevented unnecessary back and forth between team 
+members which saved significant time.
+
+\noindent\textbf{2. What pain points did you experience during this deliverable, and how
+did you resolve them?}  
+The biggest challenge with this deliverable was that the entire team was absent 
+for the deadline and several days before that as well. We were unclear on how to 
+request academic relief which made it even more challenging. In the end, we were
+able to work with the Office of the Associate Dean and the course professor to 
+get an extension. All this would have been a lot simpler and easier for everyone 
+if we requested academic relief well before the deadline.
+
+\noindent\textbf{3. What knowledge and skills will the team collectively need to acquire
+to successfully complete the verification and validation of your project?}  
+Some basic verficiation and validation skills including coming up with test plans,
+scenarios, user groups and correctness are required. This is important as the 
+objectives we wish to validate would require comprehensive test cases which 
+cover the vast majority of scenarios we would expect to see in the real world. 
+For that, knowledge about Unit Testing, Integration Testing, Stability Testing 
+and End to End Integration Testing would be very useful to have.
+
+\noindent\textbf{4. For each of the knowledge areas and skills identified in the
+previous question, what are at least two approaches to acquiring the knowledge
+or mastering the skill? Of the identified approaches, which will each team
+member pursue, and why did they make this choice?}  
+A good start would be to review prior course material that taught us all of 
+these concepts. SFWRENG 3S03 was a very useful course that taught about testing. 
+This would help build a strong theoretical foundation. For practical learning, 
+going through open source software projects and their tests (both automated and 
+manual) would be very helpful. Reading their test plans and contributing to their
+testing when feasible would be a great way to get some practical experience.
 
 \end{document}
