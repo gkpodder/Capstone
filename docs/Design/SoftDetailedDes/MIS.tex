@@ -19,6 +19,8 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -122,39 +124,110 @@ described by giving their type signature followed by their specification.
 
 \section{Module Decomposition}
 
-The following table is taken directly from the Module Guide document for this project.
+The \textbf{Proxi}, is decomposed into a hierarchy of modules following the 
+design principles of information hiding and separation of concerns. Each 
+module corresponds to a well-defined secret and is independently assignable 
+to a developer. The decomposition balances hardware hiding, behaviour 
+hiding, and software decision modules.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{0.3\textwidth} p{0.65\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+\textbf{Level 1} & \textbf{Level 2 Modules (Secrets / Responsibilities)}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+\multirow{2}{*}{\textbf{Hardware-Hiding}} &
+\textbf{HH-IO (Audio Adapter)} – manages microphone input and audio 
+output across different platforms.\\
+& \textbf{HH-Auto (System Control)} – performs basic desktop actions 
+such as typing, clicking, or launching applications.\\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{7}{*}{\textbf{Behaviour-Hiding}} &
+\textbf{BH-Input (Voice \& Text Manager)} – captures user input, 
+converts speech to text, and normalizes text commands. Implements 
+\textit{FUNC.R.1–R.2}.\\
+& \textbf{BH-NLU (Intent Parser)} – interprets text into structured 
+intents and parameters based on defined command patterns. Implements 
+\textit{FUNC.R.3}.\\
+& \textbf{BH-Plan (Task Executor)} – determines which agent or tool 
+should handle a command and coordinates its execution. Implements 
+\textit{FUNC.R.4}.\\
+& \textbf{BH-Safety (Confirmation Gate)} – validates actions that may 
+affect files or system settings and requests confirmation. Implements 
+\textit{FUNC.R.9}.\\
+& \textbf{BH-Session (Context Manager)} – maintains user session data, 
+history, and undo information for continuity. Supports 
+\textit{FUNC.R.4}.\\
+& \textbf{BH-Feedback (Response Manager)} – converts textual responses 
+into spoken or visual feedback for the user. Implements 
+\textit{FUNC.R.5–R.6}.\\
+& \textbf{BH-UI (Proxi Interface)} – presents status updates, 
+confirmations, and results; supports full voice-only interaction. 
+Implements \textit{FUNC.R.8}.\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{5}{*}{\textbf{Software-Decision}} &
+\textbf{SD-Types (Core Structures)} – defines abstract data types for 
+Command, Intent, and Plan.\\
+& \textbf{SD-ToolRegistry (Action Map)} – maintains the mapping between 
+recognized intents and available system actions.\\
+& \textbf{SD-Store (Local Storage)} – handles persistent storage for 
+user preferences, session history, and logs.\\
+& \textbf{SD-STT/TTS Config} – specifies configuration for speech and 
+text synthesis models and supported languages.\\
+& \textbf{SD-Log (Event Logger)} – records system actions and feedback 
+events for debugging and validation.\\
 \bottomrule
-
 \end{tabular}
-\caption{Module Hierarchy}
+\caption{Module Hierarchy for Proxi Voice Assistant}
 \label{TblMH}
 \end{table}
 
+
+\textbf{Likely Changes:}
+\begin{itemize}
+  \item The choice of speech recognition or text-to-speech library 
+  (for example, switching from Whisper API to a local model).
+  \item Adjustments to the user interface layout or how voice commands 
+  trigger visible feedback or audio playback.
+  \item Fine-tuning thresholds for speech detection and timing between 
+  input and response based on user testing.
+  \item Updating supported voice commands or adding new MCP tools as 
+  features are expanded.
+\end{itemize}
+
+\textbf{Unlikely Changes:}
+\begin{itemize}
+  \item The main processing loop of Input $\rightarrow$ Interpret 
+  $\rightarrow$ Plan $\rightarrow$ Execute $\rightarrow$ Feedback.
+  \item The core data structures used for storing Commands, Intents, 
+  and Action Plans.
+  \item The communication pattern between modules through the MCP 
+  agent interface.
+\end{itemize}
+
+\textbf{Traceability to SRS:}
+\begin{itemize}
+  \item \textbf{BH-Input} fulfills \textit{FUNC.R.1–R.2}: speech and text 
+  input handling with accuracy $\geq 90\%$.
+  \item \textbf{BH-NLU} fulfills \textit{FUNC.R.3}: intent recognition 
+  accuracy $\geq 90\%$.
+  \item \textbf{BH-Plan} fulfills \textit{FUNC.R.4}: agent planning and 
+  execution success rate $\geq 85\%$.
+  \item \textbf{BH-Feedback} fulfills \textit{FUNC.R.5–R.6}: provides 
+  feedback and spoken confirmation within response time $\leq 2\,\text{s}$.
+  \item \textbf{BH-UI} fulfills \textit{FUNC.R.8}: supports full hands-free 
+  operation for accessibility.
+  \item \textbf{BH-Safety} fulfills \textit{FUNC.R.9}: requests confirmation 
+  before executing high-risk or destructive actions.
+  \item \textbf{Support modules (SD, HH)} enable non-functional goals on 
+  latency, reliability, and auditability through structured logging.
+\end{itemize}
+
 \newpage
-~\newpage
 
 \section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
   cross-referencing}
