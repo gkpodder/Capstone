@@ -229,6 +229,338 @@ events for debugging and validation.\\
 
 \newpage
 
+\section{MIS of HH-IO (Audio Adapter)} \label{mod:HHIO}
+
+\subsection{Module}
+
+HH-IO (Audio Adapter)
+
+\subsection{Uses}
+
+System audio interface
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+openMic & N/A & N/A & MicNotFound \\
+closeMic & N/A & N/A & CloseFailed \\
+recordAudio & seconds: real & sound: AudioStream & RecordFailed \\
+playAudio & sound: AudioStream & N/A & PlaybackFailed \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item micOpen : Boolean
+  \item lastSignal : AudioStream
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item micDevice : physical microphone
+  \item speakerDevice : physical speaker or headset
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item At least one working microphone and speaker device exists.
+  \item Only one module controls the microphone at a time.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{openMic}():
+\begin{itemize}
+  \item transition: micOpen := true if micDevice is available.
+  \item exception: MicNotFound if micDevice is missing or busy.
+\end{itemize}
+
+\noindent
+\textbf{closeMic}():
+\begin{itemize}
+  \item transition: micOpen := false if open.
+  \item exception: CloseFailed if device cannot close.
+\end{itemize}
+
+\noindent
+\textbf{recordAudio}(seconds):
+\begin{itemize}
+  \item output: returns AudioStream of given duration.
+  \item transition: lastSignal := captured audio.
+  \item exception: RecordFailed if capture fails or micOpen = false.
+\end{itemize}
+
+\noindent
+\textbf{playAudio}(sound):
+\begin{itemize}
+  \item transition: lastSignal := sound.
+  \item output: sound played through speakerDevice.
+  \item exception: PlaybackFailed if playback fails.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None.
+
+\section{MIS of HH-Auto (System Control)} \label{mod:HHAuto}
+
+\subsection{Module}
+
+HH-Auto (System Control)
+
+\subsection{Uses}
+
+Operating system automation interface
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+moveCursor & p: ScreenPos & N/A & ActionError \\
+leftClick & N/A & N/A & ActionError \\
+typeText & t: String & N/A & ActionError \\
+openApp & id: AppId & N/A & ActionError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item currentPos : ScreenPos
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item desktopEnv : user desktop environment
+  \item keyboardDevice : keyboard input channel
+  \item pointingDevice : mouse or trackpad
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The user session allows simulated input events.
+  \item Screen coordinates are valid for the active display.
+  \item AppId refers to an installed and accessible application.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{moveCursor}(p):
+\begin{itemize}
+  \item transition: currentPos := p.
+  \item output: N/A.
+  \item exception: ActionError if cursor move fails.
+\end{itemize}
+
+\noindent
+\textbf{leftClick}():
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if click event fails.
+\end{itemize}
+
+\noindent
+\textbf{typeText}(t):
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if key input fails.
+\end{itemize}
+
+\noindent
+\textbf{openApp}(id):
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if app launch fails.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None.
+
+\section{MIS of BH-Input (Voice \& Text Manager)} \label{mod:BHInput}
+
+\subsection{Module}
+
+BH-Input (Voice \& Text Manager)
+
+\subsection{Uses}
+
+HH-IO, SD-STT/TTS Config, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+startCapture & mode: InputMode & N/A &
+MicUnavailable, AlreadyCapturing \\
+stopCapture & N/A & N/A & NotCapturing \\
+getLastText & N/A & text: String & NoInputAvailable \\
+getStatus & N/A & s: InputStatus & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item inputState : InputState
+  \item currentMode : InputMode
+  \item lastText : String
+  \item partialText : String
+  \item lastError : InputError or null
+\end{itemize}
+
+InputState = \{Idle, Listening, Processing\}
+
+InputMode = \{VoiceOnly, TextOnly, Mixed\}
+
+InputStatus is a record:
+\begin{itemize}
+  \item state : InputState
+  \item hasText : Boolean
+  \item hasError : Boolean
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item micStream : handled by HH-IO for live audio
+  \item sttService : speech-to-text service
+  \item now : system clock for timing
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The microphone and STT component are available when started.
+  \item Only one capture session runs at a time.
+  \item Calling modules handle all exceptions raised.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{startCapture}(mode):
+\begin{itemize}
+  \item transition: if inputState = Idle and micStream ready then
+  \[
+    inputState := Listening, \quad currentMode := mode, \quad
+    partialText := ""
+  \]
+  \item exception: MicUnavailable if device fails, AlreadyCapturing if
+  inputState $\neq$ Idle.
+\end{itemize}
+
+\noindent
+\textbf{stopCapture}():
+\begin{itemize}
+  \item transition: if inputState $\neq$ Idle then inputState := Idle.
+  \item exception: NotCapturing if inputState = Idle.
+\end{itemize}
+
+\noindent
+\textbf{getLastText}():
+\begin{itemize}
+  \item output: returns lastText if not empty.
+  \item exception: NoInputAvailable if lastText is empty.
+\end{itemize}
+
+\noindent
+\textbf{getStatus}():
+\begin{itemize}
+  \item output: returns a record s with
+  $s.state = inputState$, $s.hasText = (lastText \neq "")$,
+  $s.hasError = (lastError \neq null)$.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+Let Event = \{StartCmd, StopCmd, Chunk, Error, Timeout\}
+
+\noindent
+$nextState : InputState \times Event \rightarrow InputState$
+
+\[
+  nextState(s, e) =
+  \begin{cases}
+    Listening & \text{if } s = Idle \land e = StartCmd\\
+    Idle & \text{if } s = Listening \land e = StopCmd\\
+    Processing & \text{if } s = Listening \land e = Chunk\\
+    Processing & \text{if } s = Processing \land e = Chunk\\
+    Idle & \text{if } e = Error \lor e = Timeout\\
+    s & \text{otherwise}
+  \end{cases}
+\]
+
+During execution BH-Input updates
+\[
+  inputState := nextState(inputState, e)
+\]
+for each event e. When transcription ends, partialText moves into
+lastText.
+
+\noindent
+This model supports \textit{FUNC.R.1–R.2} by showing how voice input
+moves through Idle, Listening, and Processing to store a transcription
+in lastText.
+
+
+
+
+
+\newpage
+
+
+
+
+
+
 \section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
   cross-referencing}
 
