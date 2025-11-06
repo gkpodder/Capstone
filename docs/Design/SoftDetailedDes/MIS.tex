@@ -545,14 +545,204 @@ During execution BH-Input updates
 for each event e. When transcription ends, partialText moves into
 lastText.
 
+\section{MIS of BH-NLU (Intent Parser)} \label{mod:BHNlu}
+
+\subsection{Module}
+
+BH-NLU (Intent Parser)
+
+\subsection{Uses}
+
+SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+parseText & text: String & i: Intent & ParseError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Input text is in English and grammatically valid.
+  \item Command patterns are defined in SD-Types.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
 \noindent
-This model supports \textit{FUNC.R.1–R.2} by showing how voice input
-moves through Idle, Listening, and Processing to store a transcription
-in lastText.
+\textbf{parseText}(text):
+\begin{itemize}
+  \item output: produces an Intent record with fields
+  \[
+    i.type = detectCommand(text), \quad
+    i.params = extractParams(text)
+  \]
+  \item exception: ParseError if text cannot be matched to any pattern.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\[
+  detectCommand : String \rightarrow IntentType
+\]
+\[
+  extractParams : String \rightarrow ParamSet
+\]
 
 
+\section{MIS of BH-Plan (Task Executor)} \label{mod:BHPlan}
 
+\subsection{Module}
 
+BH-Plan (Task Executor)
+
+\subsection{Uses}
+
+BH-NLU, SD-ToolRegistry, SD-Types, SD-Log, HH-Auto
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+ExecStatus = \{Pending, Success, Failed\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.3cm} p{4cm} p{4cm} p{2.3cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+planAction & i: Intent & p: Plan & NoToolFound \\
+executePlan & p: Plan & s: ExecStatus & ExecError \\
+cancelPlan & N/A & N/A & NoPendingPlan \\
+getLastStatus & N/A & s: ExecStatus & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item currentPlan : Plan or null
+  \item lastStatus : ExecStatus
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item toolSet : accessible system tools or MCP agents
+  \item now : system clock for execution timing
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The input intent has been validated by BH-NLU.
+  \item Each available tool in SD-ToolRegistry exposes a run() routine.
+  \item MCP agents or automation tools are reachable when requested.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{planAction}(i):
+\begin{itemize}
+  \item output: generates a Plan record p with:
+  \[
+    p.tool = matchTool(i.type), \quad
+    p.parameters = i.params, \quad
+    p.time = now
+  \]
+  \item transition: currentPlan := p.
+  \item exception: NoToolFound if matchTool fails.
+\end{itemize}
+
+\noindent
+\textbf{executePlan}(p):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item currentPlan := p.
+    \item s := runTool(p.tool, p.parameters).
+  \end{itemize}
+  \item output: returns s of type ExecStatus.
+  \item exception: ExecError if runTool fails.
+\end{itemize}
+
+\noindent
+\textbf{cancelPlan}():
+\begin{itemize}
+  \item transition: currentPlan := null, lastStatus := Failed.
+  \item exception: NoPendingPlan if currentPlan = null.
+\end{itemize}
+
+\noindent
+\textbf{getLastStatus}():
+\begin{itemize}
+  \item output: returns lastStatus.
+  \item transition: none.
+\end{itemize}
+
+\subsubsection{Planning Logic}
+
+To model the planning stage, define:
+\[
+  matchTool : IntentType \rightarrow ToolId
+\]
+
+\[
+  runTool : ToolId \times ParamSet \rightarrow ExecStatus
+\]
+
+The planning decision can be expressed as:
+
+\[
+  planAction(i) =
+  \begin{cases}
+    p = (matchTool(i.type), i.params, now) &
+    \text{if a tool exists for } i.type \\
+    \text{NoToolFound error} &
+    \text{otherwise}
+  \end{cases}
+\]
+
+Execution behaviour follows:
+\[
+  executePlan(p) =
+  \begin{cases}
+    Success & \text{if runTool(p.tool, p.parameters) = true}\\
+    Failed & \text{otherwise}
+  \end{cases}
+\]
+
+\subsubsection{Local Functions}
+
+\begin{itemize}
+  \item \textbf{matchTool}(t): searches SD-ToolRegistry for a matching tool.
+  \item \textbf{runTool}(id, params): calls the linked MCP or system command.
+\end{itemize}
 
 \newpage
 
