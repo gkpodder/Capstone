@@ -1260,4 +1260,96 @@ graduate attribute of Problem Analysis and Design.
 \end{enumerate}
 
 
+\section*{Amanbeer Minhas Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+Once I had the SRS, VnV Plan, and Hazard Analysis in place, this
+design doc felt much more manageable.  Breaking the system into
+BH-Input, BH-Plan, BH-Safety, BH-Feedback, and BH-UI made it easier
+to see how everything fit together.  Courses like COMPSCI/SFWRENG
+3RA3 (Requirements) helped me think in terms of clear responsibilities
+and traceable requirements.My QA co-op experience also helped because
+I naturally thought about how each module would be tested while I was
+specifying it.
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The main pain point was finding the right level of abstraction.  At
+first, I wrote the MIS in terms of specific tools and APIs, which
+made the design feel tied to one implementation.  After revisiting
+the lecture notes and examples, I rewrote the modules to focus on
+behaviour and information hiding instead.  Another challenge was
+formal notation for state and transitions.  I drew on ideas from
+SFWRENG 2DM3 (Discret Maths) to think in terms of states, events,
+and transitions, then simplified that down to the most important
+pieces so the document would still be readable.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+Most of our client feedback came from our team mates parents/relatives 
+trying early voice-based prototypes.  Some people wanted fewer confirmations
+so the system felt faster, while others were worried about accidental
+destructive actions.  This made us directly include the BH-Safety
+module: we introduced risk levels and different behaviours for low,
+medium, and high risk actions.  Ideas around accessibility and clear
+feedback were reinforced by discussions in ENGINEER 4A03, where we talked 
+about inclusivity, ethics, and duty of care.  Where we did not have direct
+user input, I leaned on course examples and the capstone lectures for reference.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+While writing the MIS, I noticed that some requirements in the SRS
+were too vague to map cleanly to modules.  We will refine a few of them to
+have clearer success conditions (for example, accuracy targets and
+timing bounds), so they matched the behaviour of BH-Input and
+BH-Feedback.  The Hazard Analysis also needs change: some risks originally
+assigned to “the system” were moved specifically to BH-Safety, since
+that is where confirmation and blocking actually happen.  The VnV
+Plan needs change to add module-level tests for voice accuracy, plan
+execution success, and safety prompts, reflecting what I learned
+about test design in my QA co-op and SFWRENG 3S03(Software testing).
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+Right now, the design assumes relatively simple commands and a
+limited amount of context.  The NLU is closer to pattern matching
+than full natural language understanding.  The system also depends on
+reliable speech models and may not perform as well in noisy
+environments or for all accents.  With more time and resources, we
+would explore more robust language models, better noise handling, and
+wider accessibility testing with real users.  We would also add more
+automation around logging and replaying user sessions for regression
+testing, drawing from ideas in my QA work and SFWRENG 3S03 and
+STATS 3Y03 for analyzing failure patterns.
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+We considered three main designs.  The first was a single monolithic
+voice assistant where input, planning, and safety were all handled in
+one loop.  This would have been easier to code quickly but very hard
+to test or change without breaking things.  The second option relied
+mostly on an external cloud assistant, which might give better
+speech accuracy but raises privacy and reliability concerns.  The
+third, which we chose, is the modular design in this document, with
+separate BH modules and clear interfaces.  It fits the ideas from
+SFWRENG 2OP3, 2C03, 3RA3, and 3XB3 about modularity, testing, and
+requirements traceability.  We chose it because it balances what we can
+realistically implement as a student with the level of structure and
+safety we have learned to aim for in software engineering.
+\end{enumerate}
+
+
+
 \end{document}
