@@ -744,6 +744,404 @@ Execution behaviour follows:
   \item \textbf{runTool}(id, params): calls the linked MCP or system command.
 \end{itemize}
 
+\section{MIS of BH-Safety (Confirmation Gate)} \label{mod:BHSafety}
+
+\subsection{Module}
+
+BH-Safety (Confirmation Gate)
+
+\subsection{Uses}
+
+BH-UI, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+RiskLevel = {Low, Medium, High}
+
+\noindent SafetyDecision = {AutoAllow, AskUser, Block}
+
+\noindent ApprovalResult = {Approved, Denied, Cancelled}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.3cm} p{4cm} p{4cm} p{2.3cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+classifyAction & a: Action & r: RiskLevel & N/A \\
+decidePolicy & a: Action & d: SafetyDecision & N/A \\
+confirmAction & a: Action & res: ApprovalResult & UserTimeout \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item pendingAction : Action or null
+  \item lastDecision : SafetyDecision or null
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item uiChannel : connection to BH-UI for user prompts
+  \item now : system clock for time limits
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item BH-UI can show a yes/no prompt and return a user response.
+  \item Every Action record includes a defined riskLevel field.
+  \item The system clock is monotonic for timeout checks.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{classifyAction}(a):
+\begin{itemize}
+  \item output: returns a.riskLevel.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{decidePolicy}(a):
+\begin{itemize}
+  \item output: returns d of type SafetyDecision, where
+  \[
+    d =
+    \begin{cases}
+      AutoAllow & \text{if } a.riskLevel = Low\\
+      AskUser & \text{if } a.riskLevel = Medium\\
+      Block & \text{if } a.riskLevel = High \land a.isIrreversible\\
+      AskUser & \text{if } a.riskLevel = High \land \neg a.isIrreversible
+    \end{cases}
+  \]
+  \item transition: lastDecision := d.
+\end{itemize}
+
+\noindent
+\textbf{confirmAction}(a):
+\begin{itemize}
+  \item transition: pendingAction := a.
+  \item output:
+  \begin{itemize}
+    \item If decidePolicy(a)=AutoAllow then res=Approved.
+    \item If decidePolicy(a)=Block then res=Denied.
+    \item If AskUser then BH-UI prompts user; waits for yes/no.
+  \end{itemize}
+  \item exception: UserTimeout if no answer before time limit.
+\end{itemize}
+
+\subsubsection{Risk Policy Table}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm}}
+\toprule
+\textbf{Risk} & \textbf{Irreversible?} & \textbf{Decision} & \textbf{Example} \\
+\midrule
+Low & N/A & AutoAllow & Open folder, read file \\
+Medium & N/A & AskUser & Rename or move file \\
+High & false & AskUser & Delete to recycle bin \\
+High & true & Block & Permanently delete data \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Local Functions}
+
+\[
+  policy : RiskLevel \times Bool \rightarrow SafetyDecision
+\]
+
+\[
+  policy(r, irr) =
+  \begin{cases}
+    AutoAllow & \text{if } r = Low\\
+    AskUser & \text{if } r = Medium\\
+    Block & \text{if } r = High \land irr = true\\
+    AskUser & \text{if } r = High \land irr = false
+  \end{cases}
+\]
+
+\noindent
+decidePolicy(a) = policy(a.riskLevel, a.isIrreversible)
+
+\noindent
+This module fulfills \textit{FUNC.R.9} by ensuring confirmation or
+blocking of high-risk actions, reducing hazards identified in the
+safety analysis.
+
+
+\section{MIS of BH-Feedback (Response Manager)} \label{mod:BHFeedback}
+
+\subsection{Module}
+
+BH-Feedback (Response Manager)
+
+\subsection{Uses}
+
+HH-IO, SD-STT/TTS Config, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+OutputMode = \{VoiceOnly, TextOnly, Both\}
+
+\noindent FeedbackStatus = \{Idle, Speaking, Completed, Failed\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+queueMessage & msg: String, m: OutputMode & N/A & QueueFull \\
+speakNow & msg: String, m: OutputMode & s: FeedbackStatus &
+TtsError \\
+getLastStatus & N/A & s: FeedbackStatus & N/A \\
+cancelAll & N/A & N/A & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item outputQueue : sequence of (String, OutputMode)
+  \item lastStatus : FeedbackStatus
+  \item isSpeaking : Boolean
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item audioOut : speaker connection through HH-IO
+  \item ttsService : text-to-speech component
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item ttsService can turn any short message into speech in less than
+  the required response time from the SRS.
+  \item HH-IO can play audio without blocking the whole system.
+  \item The output queue has a fixed maximum size.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{queueMessage}(msg, m):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item If the queue is not full then append (msg, m) to outputQueue.
+  \end{itemize}
+  \item output: N/A.
+  \item exception: QueueFull if appending would exceed the limit.
+\end{itemize}
+
+\noindent
+\textbf{speakNow}(msg, m):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item isSpeaking := true; lastStatus := Speaking.
+    \item If m = VoiceOnly or m = Both then send msg to ttsService and
+    play through audioOut.
+    \item If m = TextOnly or m = Both then write msg to the log or UI
+    channel.
+  \end{itemize}
+  \item output:
+  \begin{itemize}
+    \item If playback and any text output succeed then lastStatus :=
+    Completed and s = Completed.
+    \item Otherwise lastStatus := Failed and s = Failed.
+  \end{itemize}
+  \item exception: TtsError if ttsService cannot produce speech.
+\end{itemize}
+
+\noindent
+\textbf{getLastStatus}():
+\begin{itemize}
+  \item output: returns lastStatus.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{cancelAll}():
+\begin{itemize}
+  \item transition: clear outputQueue; isSpeaking := false;
+  lastStatus := Idle.
+  \item output: N/A.
+  \item exception: N/A.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent
+We model the processing of the queue with a helper function:
+
+\[
+  nextMessage : \text{sequence of (String, OutputMode)} \rightarrow
+  (String, OutputMode) \cup \{\text{None}\}
+\]
+
+\[
+  nextMessage(q) =
+  \begin{cases}
+    \text{first element of } q & \text{if } q \neq []\\
+    \text{None} & \text{if } q = []
+  \end{cases}
+\]
+
+\noindent
+BH-Feedback periodically checks outputQueue. If nextMessage returns a
+pair (msg, m), it behaves as in speakNow(msg, m) and then removes that
+entry from the queue. If None, it leaves the state unchanged.
+
+\noindent
+This module fulfills \textit{FUNC.R.5–R.6} by providing timely spoken
+and visual feedback to the user, and by reporting a clear status that
+can be logged or shown in the interface.
+
+\section{MIS of BH-UI (Proxi Interface)} \label{mod:BHUI}
+
+\subsection{Module}
+
+BH-UI (Proxi Interface)
+
+\subsection{Uses}
+
+BH-Feedback, BH-Safety, BH-Input, SD-Log, SD-Types
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+UIState = \{Idle, Listening, Waiting, Displaying, Error\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+updateView & s: UIState & N/A & RenderError \\
+showMessage & msg: String & N/A & RenderError \\
+promptUser & q: String & ans: Bool & Timeout \\
+showStatus & st: FeedbackStatus & N/A & N/A \\
+clearScreen & N/A & N/A & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item uiState : UIState
+  \item lastMsg : String
+  \item lastError : String or null
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item display : visual interface (screen or console)
+  \item micLED : visual cue showing listening status
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Display device is available and writable.
+  \item Voice cues or LEDs can toggle quickly without delay.
+  \item Text is short enough to fit within screen limits.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{updateView}(s):
+\begin{itemize}
+  \item transition: uiState := s.
+  \item output: updates micLED or text based on state.
+  \item exception: RenderError if update fails.
+\end{itemize}
+
+\noindent
+\textbf{showMessage}(msg):
+\begin{itemize}
+  \item transition: lastMsg := msg; uiState := Displaying.
+  \item output: renders msg visually or as voice through BH-Feedback.
+  \item exception: RenderError if display or output fails.
+\end{itemize}
+
+\noindent
+\textbf{promptUser}(q):
+\begin{itemize}
+  \item transition: uiState := Waiting.
+  \item output: shows q; waits for yes/no reply by voice or keypress.
+  \item exception: Timeout if no input received in time limit.
+\end{itemize}
+
+\noindent
+\textbf{showStatus}(st):
+\begin{itemize}
+  \item output: shows latest FeedbackStatus or progress.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{clearScreen}():
+\begin{itemize}
+  \item transition: uiState := Idle; lastMsg := "".
+  \item output: clears visual area.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent
+We define a helper that maps states to display text:
+
+\[
+  stateText : UIState \rightarrow String
+\]
+
+\[
+  stateText(s) =
+  \begin{cases}
+    "Listening..." & \text{if } s = Listening\\
+    "Waiting for input..." & \text{if } s = Waiting\\
+    "Processing..." & \text{if } s = Displaying\\
+    "Idle" & \text{if } s = Idle\\
+    "Error" & \text{if } s = Error
+  \end{cases}
+\]
+
+\noindent
+This mapping helps BH-Feedback and BH-Safety show consistent
+notifications through both visual and voice channels.
+This module fulfills \textit{FUNC.R.8} by ensuring full hands-free
+interaction and clear accessibility feedback for all system states.
+
+
+
 \newpage
 
 
