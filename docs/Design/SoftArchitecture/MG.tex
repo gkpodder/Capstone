@@ -191,40 +191,57 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+
+  % HH
+  \item [\refstepcounter{mnum} \mthemnum \label{mHHIO}:] 
+  \textbf{HH-IO (Audio Adapter)} – manages microphone input and audio 
+  output across platforms.
+  \item [\refstepcounter{mnum} \mthemnum \label{mHHAuto}:] 
+  \textbf{HH-Auto (System Control)} – performs desktop automation 
+  tasks such as typing, clicking, and launching applications.
+
+  % BH
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHInput}:] 
+  \textbf{BH-Input (Voice \& Text Manager)} – captures user speech, 
+  uses Whisper STT, and normalizes input.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHNLU}:] 
+  \textbf{BH-NLU (Intent Parser)} – interprets text into structured 
+  intents based on command patterns.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHPlan}:] 
+  \textbf{BH-Plan (Task Executor)} – selects MCP tools and executes 
+  user intents.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHSafety}:] 
+  \textbf{BH-Safety (Confirmation Gate)} – validates risky actions and 
+  requests confirmation as needed.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHSession}:] 
+  \textbf{BH-Session (Context Manager)} – stores history, session 
+  context, and undo information.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHFeedback}:] 
+  \textbf{BH-Feedback (Response Manager)} – outputs responses using 
+  TTS or visual text.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHUI}:] 
+  \textbf{BH-UI (Proxi Interface)} – displays status, confirmation 
+  prompts, and results.
+
+  % SD
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDTypes}:] 
+  \textbf{SD-Types (Core Structures)} – defines ADTs for Command, 
+  Intent, Plan, and related structures.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDRegistry}:] 
+  \textbf{SD-ToolRegistry (Action Map)} – maps intents to MCP 
+  tools/actions.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDStore}:] 
+  \textbf{SD-Store (Local Storage)} – manages persistent data such as 
+  preferences, session history, and logs.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDConfig}:] 
+  \textbf{SD-STT/TTS Config} – defines Whisper + TTS model configuration 
+  and language settings.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDLog}:] 
+  \textbf{SD-Log (Event Logger)} – records events for debugging and 
+  V\&V traceability.
+
 \end{description}
 
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding Module} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
@@ -255,57 +272,141 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules (\mref{mHHIO})-(\mref{mHHAuto})}
 
+\subsubsection{HH-IO: Audio Adapter (\mref{mHHIO})}
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:]The data structure and algorithm used to interface with 
+microphone and speaker hardware.
+\item[Services:]Provides audio hardware I/O operations including operning and 
+closing devices, recording audio and playing audio.
+\item[Implemented By:] OpenAI Whisper
+\item[Type Of Module:] Library 
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
 
+\subsubsection{HH-Auto: System Control (\mref{mHHAuto})}
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Secrets:]OS specific automations (mouse, keyboard control) implementation.
+Hides differences between Windows, MacOS and Linux.
+\item[Services:]Move Cursor, click, type, open and close applications.
+\item[Implemented By:] PyAutoGUI
+\item[Type Of Module:] Library 
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsection{Behaviour-Hiding Modules (\mref{mBHInput})-(\mref{mBHUI})}
 
+\subsubsection{BH-Input: Voice and Text Manager (\mref{mBHInput})}
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] Speech To Text model configuration, text normalization rules and
+buffering strategies.
+\item[Services:]Handles speech variation, different speech patterns, varied 
+accents and filters background noise.
+\item[Implemented By:] Project Proxi
 \end{description}
 
-\subsubsection{Etc.}
-
-
-\subsection{Software Decision Module}
-
+\subsubsection{BH-NLU: Intent Parser (\mref{mBHNLU})}
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] Rules and internal parameters for interpretation of noisy or 
+imperfect text into structured intent objects.
+\item[Services:]Coverts normalized text into intents with metadata fields.
+\item[Implemented By:] Project Proxi
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{BH-Plan: Task Executor (\mref{mBHPlan})}
+\begin{description}
+\item[Secrets:] Decision-making logic for selecting correct MCP agent based on 
+intent. Execution plan and task table. Error handlers and request handlers.
+\item[Services:] Create an execution plan based on intent. Execute plan using 
+MCP agent and track task to completion.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{BH-Safety: Confirmation Gate (\mref{mBHSafety})}
+\begin{description}
+\item[Secrets:] Risk Analysis PolicyTable, Irreversible Detection algorithm,
+timeout actions. 
+\item[Services:] Implements accidental command protections. Classifies action 
+risks, decides appropriate policy and prompts user for confirmation when 
+action is deemed high risk.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsubsection{BH-Session: Context Manager (\mref{mBHSession})}
+\begin{description}
+\item[Secrets:]Session History Table, short-term conversational context for AI 
+model, previous action tree.
+\item[Services:]Tracks all previous sessions and previous actions completed for
+each session. Maintains continuity across user requests.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+
+\subsubsection{BBH-Feedback: Response Manager (\mref{mBHFeedback})}
+\begin{description}
+\item[Secrets:]Output action logic, Text-to-speech configuration, message delivery
+monitor.
+\item[Services:]Manages applications to open and actions to do based on user 
+input. Maintains messages and prompts to be shown to the user. Converts messages
+to speech and outputs through speakers if required.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsubsection{BH-UI: Proxi Interface (\mref{mBHUI})}
+\begin{description}
+\item[Secrets:]View Groups, Information Presentation Rules and prompt timing 
+rules.
+\item[Services:]Updates UI State, displays messages, presents user prompts and 
+show voice feedback prompts.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsection{Software Decision Module (\mref{mSDTypes})-(\mref{mSDLog})}
+
+\subsubsection{SD-Types: Core Structures (\mref{mSDTypes})}
+\begin{description}
+\item[Secrets:] Internal representaiton of commands, actions, risks, policies 
+and tool metadata.
+\item[Services:] Defines shared Classes and Objects used system-wide.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-ToolRegistry: Action Map (\mref{mSDRegistry})}
+\begin{description}
+\item[Secrets:]Maps to link action intents to MCP tools, MCP Agents and system 
+automation routines.
+\item[Services:]Provides appropriate MCP agent or tool for a given intent.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-Store: Local Storage (\mref{mSDStore})}
+\begin{description}
+\item[Secrets:]User Settings, Accessibility Settings, Session History, Action 
+Tree, AI model context.
+\item[Services:]Saves and loads user settings and previously saved states from 
+memory. 
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-STT/TTS Config (\mref{mSDConfig})}
+\begin{description}
+\item[Secrets:] Stores API keys, configurations and fallback options for OpenAI 
+Whisper model.
+\item[Services:]Passes Whisper/TTS parameters to BH-Input and parses API output 
+to BH-Feedback.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-Log: Event Logger (\mref{mSDLog})}
+\begin{description}
+\item[Secrets:]Diagnostic log formatter, parser and storage algorithm.
+\item[Services:]Stores and sends diagnostic logs in the event of failure.
+\item[Implemented By:] Project Proxi
+\end{description}
+
 
 \section{Traceability Matrix} \label{SecTM}
 
