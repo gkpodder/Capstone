@@ -1516,4 +1516,76 @@ control over the application and testing.
 
 \end{enumerate}
 
+\section*{Gourob Podder Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+This deliverable was a lot less hectic in terms of planning. We did a large chunk of the 
+MIS before the TA meeting which allowed us to get good feedback on the deliverable 
+before submission and clear up misconceptions. 
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The main paint point during this deliverable was making sure we weren't being too
+specific in how we wrote the modules like including specific services, APIs or
+code implementations. I primarily used the good examples defined by the prof to 
+understand the expectations of this section and read the relevant slides.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+The security gate module was a direct result of feedback from our peers and stakeholders. 
+Many users expressed concerns about accidental destructive actions
+being performed by the application due to misinterpretation of voice commands. 
+To address this, we incorporated a safety module that classifies actions based 
+on their risk levels and prompts users for confirmation when necessary.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+For the most part our docs were fairly consistent. However we did notice some 
+requirements which could reworked to be more specific and measurable to be 
+effectively mapped to modules.
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+In an ideal scenario we would create our own model as there are a specific class
+of llms called large action models (LAMs) which are specifically designed for
+action planning tasks. These models are optimized to understand and execute
+complex sequences of actions based on user commands. These models are typically 
+smaller and more efficient than general-purpose LLMs, making them suitable for 
+low latency and better user experience.
+
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+One of the alternatives we considered was a complete local system. This would have ensured
+better privacy and security for users as all data would be processed locally. However,
+this would have required significant computational resources and additional technical 
+expertise in being able to train SOTA models. In addition, the given timeline for 
+the capstone we would have severely limited the features we could implement and hurt
+the overall user experience. 
+
+We also considered a monolothic model design where we would use a very large multimodal LLM
+to handle all aspects of the application from speech to text, intent detection, 
+action planning and execution. While this would have simplified the architecture 
+of the application, it would have made it very difficult to add safeguards and 
+test the system effectively. The api costs for such models are also very high and 
+would have made scaling the application challenging.
+
+In the end we chose a modular design which balanced focus for usability and 
+accessibility while also being able to get great results by using a mixture of 
+models approach through our modular architecture.
+
+\end{enumerate}
+
 \end{document}
