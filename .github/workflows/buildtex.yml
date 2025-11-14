@@ -51,3 +51,10 @@ jobs:
           commit_message: 'Add/Update PDF${{ env.PLURAL_S }} for changed LaTeX file${{ env.PLURAL_S }}: ${{ env.CHANGED_FILENAMES }}'
           file_pattern: 'docs/*.pdf'
           branch: main
+      - name: Show PDF file sizes
+        run: |
+          echo "PDF sizes:"
+          for pdf in docs/**/*.pdf; do
+            size=$(stat -c%s "$pdf")
+            echo "$pdf → $size bytes"
+          done
