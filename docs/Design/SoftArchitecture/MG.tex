@@ -411,9 +411,7 @@ to BH-Feedback.
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
-requirements, and between the modules and the anticipated changes. Functional
-requirements are referenced using their identifiers from the SRS
-(e.g.\ FUNC.R.1--FUNC.R.9).
+requirements, and between the modules and the anticipated changes.
 
 \begin{table}[H]
 \centering
@@ -463,18 +461,22 @@ decisions.
 \toprule
 \textbf{Anticipated Change} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acHardware} - Hardware platform (microphone, speakers, OS automation)
+  & \mref{mHHIO}, \mref{mHHAuto} \\
+\acref{acInput} - Input format / source (voice-only vs mixed voice + text)
+  & \mref{mBHInput}, \mref{mBHUI}, \mref{mHHIO} \\
+\acref{acSTT} - STT/TTS/LLM provider or library
+  & \mref{mBHInput}, \mref{mBHFeedback}, \mref{mHHIO}, \mref{mSDConfig} \\
+\acref{acUI} - UI layout and feedback presentation
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mSDStore} \\
+\acref{acCommands} - Supported voice commands and MCP tools
+  & \mref{mBHNLU}, \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDTypes} \\
+\acref{acThresholds} - Speech detection and timing thresholds
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mSDConfig} \\
+\acref{acSafety} - Risk classification and safety policy
+  & \mref{mBHSafety}, \mref{mBHUI}, \mref{mSDTypes}, \mref{mSDStore}, \mref{mSDLog} \\
+\acref{acStorage} - Logging and storage of history/preferences
+  & \mref{mSDStore}, \mref{mSDLog}, \mref{mBHSession} \\
 \bottomrule
 \end{tabular}
 \caption{Traceability between anticipated changes and modules}
