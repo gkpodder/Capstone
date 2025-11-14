@@ -519,8 +519,29 @@ arrows in the diagram typically correspond to the presence of import statement.}
 needed. Drawings, Sketches, Figma}
 
 \section{Design of Communication Protocols}
+\label{SecComm}
 
-\wss{If appropriate}
+\noindent
+No custom low-level communication protocols are defined.
+
+\subsection{Internal Communication}
+
+All modules run in a single desktop application and communicate through normal 
+procedure calls and shared data structures. No network protocols are used 
+in internal modules.
+
+\subsection{External Services}
+
+\begin{itemize}
+  \item \textbf{STT/TTS/LLM services}: 
+  \mref{mBHInput} and \mref{mBHFeedback} call external AI services over standard 
+  HTTPS with JSON payloads. Provider details are in \mref{mSDConfig}.
+
+  \item \textbf{MCP tools and automation}: \mref{mBHPlan} uses MCP tools and 
+  desktop automation using the Model Context Protocol, which exchanges JSON 
+  requests and responses through a local and reliable channel. Tool mapping is 
+  maintained by \mref{mSDRegistry}.
+\end{itemize}
 
 \section{Timeline}
 
