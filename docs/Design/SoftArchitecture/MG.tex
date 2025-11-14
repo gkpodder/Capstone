@@ -411,38 +411,57 @@ to BH-Feedback.
 \section{Traceability Matrix} \label{SecTM}
 
 This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+requirements, and between the modules and the anticipated changes. Functional
+requirements are referenced using their identifiers from the SRS
+(e.g.\ FUNC.R.1--FUNC.R.9).
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Requirement (SRS)} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FUNC.R.1 -- Accept input via speech and text
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mBHUI}, \mref{mSDConfig} \\
+FUNC.R.2 -- Convert speech to text (STT)
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mSDConfig}, \mref{mSDLog} \\
+FUNC.R.3 -- Interpret user intent from NL input
+  & \mref{mBHNLU}, \mref{mBHInput}, \mref{mSDTypes}, \mref{mSDLog} \\
+FUNC.R.4 -- Plan and execute tasks via agents/tools
+  & \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDTypes},
+    \mref{mHHAuto}, \mref{mBHSession}, \mref{mBHSafety}, \mref{mSDLog} \\
+FUNC.R.5 -- Provide textual / spoken feedback
+  & \mref{mBHFeedback}, \mref{mBHUI}, \mref{mSDConfig}, \mref{mSDLog} \\
+FUNC.R.6 -- Maintain short-term conversational memory
+  & \mref{mBHSession}, \mref{mSDStore}, \mref{mBHInput},
+    \mref{mBHPlan}, \mref{mSDLog} \\
+FUNC.R.7 -- Log user interactions and task results
+  & \mref{mSDLog}, \mref{mSDStore}, \mref{mBHSession},
+    \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHFeedback},
+    \mref{mBHUI}, \mref{mBHSafety}, \mref{mHHIO}, \mref{mHHAuto} \\
+FUNC.R.8 -- High-level interaction (no low-level OS details)
+  & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHPlan},
+    \mref{mBHFeedback}, \mref{mHHAuto}, \mref{mSDTypes} \\
+FUNC.R.9 -- Confirm privileged / system-level actions
+  & \mref{mBHSafety}, \mref{mBHUI}, \mref{mBHPlan},
+    \mref{mSDTypes}, \mref{mSDLog}, \mref{mSDStore} \\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Requirements and Modules}
+\caption{Traceability between SRS functional requirements and modules}
 \label{TblRT}
 \end{table}
 
+The following matrix links anticipated changes (ACs) from
+Section~\ref{SecChange} to the modules that hide the corresponding design
+decisions.
+
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
 \toprule
-\textbf{AC} & \textbf{Modules}\\
+\textbf{Anticipated Change} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
 \acref{acInput} & \mref{mInput}\\
@@ -458,9 +477,10 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \acref{acPlot} & \mref{mPlot}\\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
+\caption{Traceability between anticipated changes and modules}
 \label{TblACT}
 \end{table}
+
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
