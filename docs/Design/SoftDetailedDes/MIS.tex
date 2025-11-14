@@ -1423,4 +1423,97 @@ usability, accessibility, and modularity.
 \end{enumerate}
 
 
+\section*{Savinay Chhabra Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+This deliverable was a lot smoother than the previous deliverables. We finished 
+a good portion of the work before the TA meeting which allowed us to get good 
+feedback on the deliverable before submission. We did a much better job at 
+dividing the work this time and were more punctual in our delivery.
+
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The pain point during this deliverable was being able to define the design 
+without being too solution oriented. It is very easily to use specific services 
+as we have done a good amount of work on the POC. This implementation might 
+change for the final project so it's important not to pick any specific 
+implmentation yet. I found iteratively adding content to the deliverable and 
+incrementally improving different parts of the design helps as you go over a 
+part multiple times and may catch any mistakes that may have slipped through. 
+Reviewing the lecture slides from our previous courses also helped.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+We made most of our design decisions keeping our stakeholders in mind. One 
+feature we added explicitly because of stakeholder feedback was the Risk Policy 
+feature which asks for explicit user confirmation for tasks deemed to be high 
+risk. This was done after multiple peers brought up their concerns about 
+the application accidentally making mistakes while converting speech to text.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+I feel we did a fairly good job of coming up with hazards as none of the risks
+that were brought up in early testing or meetings were something we hadn't 
+already considered. However, our SRS could use some refining as some 
+requirements can be interpreted in a few different ways. We will create issues 
+to address these requirements to make them more concise and simple to understand. 
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+The current limitation of our solutions is using off-the-shelf existing AI models 
+for our project. Given unlimited time, we would aim to create our own model as 
+our use-case is relatively specific and niche. Making API calls for every single 
+action will quickly get very expensive and will make scaling very expensive over 
+time. 
+Our error-handling strategy is also very rudimentary at the moment; it simply 
+asks the user to repeat or rephrase. Smarter and more automated recovery 
+mechanisms could be added, given additional resources.
+Adding more test cases would certainly help with the robustness of the 
+application but testing requires significant resources, particularly on 
+different platforms as our application will be supported on multiple platforms. 
+Adding some local processing would also be beneficial as the application in it's 
+currently design will not work without an active internet connection.
+
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+One of the alternatives we considered was building a rule-based system where 
+voice commands would be mapped to structured templates for specific tasks and if 
+a task could not fit one of the templates, it would not be attempted. This makes 
+the system very predictable and stable but maintaining it and extending it is 
+very cumbersome.
+
+Another alternative we considered was a fully machine learning driven pipeline 
+where intent detection, safety handling and action were all handled by a single 
+model. This allowed the system to be very adaptable for a wide variety of 
+different uses but makes it very difficult to add safeguards. Testing for this 
+method is also quite difficult as it is only feasible to test a certain number 
+of cases; and quite a few different types of cases could go untested. 
+
+We considered a plugin system as well where the user could download and install 
+plugins for certain applications. This would make extending the system over time 
+easy but added a lot of complexity to dependency management, version management 
+and cross plugin communication. Not to mention it would require more steps from 
+users to setup as well. We ended up dropping the plugin idea completely due to 
+these reasons.
+
+In the end we ended up picking a balance between structure and flexibility. It 
+keeps components sepearate enough for extensibility while allowing us to maintain 
+control over the application and testing.
+
+\end{enumerate}
+
 \end{document}
