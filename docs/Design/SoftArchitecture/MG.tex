@@ -157,16 +157,15 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific hardware on which the software is running (e.g., microphone or speaker models).
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format or source of input data (e.g., switching from voice-only to mixed input modes).
+\item[\refstepcounter{acnum} \actheacnum \label{acSTT}:] The speech recognition or text-to-speech library (e.g., replacing Whisper API with a local model).
+\item[\refstepcounter{acnum} \actheacnum \label{acUI}:] The user interface layout or feedback presentation (e.g., visual vs. voice-only output).
+\item[\refstepcounter{acnum} \actheacnum \label{acCommands}:] The set of supported voice commands or MCP tools.
+\item[\refstepcounter{acnum} \actheacnum \label{acThresholds}:] The thresholds for speech detection and timing between input and response.
+\item[\refstepcounter{acnum} \actheacnum \label{acSafety}:] The risk classification policy for safety confirmation (e.g., adding new risk levels or modifying approval logic).
+\item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] The logging format or storage mechanism for session history and user preferences.
 \end{description}
-
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
@@ -178,9 +177,10 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucPipeline}:] The main processing loop of Input $\rightarrow$ Interpret $\rightarrow$ Plan $\rightarrow$ Execute $\rightarrow$ Feedback.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDataStructures}:] The core data structures used for storing Commands, Intents, and Action Plans.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucMCP}:] The communication pattern between modules through the MCP agent interface.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDecomposition}:] The fundamental decomposition into Hardware-Hiding, Behaviour-Hiding, and Software-Decision modules.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
