@@ -410,7 +410,7 @@ to BH-Feedback.
 
 \section{Traceability Matrix} \label{SecTM}
 
-This section shows two traceability matrices: between the modules and the
+This section shows three traceability matrices: between the modules and the
 requirements, and between the modules and the anticipated changes.
 
 \begin{table}[H]
@@ -446,8 +446,36 @@ FUNC.R.9 - Confirm privileged/system-level actions
     \mref{mSDTypes}, \mref{mSDLog}, \mref{mSDStore} \\
 \bottomrule
 \end{tabular}
-\caption{Traceability between SRS functional requirements and modules}
+\caption{Traceability between functional requirements and modules}
 \label{TblRT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
+\toprule
+\textbf{Nonfunctional Requirements} & \textbf{Modules}\\
+\midrule
+NFR.R.1 - Performance: timely response to user commands
+  & \mref{mBHInput}, \mref{mBHNLU}, \mref{mBHPlan}, \mref{mBHFeedback},
+    \mref{mHHIO}, \mref{mHHAuto}, \mref{mSDConfig} \\
+
+NFR.R.2 - Reliability and robustness
+  & \mref{mBHPlan}, \mref{mBHSafety}, \mref{mBHSession},
+    \mref{mSDStore}, \mref{mSDLog}, \mref{mHHAuto} \\
+
+NFR.R.3 - Usability and accessibility of the interface
+  & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHFeedback},
+    \mref{mSDStore} \\
+
+NFR.R.4 - Safety, privacy, and data handling
+  & \mref{mBHSafety}, \mref{mSDStore}, \mref{mSDConfig},
+    \mref{mSDLog}, \mref{mBHSession}, \mref{mBHInput} \\
+\bottomrule
+\end{tabular}
+\caption{Traceability between nonfunctional requirements and modules}
+\label{TblNFR}
 \end{table}
 
 The following matrix links anticipated changes (ACs) from
