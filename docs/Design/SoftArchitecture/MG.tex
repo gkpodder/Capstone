@@ -46,8 +46,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2025-11-13 & 1.0 & Initial draft created and wrote the module decomposition and connections with requirements\\
+2025-11-13 & 1.1 & Finalized the document and created the module hierarchy diagram \\
 \bottomrule
 \end{tabularx}
 
@@ -282,6 +282,40 @@ between requirements and modules is listed in Table~\ref{TblRT}.
     requirement led to the \textbf{BH-Safety} module that intercepts privileged 
     actions, coordinated with \textbf{BH-UI} for user prompts and multiple SD 
     modules for data persistence and auditing.
+
+    \item \textbf{Speed and Latency (SAL.R.1, SAL.R.2)}: To meet the 2-second 
+    response time requirement, we designed \textbf{BH-Input} with efficient audio
+     buffering and \textbf{BH-Feedback} with immediate acknowledgment patterns. 
+     The modular architecture allows parallel processing where possible, and 
+     \textbf{HH-Auto} is optimized for quick execution of common actions.
+
+    \item \textbf{Safety-Critical Operations (SAF.R.1, SAF.R.2)}: The \textbf{BH-Safety} 
+    module was specifically created to enforce confirmation requirements for file 
+    and system changes. \textbf{BH-Session} maintains action history to support 
+    single-step undo functionality, working with \textbf{SD-Store} for persistent 
+    state management.
+
+    \item \textbf{Precision and Accuracy (POA.R.1, POA.R.2)}: Accuracy requirements 
+    drove the separation of \textbf{BH-Input} for robust speech processing and 
+    \textbf{SD-STT/TTS Config} for fine-tuning recognition parameters. The modular 
+    design allows swapping STT engines without affecting other system components.
+
+    \item \textbf{Robustness and Fault Tolerance (ROFT.R.1, ROFT.R.2)}: \textbf{SD-Log} 
+    provides comprehensive error logging without disrupting operation, while each 
+    BH module implements graceful error handling. The use of \textbf{SD-Types} ensures 
+    data consistency even with invalid inputs.
+
+    \item \textbf{Capacity Requirements (CAP.R.1, CAP.R.2)}: The modular design enables 
+    efficient resource management, with \textbf{BH-Plan} optimizing tool execution 
+    and \textbf{SD-ToolRegistry} enabling lazy loading of infrequently used components 
+    to maintain low CPU usage during extended operation.
+
+    \item \textbf{Scalability and Extensibility (SOE.R.1, SOE.R.2)}: The plugin-like 
+    architecture of \textbf{SD-ToolRegistry} allows new tools to be added seamlessly, 
+    while the clear interfaces between modules ensure that new features can be 
+    integrated without major refactoring. The 200ms loading requirement is met 
+    through efficient registry design and minimal initialization overhead.
+
 \end{itemize}
 
 \section{Module Decomposition} \label{SecMD}
