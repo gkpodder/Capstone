@@ -59,24 +59,41 @@ This section records information for easy reference.
 
 \subsection{Abbreviations and Acronyms}
 
+\noindent Additional symbols, abbreviations, and acronyms specific to this document
+are listed below.
+
+\begin{center}
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
-  M & Module \\
-  MG & Module Guide \\
-  OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
-  UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
-  \bottomrule
-\end{tabular}\\
+\begin{tabular}{p{3cm} p{11cm}}
+\toprule
+Symbol / Term & Definition \\
+\midrule
+:= & Assignment operator used for state transitions.\\
+$\rightarrow$ & Function mapping or transition arrow.\\
+$\geq, \leq$ & Greater than or equal to, less than or equal to.\\
+HH & Hardware-Hiding module (e.g., HH-IO, HH-Auto).\\
+BH & Behaviour-Hiding module (e.g., BH-Input, BH-Plan).\\
+SD & Software-Decision module (e.g., SD-Types, SD-Log).\\
+STT & Speech-to-Text (audio input converted to text).\\
+TTS & Text-to-Speech (text output converted to speech).\\
+MCP & Modular Command Protocol agent interface.\\
+UI & User Interface.\\
+SRS & System Requirements Specification.\\
+V\&V & Verification and Validation Plan.\\
+FUNC.R.\# & Functional requirement number from the SRS.\\
+Hazard ID & Identifier from Hazard Analysis (e.g., H1, H2).\\
+QA & Quality Assurance (software testing process).\\
+Plan & Structured action sequence from BH-Plan.\\
+Intent & Structured interpretation of user command text.\\
+Action & Atomic executable system behaviour.\\
+RiskLevel & Safety classification for user actions.\\
+ExecStatus & Execution result (Pending, Success, or Failed).\\
+InputMode & Input type (VoiceOnly, TextOnly, Mixed).\\
+OutputMode & Output type (VoiceOnly, TextOnly, Both).\\
+\bottomrule
+\end{tabular}
+\end{center}
+
 
 \newpage
 
