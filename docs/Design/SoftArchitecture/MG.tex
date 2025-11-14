@@ -515,8 +515,55 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+This section goes over the user interfaces. The UI is designed to have a voice 
+first interaction while also having keyboard and mouse input as secondary
+options. 
+
+\subsection{Main Desktop Panel}
+
+The primary interface is a desktop window that can be visible
+while the user works in other applications. It can also run in background and 
+will listen to user. It gives:
+
+\begin{itemize}
+  \item A clear indication of whether the program is idle, listening, 
+    processing, or waiting for any confirmation. 
+  \item A single prominent control to start/stop voice capture.
+  \item A transcript area showing recent commands and responses
+  (captioning of spoken feedback).
+  \item Simple, high-level controls for undoing, approving, or cancelling
+    actions.
+\end{itemize}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{MainUI.png}
+  \caption{Mockup of the main Proxi interface}
+  \label{FigMainUI}
+\end{figure}
+
+\subsection{Layout and Elements}
+
+The window is divided into three regions:
+
+\begin{description}
+  \item[Top bar:] Shows the application name (Proxi Voice Assistant)
+    and a status label (Idle, Listening, Processing, etc.)
+  \item[Center:] A large Mic control to start/stop capture and a transcript area 
+    that displays the most recent user command and Proxi's response.
+  \item[Bottom row:] Action buttons for Undo, Approve, and Cancel, plus a 
+    Settings control.
+\end{description}
+
+\subsection{Accessibility Notes}
+
+\begin{description}
+  \item[Voice parity:] Every visible action (Listen, Undo, Approve, Cancel)
+    also has an equivalent voice command handled by the BH modules.
+  \item[Keyboard access:] All controls are reachable via keyboard focus and
+    shortcuts so users do not need a mouse.
+  \item[Captioning:] Spoken feedback is always mirrored as text in the
+    transcript area to satisfy captioning requirements.
+\end{description}
 
 \section{Design of Communication Protocols}
 \label{SecComm}
