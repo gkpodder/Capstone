@@ -19,6 +19,8 @@
 \usepackage[section]{placeins}
 \usepackage{caption}
 \usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+
 
 \hypersetup{
 bookmarks=true,     % show bookmarks bar?
@@ -51,20 +53,67 @@ urlcolor=cyan          % color of external links
 \section{Revision History}
 
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\toprule
+Date & Version & Notes \\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2025-11-02 & 1.0 & Initial draft created. Included module hierarchy and
+core Proxi design overview. \\
+2025-11-03 & 1.1 & Added detailed MIS for HH-IO, HH-Auto, and BH-Input
+modules. \\
+2025-11-04 & 1.2 & Completed BH-NLU, BH-Plan, BH-Safety, BH-Feedback,
+and BH-UI sections with semantics and tables. \\
+2025-11-07 & 1.3 & Added refined symbols and abbreviations and reflection
+section \\
+2025-11-11 & 1.4 & Final formatting, line-width cleanup, and rubric
+alignment for submission. \\
 \bottomrule
 \end{tabularx}
+
 
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS documentation at 
+\url{https://github.com/gkpodder/Capstone/blob/design/docs/SRS-Volere/SRS.pdf}
 
-\wss{Also add any additional symbols, abbreviations or acronyms}
+\vspace{0.5cm}
+
+\noindent Additional symbols, abbreviations, and acronyms specific to this document
+are listed below.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{3cm} p{11cm}}
+\toprule
+Symbol / Term & Definition \\
+\midrule
+:= & Assignment operator used for state transitions.\\
+$\rightarrow$ & Function mapping or transition arrow.\\
+$\geq, \leq$ & Greater than or equal to, less than or equal to.\\
+HH & Hardware-Hiding module (e.g., HH-IO, HH-Auto).\\
+BH & Behaviour-Hiding module (e.g., BH-Input, BH-Plan).\\
+SD & Software-Decision module (e.g., SD-Types, SD-Log).\\
+STT & Speech-to-Text (audio input converted to text).\\
+TTS & Text-to-Speech (text output converted to speech).\\
+MCP & Modular Command Protocol agent interface.\\
+UI & User Interface.\\
+SRS & System Requirements Specification.\\
+V\&V & Verification and Validation Plan.\\
+FUNC.R.\# & Functional requirement number from the SRS.\\
+Hazard ID & Identifier from Hazard Analysis (e.g., H1, H2).\\
+QA & Quality Assurance (software testing process).\\
+Plan & Structured action sequence from BH-Plan.\\
+Intent & Structured interpretation of user command text.\\
+Action & Atomic executable system behaviour.\\
+RiskLevel & Safety classification for user actions.\\
+ExecStatus & Execution result (Pending, Success, or Failed).\\
+InputMode & Input type (VoiceOnly, TextOnly, Mixed).\\
+OutputMode & Output type (VoiceOnly, TextOnly, Both).\\
+\bottomrule
+\end{tabular}
+\end{center}
+
 
 \newpage
 
@@ -75,18 +124,50 @@ See SRS Documentation at \wss{give url}
 \pagenumbering{arabic}
 
 \section{Introduction}
+\noindent This document presents the Module Interface Specification (MIS) for
+Proxi, an intelligent voice first assistant developed as part of the
+SFWRENG 4G06A Capstone Design Project at McMaster University.
+Proxi enables users to interact with their computer using speech or
+text commands and executes actions through a modular command protocol
+(MCP) agent system.  The goal is to improve accessibility and user
+productivity by providing hands free, context aware computer control.
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+\vspace{0.5cm}
+\noindent The MIS defines the interface and behaviour of each module described in
+the Module Guide.  Each module encapsulates a single responsibility and
+follows the principles of information hiding and low coupling.  Together
+these modules define how Proxi captures user input, interprets intent,
+plans actions, confirms operations, and provides feedback.
 
-Complementary documents include the System Requirement Specifications
-and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+\vspace{0.5cm}
+\noindent Complementary documents include:
+\begin{itemize}
+  \item System Requirements Specification (SRS): 
+  \url{https://github.com/gkpodder/Capstone/blob/design/docs/SRS-Volere/SRS.pdf}
+  \item Verification and Validation Plan (V\&V):
+  \url{https://github.com/gkpodder/Capstone/blob/design/docs/VnVPlan/VnVPlan.pdf}
+  \item Hazard Analysis Report:
+  \url{https://github.com/gkpodder/Capstone/blob/design/docs/HazardAnalysis/HazardAnalysis.pdf}
+\end{itemize}
+
+\noindent All documents are stored in the team’s public repository at 
+\url{https://github.com/gkpodder/Capstone/}. 
+The SRS and V\&V Plan define the measurable requirements and testing
+criteria that this MIS traces to.  The Hazard Analysis identifies
+potential risks, such as unintended system actions, which are addressed
+by the BH-Safety module.
+
+\noindent This MIS uses the structure and conventions from \citet{HoffmanAndStrooper1995}
+and \citet{GhezziEtAl2003}. Each module is presented with clear syntax,
+semantics, and local function definitions, ensuring traceability between
+requirements, design, and testing. The notation style for states,
+transitions, and functions follows the mathematical conventions outlined
+in Section \ref{Notation}.Overall, this document provides a formal yet readable
+description of Proxi’s modular design, supporting future implementation, testing,
+and maintenance.
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
+\label{Notation}
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -95,21 +176,31 @@ with the addition that template modules have been adapted from
 multiple assignment statement and conditional rules follow the form $(c_1
 \Rightarrow r_1 | c_2 \Rightarrow r_2 | ... | c_n \Rightarrow r_n )$.
 
-The following table summarizes the primitive data types used by \progname. 
+\noindent The following table summarizes the basic and derived data types used by
+Proxi modules.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
-\noindent 
-\begin{tabular}{l l p{7.5cm}} 
-\toprule 
-\textbf{Data Type} & \textbf{Notation} & \textbf{Description}\\ 
+\noindent
+\begin{tabular}{p{3cm} p{10.5cm}}
+\toprule
+Data Type & Description \\
 \midrule
-character & char & a single symbol or digit\\
-integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
-natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
-real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+char & A single character or digit.\\
+integer & Whole number in the range $(-\infty, \infty)$.\\
+real & Number with fractional part, used for timing or duration.\\
+boolean & Logical value in \{true, false\}.\\
+string & Sequence of characters.\\
+sequence(T) & Ordered list of elements of type T.\\
+tuple(T$_1$,T$_2$, \ldots) & Finite ordered group of typed values.\\
+AudioStream & Representation of sampled voice input.\\
+Intent & Structured record containing type and parameters.\\
+Plan & Record defining tool, parameters, and execution time.\\
+Action & Atomic operation triggered by a plan or intent.\\
+RiskLevel & Enum \{Low, Medium, High\} for safety checks.\\
+ExecStatus & Enum \{Pending, Success, Failed\} for task outcomes.\\
 \bottomrule
-\end{tabular} 
+\end{tabular}
 \end{center}
 
 \noindent
@@ -117,71 +208,148 @@ The specification of \progname \ uses some derived data types: sequences, string
 tuples. Sequences are lists filled with elements of the same data type. Strings
 are sequences of characters. Tuples contain a list of values, potentially of
 different types. In addition, \progname \ uses functions, which
-are defined by the data types of their inputs and outputs. Local functions are
-described by giving their type signature followed by their specification.
+are defined by the data types of their inputs and outputs.
+
+\noindent Derived functions and transitions are written in the form
+$f : A \rightarrow B$ to indicate a function mapping from type A to
+type B.  Local functions such as \textit{nextState} or \textit{policy}
+are used to describe the intended mathematical behaviour of modules but
+may not exist as explicit code implementations.
 
 \section{Module Decomposition}
 
-The following table is taken directly from the Module Guide document for this project.
+The Proxi, is decomposed into a hierarchy of modules following the 
+design principles of information hiding and separation of concerns. Each 
+module corresponds to a well-defined secret and is independently assignable 
+to a developer. The decomposition balances hardware hiding, behaviour 
+hiding, and software decision modules.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{0.3\textwidth} p{0.65\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+\textbf{Level 1} & \textbf{Level 2 Modules (Secrets / Responsibilities)}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+\multirow{2}{*}{\textbf{Hardware-Hiding}} &
+\textbf{HH-IO (Audio Adapter)} – manages microphone input and audio 
+output across different platforms.\\
+& \textbf{HH-Auto (System Control)} – performs basic desktop actions 
+such as typing, clicking, or launching applications.\\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{7}{*}{\textbf{Behaviour-Hiding}} &
+\textbf{BH-Input (Voice \& Text Manager)} – captures user input, 
+converts speech to text, and normalizes text commands. Implements 
+\textit{FUNC.R.1–R.2}.\\
+& \textbf{BH-NLU (Intent Parser)} – interprets text into structured 
+intents and parameters based on defined command patterns. Implements 
+\textit{FUNC.R.3}.\\
+& \textbf{BH-Plan (Task Executor)} – determines which agent or tool 
+should handle a command and coordinates its execution. Implements 
+\textit{FUNC.R.4}.\\
+& \textbf{BH-Safety (Confirmation Gate)} – validates actions that may 
+affect files or system settings and requests confirmation. Implements 
+\textit{FUNC.R.9}.\\
+& \textbf{BH-Session (Context Manager)} – maintains user session data, 
+history, and undo information for continuity. Supports 
+\textit{FUNC.R.4}.\\
+& \textbf{BH-Feedback (Response Manager)} – converts textual responses 
+into spoken or visual feedback for the user. Implements 
+\textit{FUNC.R.5–R.6}.\\
+& \textbf{BH-UI (Proxi Interface)} – presents status updates, 
+confirmations, and results; supports full voice-only interaction. 
+Implements \textit{FUNC.R.8}.\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{5}{*}{\textbf{Software-Decision}} &
+\textbf{SD-Types (Core Structures)} – defines abstract data types for 
+Command, Intent, and Plan.\\
+& \textbf{SD-ToolRegistry (Action Map)} – maintains the mapping between 
+recognized intents and available system actions.\\
+& \textbf{SD-Store (Local Storage)} – handles persistent storage for 
+user preferences, session history, and logs.\\
+& \textbf{SD-STT/TTS Config} – specifies configuration for speech and 
+text synthesis models and supported languages.\\
+& \textbf{SD-Log (Event Logger)} – records system actions and feedback 
+events for debugging and validation.\\
 \bottomrule
-
 \end{tabular}
-\caption{Module Hierarchy}
+\caption{Module Hierarchy for Proxi Voice Assistant}
 \label{TblMH}
 \end{table}
 
+
+\textbf{Likely Changes:}
+\begin{itemize}
+  \item The choice of speech recognition or text-to-speech library 
+  (for example, switching from Whisper API to a local model).
+  \item Adjustments to the user interface layout or how voice commands 
+  trigger visible feedback or audio playback.
+  \item Fine-tuning thresholds for speech detection and timing between 
+  input and response based on user testing.
+  \item Updating supported voice commands or adding new MCP tools as 
+  features are expanded.
+\end{itemize}
+
+\textbf{Unlikely Changes:}
+\begin{itemize}
+  \item The main processing loop of Input $\rightarrow$ Interpret 
+  $\rightarrow$ Plan $\rightarrow$ Execute $\rightarrow$ Feedback.
+  \item The core data structures used for storing Commands, Intents, 
+  and Action Plans.
+  \item The communication pattern between modules through the MCP 
+  agent interface.
+\end{itemize}
+
+\textbf{Traceability to SRS:}
+\begin{itemize}
+  \item \textbf{BH-Input} fulfills \textit{FUNC.R.1–R.2}: speech and text 
+  input handling with accuracy $\geq 90\%$.
+  \item \textbf{BH-NLU} fulfills \textit{FUNC.R.3}: intent recognition 
+  accuracy $\geq 90\%$.
+  \item \textbf{BH-Plan} fulfills \textit{FUNC.R.4}: agent planning and 
+  execution success rate $\geq 85\%$.
+  \item \textbf{BH-Feedback} fulfills \textit{FUNC.R.5–R.6}: provides 
+  feedback and spoken confirmation within response time $\leq 2\,\text{s}$.
+  \item \textbf{BH-UI} fulfills \textit{FUNC.R.8}: supports full hands-free 
+  operation for accessibility.
+  \item \textbf{BH-Safety} fulfills \textit{FUNC.R.9}: requests confirmation 
+  before executing high-risk or destructive actions.
+  \item \textbf{Support modules (SD, HH)} enable non-functional goals on 
+  latency, reliability, and auditability through structured logging.
+\end{itemize}
+
 \newpage
-~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\section{MIS of HH-IO (Audio Adapter)} \label{mod:HHIO}
 
 \subsection{Module}
 
-\wss{Short name for the module}
+HH-IO (Audio Adapter)
 
 \subsection{Uses}
 
+System audio interface
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
+None.
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
 \hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
 \hline
-\wss{accessProg} & - & - & - \\
+openMic & N/A & N/A & MicNotFound \\
+closeMic & N/A & N/A & CloseFailed \\
+recordAudio & seconds: real & sound: AudioStream & RecordFailed \\
+playAudio & sound: AudioStream & N/A & PlaybackFailed \\
 \hline
 \end{tabular}
 \end{center}
@@ -190,42 +358,882 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\begin{itemize}
+  \item micOpen : Boolean
+  \item lastSignal : AudioStream
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+\begin{itemize}
+  \item micDevice : physical microphone
+  \item speakerDevice : physical speaker or headset
+\end{itemize}
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+  \item At least one working microphone and speaker device exists.
+  \item Only one module controls the microphone at a time.
+\end{itemize}
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent
+\textbf{openMic}():
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+  \item transition: micOpen := true if micDevice is available.
+  \item exception: MicNotFound if micDevice is missing or busy.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
+\noindent
+\textbf{closeMic}():
+\begin{itemize}
+  \item transition: micOpen := false if open.
+  \item exception: CloseFailed if device cannot close.
+\end{itemize}
 
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent
+\textbf{recordAudio}(seconds):
+\begin{itemize}
+  \item output: returns AudioStream of given duration.
+  \item transition: lastSignal := captured audio.
+  \item exception: RecordFailed if capture fails or micOpen = false.
+\end{itemize}
+
+\noindent
+\textbf{playAudio}(sound):
+\begin{itemize}
+  \item transition: lastSignal := sound.
+  \item output: sound played through speakerDevice.
+  \item exception: PlaybackFailed if playback fails.
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+None.
+
+\section{MIS of HH-Auto (System Control)} \label{mod:HHAuto}
+
+\subsection{Module}
+
+HH-Auto (System Control)
+
+\subsection{Uses}
+
+Operating system automation interface
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+moveCursor & p: ScreenPos & N/A & ActionError \\
+leftClick & N/A & N/A & ActionError \\
+typeText & t: String & N/A & ActionError \\
+openApp & id: AppId & N/A & ActionError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item currentPos : ScreenPos
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item desktopEnv : user desktop environment
+  \item keyboardDevice : keyboard input channel
+  \item pointingDevice : mouse or trackpad
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The user session allows simulated input events.
+  \item Screen coordinates are valid for the active display.
+  \item AppId refers to an installed and accessible application.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{moveCursor}(p):
+\begin{itemize}
+  \item transition: currentPos := p.
+  \item output: N/A.
+  \item exception: ActionError if cursor move fails.
+\end{itemize}
+
+\noindent
+\textbf{leftClick}():
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if click event fails.
+\end{itemize}
+
+\noindent
+\textbf{typeText}(t):
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if key input fails.
+\end{itemize}
+
+\noindent
+\textbf{openApp}(id):
+\begin{itemize}
+  \item transition: none.
+  \item output: N/A.
+  \item exception: ActionError if app launch fails.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+None.
+
+\section{MIS of BH-Input (Voice \& Text Manager)} \label{mod:BHInput}
+
+\subsection{Module}
+
+BH-Input (Voice \& Text Manager)
+
+\subsection{Uses}
+
+HH-IO, SD-STT/TTS Config, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+None.
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+startCapture & mode: InputMode & N/A &
+MicUnavailable, AlreadyCapturing \\
+stopCapture & N/A & N/A & NotCapturing \\
+getLastText & N/A & text: String & NoInputAvailable \\
+getStatus & N/A & s: InputStatus & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item inputState : InputState
+  \item currentMode : InputMode
+  \item lastText : String
+  \item partialText : String
+  \item lastError : InputError or null
+\end{itemize}
+
+InputState = \{Idle, Listening, Processing\}
+
+InputMode = \{VoiceOnly, TextOnly, Mixed\}
+
+InputStatus is a record:
+\begin{itemize}
+  \item state : InputState
+  \item hasText : Boolean
+  \item hasError : Boolean
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item micStream : handled by HH-IO for live audio
+  \item sttService : speech-to-text service
+  \item now : system clock for timing
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The microphone and STT component are available when started.
+  \item Only one capture session runs at a time.
+  \item Calling modules handle all exceptions raised.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{startCapture}(mode):
+\begin{itemize}
+  \item transition: if inputState = Idle and micStream ready then
+  \[
+    inputState := Listening, \quad currentMode := mode, \quad
+    partialText := ""
+  \]
+  \item exception: MicUnavailable if device fails, AlreadyCapturing if
+  inputState $\neq$ Idle.
+\end{itemize}
+
+\noindent
+\textbf{stopCapture}():
+\begin{itemize}
+  \item transition: if inputState $\neq$ Idle then inputState := Idle.
+  \item exception: NotCapturing if inputState = Idle.
+\end{itemize}
+
+\noindent
+\textbf{getLastText}():
+\begin{itemize}
+  \item output: returns lastText if not empty.
+  \item exception: NoInputAvailable if lastText is empty.
+\end{itemize}
+
+\noindent
+\textbf{getStatus}():
+\begin{itemize}
+  \item output: returns a record s with
+  $s.state = inputState$, $s.hasText = (lastText \neq "")$,
+  $s.hasError = (lastError \neq null)$.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+Let Event = \{StartCmd, StopCmd, Chunk, Error, Timeout\}
+
+\noindent
+$nextState : InputState \times Event \rightarrow InputState$
+
+\[
+  nextState(s, e) =
+  \begin{cases}
+    Listening & \text{if } s = Idle \land e = StartCmd\\
+    Idle & \text{if } s = Listening \land e = StopCmd\\
+    Processing & \text{if } s = Listening \land e = Chunk\\
+    Processing & \text{if } s = Processing \land e = Chunk\\
+    Idle & \text{if } e = Error \lor e = Timeout\\
+    s & \text{otherwise}
+  \end{cases}
+\]
+
+During execution BH-Input updates
+\[
+  inputState := nextState(inputState, e)
+\]
+for each event e. When transcription ends, partialText moves into
+lastText.
+
+\section{MIS of BH-NLU (Intent Parser)} \label{mod:BHNlu}
+
+\subsection{Module}
+
+BH-NLU (Intent Parser)
+
+\subsection{Uses}
+
+SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+parseText & text: String & i: Intent & ParseError \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+None.
+
+\subsubsection{Environment Variables}
+
+None.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Input text is in English and grammatically valid.
+  \item Command patterns are defined in SD-Types.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{parseText}(text):
+\begin{itemize}
+  \item output: produces an Intent record with fields
+  \[
+    i.type = detectCommand(text), \quad
+    i.params = extractParams(text)
+  \]
+  \item exception: ParseError if text cannot be matched to any pattern.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\[
+  detectCommand : String \rightarrow IntentType
+\]
+\[
+  extractParams : String \rightarrow ParamSet
+\]
+
+
+\section{MIS of BH-Plan (Task Executor)} \label{mod:BHPlan}
+
+\subsection{Module}
+
+BH-Plan (Task Executor)
+
+\subsection{Uses}
+
+BH-NLU, SD-ToolRegistry, SD-Types, SD-Log, HH-Auto
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+ExecStatus = \{Pending, Success, Failed\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.3cm} p{4cm} p{4cm} p{2.3cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+planAction & i: Intent & p: Plan & NoToolFound \\
+executePlan & p: Plan & s: ExecStatus & ExecError \\
+cancelPlan & N/A & N/A & NoPendingPlan \\
+getLastStatus & N/A & s: ExecStatus & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item currentPlan : Plan or null
+  \item lastStatus : ExecStatus
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item toolSet : accessible system tools or MCP agents
+  \item now : system clock for execution timing
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item The input intent has been validated by BH-NLU.
+  \item Each available tool in SD-ToolRegistry exposes a run() routine.
+  \item MCP agents or automation tools are reachable when requested.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{planAction}(i):
+\begin{itemize}
+  \item output: generates a Plan record p with:
+  \[
+    p.tool = matchTool(i.type), \quad
+    p.parameters = i.params, \quad
+    p.time = now
+  \]
+  \item transition: currentPlan := p.
+  \item exception: NoToolFound if matchTool fails.
+\end{itemize}
+
+\noindent
+\textbf{executePlan}(p):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item currentPlan := p.
+    \item s := runTool(p.tool, p.parameters).
+  \end{itemize}
+  \item output: returns s of type ExecStatus.
+  \item exception: ExecError if runTool fails.
+\end{itemize}
+
+\noindent
+\textbf{cancelPlan}():
+\begin{itemize}
+  \item transition: currentPlan := null, lastStatus := Failed.
+  \item exception: NoPendingPlan if currentPlan = null.
+\end{itemize}
+
+\noindent
+\textbf{getLastStatus}():
+\begin{itemize}
+  \item output: returns lastStatus.
+  \item transition: none.
+\end{itemize}
+
+\subsubsection{Planning Logic}
+
+To model the planning stage, define:
+\[
+  matchTool : IntentType \rightarrow ToolId
+\]
+
+\[
+  runTool : ToolId \times ParamSet \rightarrow ExecStatus
+\]
+
+The planning decision can be expressed as:
+
+\[
+  planAction(i) =
+  \begin{cases}
+    p = (matchTool(i.type), i.params, now) &
+    \text{if a tool exists for } i.type \\
+    \text{NoToolFound error} &
+    \text{otherwise}
+  \end{cases}
+\]
+
+Execution behaviour follows:
+\[
+  executePlan(p) =
+  \begin{cases}
+    Success & \text{if runTool(p.tool, p.parameters) = true}\\
+    Failed & \text{otherwise}
+  \end{cases}
+\]
+
+\subsubsection{Local Functions}
+
+\begin{itemize}
+  \item \textbf{matchTool}(t): searches SD-ToolRegistry for a matching tool.
+  \item \textbf{runTool}(id, params): calls the linked MCP or system command.
+\end{itemize}
+
+\section{MIS of BH-Safety (Confirmation Gate)} \label{mod:BHSafety}
+
+\subsection{Module}
+
+BH-Safety (Confirmation Gate)
+
+\subsection{Uses}
+
+BH-UI, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+RiskLevel = {Low, Medium, High}
+
+\noindent SafetyDecision = {AutoAllow, AskUser, Block}
+
+\noindent ApprovalResult = {Approved, Denied, Cancelled}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.3cm} p{4cm} p{4cm} p{2.3cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+classifyAction & a: Action & r: RiskLevel & N/A \\
+decidePolicy & a: Action & d: SafetyDecision & N/A \\
+confirmAction & a: Action & res: ApprovalResult & UserTimeout \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item pendingAction : Action or null
+  \item lastDecision : SafetyDecision or null
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item uiChannel : connection to BH-UI for user prompts
+  \item now : system clock for time limits
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item BH-UI can show a yes/no prompt and return a user response.
+  \item Every Action record includes a defined riskLevel field.
+  \item The system clock is monotonic for timeout checks.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{classifyAction}(a):
+\begin{itemize}
+  \item output: returns a.riskLevel.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{decidePolicy}(a):
+\begin{itemize}
+  \item output: returns d of type SafetyDecision, where
+  \[
+    d =
+    \begin{cases}
+      AutoAllow & \text{if } a.riskLevel = Low\\
+      AskUser & \text{if } a.riskLevel = Medium\\
+      Block & \text{if } a.riskLevel = High \land a.isIrreversible\\
+      AskUser & \text{if } a.riskLevel = High \land \neg a.isIrreversible
+    \end{cases}
+  \]
+  \item transition: lastDecision := d.
+\end{itemize}
+
+\noindent
+\textbf{confirmAction}(a):
+\begin{itemize}
+  \item transition: pendingAction := a.
+  \item output:
+  \begin{itemize}
+    \item If decidePolicy(a)=AutoAllow then res=Approved.
+    \item If decidePolicy(a)=Block then res=Denied.
+    \item If AskUser then BH-UI prompts user; waits for yes/no.
+  \end{itemize}
+  \item exception: UserTimeout if no answer before time limit.
+\end{itemize}
+
+\subsubsection{Risk Policy Table}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{3cm} p{3cm} p{3cm}}
+\toprule
+\textbf{Risk} & \textbf{Irreversible?} & \textbf{Decision} & \textbf{Example} \\
+\midrule
+Low & N/A & AutoAllow & Open folder, read file \\
+Medium & N/A & AskUser & Rename or move file \\
+High & false & AskUser & Delete to recycle bin \\
+High & true & Block & Permanently delete data \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Local Functions}
+
+\[
+  policy : RiskLevel \times Bool \rightarrow SafetyDecision
+\]
+
+\[
+  policy(r, irr) =
+  \begin{cases}
+    AutoAllow & \text{if } r = Low\\
+    AskUser & \text{if } r = Medium\\
+    Block & \text{if } r = High \land irr = true\\
+    AskUser & \text{if } r = High \land irr = false
+  \end{cases}
+\]
+
+\noindent
+decidePolicy(a) = policy(a.riskLevel, a.isIrreversible)
+
+\noindent
+This module fulfills \textit{FUNC.R.9} by ensuring confirmation or
+blocking of high-risk actions, reducing hazards identified in the
+safety analysis.
+
+
+\section{MIS of BH-Feedback (Response Manager)} \label{mod:BHFeedback}
+
+\subsection{Module}
+
+BH-Feedback (Response Manager)
+
+\subsection{Uses}
+
+HH-IO, SD-STT/TTS Config, SD-Types, SD-Log
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+OutputMode = \{VoiceOnly, TextOnly, Both\}
+
+\noindent FeedbackStatus = \{Idle, Speaking, Completed, Failed\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+queueMessage & msg: String, m: OutputMode & N/A & QueueFull \\
+speakNow & msg: String, m: OutputMode & s: FeedbackStatus &
+TtsError \\
+getLastStatus & N/A & s: FeedbackStatus & N/A \\
+cancelAll & N/A & N/A & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item outputQueue : sequence of (String, OutputMode)
+  \item lastStatus : FeedbackStatus
+  \item isSpeaking : Boolean
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item audioOut : speaker connection through HH-IO
+  \item ttsService : text-to-speech component
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item ttsService can turn any short message into speech in less than
+  the required response time from the SRS.
+  \item HH-IO can play audio without blocking the whole system.
+  \item The output queue has a fixed maximum size.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{queueMessage}(msg, m):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item If the queue is not full then append (msg, m) to outputQueue.
+  \end{itemize}
+  \item output: N/A.
+  \item exception: QueueFull if appending would exceed the limit.
+\end{itemize}
+
+\noindent
+\textbf{speakNow}(msg, m):
+\begin{itemize}
+  \item transition:
+  \begin{itemize}
+    \item isSpeaking := true; lastStatus := Speaking.
+    \item If m = VoiceOnly or m = Both then send msg to ttsService and
+    play through audioOut.
+    \item If m = TextOnly or m = Both then write msg to the log or UI
+    channel.
+  \end{itemize}
+  \item output:
+  \begin{itemize}
+    \item If playback and any text output succeed then lastStatus :=
+    Completed and s = Completed.
+    \item Otherwise lastStatus := Failed and s = Failed.
+  \end{itemize}
+  \item exception: TtsError if ttsService cannot produce speech.
+\end{itemize}
+
+\noindent
+\textbf{getLastStatus}():
+\begin{itemize}
+  \item output: returns lastStatus.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{cancelAll}():
+\begin{itemize}
+  \item transition: clear outputQueue; isSpeaking := false;
+  lastStatus := Idle.
+  \item output: N/A.
+  \item exception: N/A.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent
+We model the processing of the queue with a helper function:
+
+\[
+  nextMessage : \text{sequence of (String, OutputMode)} \rightarrow
+  (String, OutputMode) \cup \{\text{None}\}
+\]
+
+\[
+  nextMessage(q) =
+  \begin{cases}
+    \text{first element of } q & \text{if } q \neq []\\
+    \text{None} & \text{if } q = []
+  \end{cases}
+\]
+
+\noindent
+BH-Feedback periodically checks outputQueue. If nextMessage returns a
+pair (msg, m), it behaves as in speakNow(msg, m) and then removes that
+entry from the queue. If None, it leaves the state unchanged.
+
+\noindent
+This module fulfills \textit{FUNC.R.5–R.6} by providing timely spoken
+and visual feedback to the user, and by reporting a clear status that
+can be logged or shown in the interface.
+
+\section{MIS of BH-UI (Proxi Interface)} \label{mod:BHUI}
+
+\subsection{Module}
+
+BH-UI (Proxi Interface)
+
+\subsection{Uses}
+
+BH-Feedback, BH-Safety, BH-Input, SD-Log, SD-Types
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+UIState = \{Idle, Listening, Waiting, Displaying, Error\}
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2.5cm} p{4cm} p{4cm} p{2.5cm}}
+\hline
+\textbf{Name} & \textbf{Input} & \textbf{Output} & \textbf{Errors} \\
+\hline
+updateView & s: UIState & N/A & RenderError \\
+showMessage & msg: String & N/A & RenderError \\
+promptUser & q: String & ans: Bool & Timeout \\
+showStatus & st: FeedbackStatus & N/A & N/A \\
+clearScreen & N/A & N/A & N/A \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item uiState : UIState
+  \item lastMsg : String
+  \item lastError : String or null
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+\begin{itemize}
+  \item display : visual interface (screen or console)
+  \item micLED : visual cue showing listening status
+\end{itemize}
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Display device is available and writable.
+  \item Voice cues or LEDs can toggle quickly without delay.
+  \item Text is short enough to fit within screen limits.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent
+\textbf{updateView}(s):
+\begin{itemize}
+  \item transition: uiState := s.
+  \item output: updates micLED or text based on state.
+  \item exception: RenderError if update fails.
+\end{itemize}
+
+\noindent
+\textbf{showMessage}(msg):
+\begin{itemize}
+  \item transition: lastMsg := msg; uiState := Displaying.
+  \item output: renders msg visually or as voice through BH-Feedback.
+  \item exception: RenderError if display or output fails.
+\end{itemize}
+
+\noindent
+\textbf{promptUser}(q):
+\begin{itemize}
+  \item transition: uiState := Waiting.
+  \item output: shows q; waits for yes/no reply by voice or keypress.
+  \item exception: Timeout if no input received in time limit.
+\end{itemize}
+
+\noindent
+\textbf{showStatus}(st):
+\begin{itemize}
+  \item output: shows latest FeedbackStatus or progress.
+  \item transition: none.
+\end{itemize}
+
+\noindent
+\textbf{clearScreen}():
+\begin{itemize}
+  \item transition: uiState := Idle; lastMsg := "".
+  \item output: clears visual area.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+\noindent
+We define a helper that maps states to display text:
+
+\[
+  stateText : UIState \rightarrow String
+\]
+
+\[
+  stateText(s) =
+  \begin{cases}
+    "Listening..." & \text{if } s = Listening\\
+    "Waiting for input..." & \text{if } s = Waiting\\
+    "Processing..." & \text{if } s = Displaying\\
+    "Idle" & \text{if } s = Idle\\
+    "Error" & \text{if } s = Error
+  \end{cases}
+\]
+
+\noindent
+This mapping helps BH-Feedback and BH-Safety show consistent
+notifications through both visual and voice channels.
+This module fulfills \textit{FUNC.R.8} by ensuring full hands-free
+interaction and clear accessibility feedback for all system states.
+
 
 \newpage
 
@@ -266,5 +1274,318 @@ graduate attribute of Problem Analysis and Design.
   (LO\_Explores)
 \end{enumerate}
 
+
+\section*{Amanbeer Minhas Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+Once I had the SRS, VnV Plan, and Hazard Analysis in place, this
+design doc felt much more manageable.  Breaking the system into
+BH-Input, BH-Plan, BH-Safety, BH-Feedback, and BH-UI made it easier
+to see how everything fit together.  Courses like COMPSCI/SFWRENG
+3RA3 (Requirements) helped me think in terms of clear responsibilities
+and traceable requirements.My QA co-op experience also helped because
+I naturally thought about how each module would be tested while I was
+specifying it.
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The main pain point was finding the right level of abstraction.  At
+first, I wrote the MIS in terms of specific tools and APIs, which
+made the design feel tied to one implementation.  After revisiting
+the lecture notes and examples, I rewrote the modules to focus on
+behaviour and information hiding instead.  Another challenge was
+formal notation for state and transitions.  I drew on ideas from
+SFWRENG 2DM3 (Discret Maths) to think in terms of states, events,
+and transitions, then simplified that down to the most important
+pieces so the document would still be readable.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+Most of our client feedback came from our team mates parents/relatives 
+trying early voice-based prototypes.  Some people wanted fewer confirmations
+so the system felt faster, while others were worried about accidental
+destructive actions.  This made us directly include the BH-Safety
+module: we introduced risk levels and different behaviours for low,
+medium, and high risk actions.  Ideas around accessibility and clear
+feedback were reinforced by discussions in ENGINEER 4A03, where we talked 
+about inclusivity, ethics, and duty of care.  Where we did not have direct
+user input, I leaned on course examples and the capstone lectures for reference.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+While writing the MIS, I noticed that some requirements in the SRS
+were too vague to map cleanly to modules.  We will refine a few of them to
+have clearer success conditions (for example, accuracy targets and
+timing bounds), so they matched the behaviour of BH-Input and
+BH-Feedback.  The Hazard Analysis also needs change: some risks originally
+assigned to “the system” were moved specifically to BH-Safety, since
+that is where confirmation and blocking actually happen.  The VnV
+Plan needs change to add module-level tests for voice accuracy, plan
+execution success, and safety prompts, reflecting what I learned
+about test design in my QA co-op and SFWRENG 3S03(Software testing).
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+Right now, the design assumes relatively simple commands and a
+limited amount of context.  The NLU is closer to pattern matching
+than full natural language understanding.  The system also depends on
+reliable speech models and may not perform as well in noisy
+environments or for all accents.  With more time and resources, we
+would explore more robust language models, better noise handling, and
+wider accessibility testing with real users.  We would also add more
+automation around logging and replaying user sessions for regression
+testing, drawing from ideas in my QA work and SFWRENG 3S03 and
+STATS 3Y03 for analyzing failure patterns.
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+We considered three main designs.  The first was a single monolithic
+voice assistant where input, planning, and safety were all handled in
+one loop.  This would have been easier to code quickly but very hard
+to test or change without breaking things.  The second option relied
+mostly on an external cloud assistant, which might give better
+speech accuracy but raises privacy and reliability concerns.  The
+third, which we chose, is the modular design in this document, with
+separate BH modules and clear interfaces.  It fits the ideas from
+SFWRENG 2OP3, 2C03, 3RA3, and 3XB3 about modularity, testing, and
+requirements traceability.  We chose it because it balances what we can
+realistically implement as a student with the level of structure and
+safety we have learned to aim for in software engineering.
+\end{enumerate}
+
+\section*{Ajay Singh Grewal Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+What went well was that we were really able to define clear modules and map them
+to the requirements. This made it straightforward to write the MIS for each 
+module.
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+A main pain point was having everyone be consistent with their ideas of how to 
+write the MIS. We resolved this by having team meetings to discuss the format
+and style we wanted to use, and then sharing examples to ensure everyone was
+on the same page. Also, breaking down the system into smaller modules helped 
+make this task more easy to handle.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+From discussions with our peers and stakeholders, we chose a voice first design 
+with simple visual feedback to ensure accessibility. We also decided to include a
+safety module to confirm high risk actions, as some users expressed concerns
+with poteintial mistakes.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+While creating the design doc, we realized that some requirements in the SRS
+were not descriptive enough to be effectively mapped to moduleds. We roughly
+altered these requirements so they are more specific and measurable.
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+The limitations of our solution is that it is designed for a single desktop 
+enviroment and heavlily is reliant on STT and LLM. Hence, offline use cases 
+and strong privacy guarantees are not well supported. Given unlimited resources,
+we would explore more defined language models, and richer accessibility features
+to target a broader user base.
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+We had also considered a command line interface design and browser extension. 
+However, these designs were not as user friendly and accessible as a voice
+first design. Hence, we chose the current documented design as it balances
+usability, accessibility, and modularity.
+
+\end{enumerate}
+
+
+\section*{Savinay Chhabra Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+This deliverable was a lot smoother than the previous deliverables. We finished 
+a good portion of the work before the TA meeting which allowed us to get good 
+feedback on the deliverable before submission. We did a much better job at 
+dividing the work this time and were more punctual in our delivery.
+
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The pain point during this deliverable was being able to define the design 
+without being too solution oriented. It is very easily to use specific services 
+as we have done a good amount of work on the POC. This implementation might 
+change for the final project so it's important not to pick any specific 
+implmentation yet. I found iteratively adding content to the deliverable and 
+incrementally improving different parts of the design helps as you go over a 
+part multiple times and may catch any mistakes that may have slipped through. 
+Reviewing the lecture slides from our previous courses also helped.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+We made most of our design decisions keeping our stakeholders in mind. One 
+feature we added explicitly because of stakeholder feedback was the Risk Policy 
+feature which asks for explicit user confirmation for tasks deemed to be high 
+risk. This was done after multiple peers brought up their concerns about 
+the application accidentally making mistakes while converting speech to text.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+I feel we did a fairly good job of coming up with hazards as none of the risks
+that were brought up in early testing or meetings were something we hadn't 
+already considered. However, our SRS could use some refining as some 
+requirements can be interpreted in a few different ways. We will create issues 
+to address these requirements to make them more concise and simple to understand. 
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+The current limitation of our solutions is using off-the-shelf existing AI models 
+for our project. Given unlimited time, we would aim to create our own model as 
+our use-case is relatively specific and niche. Making API calls for every single 
+action will quickly get very expensive and will make scaling very expensive over 
+time. 
+Our error-handling strategy is also very rudimentary at the moment; it simply 
+asks the user to repeat or rephrase. Smarter and more automated recovery 
+mechanisms could be added, given additional resources.
+Adding more test cases would certainly help with the robustness of the 
+application but testing requires significant resources, particularly on 
+different platforms as our application will be supported on multiple platforms. 
+Adding some local processing would also be beneficial as the application in it's 
+currently design will not work without an active internet connection.
+
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+One of the alternatives we considered was building a rule-based system where 
+voice commands would be mapped to structured templates for specific tasks and if 
+a task could not fit one of the templates, it would not be attempted. This makes 
+the system very predictable and stable but maintaining it and extending it is 
+very cumbersome.
+
+Another alternative we considered was a fully machine learning driven pipeline 
+where intent detection, safety handling and action were all handled by a single 
+model. This allowed the system to be very adaptable for a wide variety of 
+different uses but makes it very difficult to add safeguards. Testing for this 
+method is also quite difficult as it is only feasible to test a certain number 
+of cases; and quite a few different types of cases could go untested. 
+
+We considered a plugin system as well where the user could download and install 
+plugins for certain applications. This would make extending the system over time 
+easy but added a lot of complexity to dependency management, version management 
+and cross plugin communication. Not to mention it would require more steps from 
+users to setup as well. We ended up dropping the plugin idea completely due to 
+these reasons.
+
+In the end we ended up picking a balance between structure and flexibility. It 
+keeps components sepearate enough for extensibility while allowing us to maintain 
+control over the application and testing.
+
+\end{enumerate}
+
+\section*{Gourob Podder Reflection}
+
+\begin{enumerate}
+
+\item \textbf{What went well while writing this deliverable?}
+
+This deliverable was a lot less hectic in terms of planning. We did a large chunk of the 
+MIS before the TA meeting which allowed us to get good feedback on the deliverable 
+before submission and clear up misconceptions. 
+
+\item \textbf{What pain points did you experience during this deliverable,
+and how did you resolve them?}
+
+The main paint point during this deliverable was making sure we weren't being too
+specific in how we wrote the modules like including specific services, APIs or
+code implementations. I primarily used the good examples defined by the prof to 
+understand the expectations of this section and read the relevant slides.
+
+\item \textbf{Which of your design decisions stemmed from speaking to your
+client(s) or a proxy (e.g. peers, stakeholders, users)?}
+
+The security gate module was a direct result of feedback from our peers and stakeholders. 
+Many users expressed concerns about accidental destructive actions
+being performed by the application due to misinterpretation of voice commands. 
+To address this, we incorporated a safety module that classifies actions based 
+on their risk levels and prompts users for confirmation when necessary.
+
+\item \textbf{While creating the design doc, what parts of your other
+documents (e.g., requirements, hazard analysis, etc), if any, needed
+to be changed, and why?}
+
+For the most part our docs were fairly consistent. However we did notice some 
+requirements which could reworked to be more specific and measurable to be 
+effectively mapped to modules.
+
+\item \textbf{What are the limitations of your solution?  Put another way,
+given unlimited resources, what could you do to make the project
+better? (LO\_ProbSolutions)}
+
+In an ideal scenario we would create our own model as there are a specific class
+of llms called large action models (LAMs) which are specifically designed for
+action planning tasks. These models are optimized to understand and execute
+complex sequences of actions based on user commands. These models are typically 
+smaller and more efficient than general-purpose LLMs, making them suitable for 
+low latency and better user experience.
+
+
+\item \textbf{Give a brief overview of other design solutions you
+considered.  What are the benefits and tradeoffs of those other
+designs compared with the chosen design?  From all the potential
+options, why did you select the documented design? (LO\_Explores)}
+
+One of the alternatives we considered was a complete local system. This would have ensured
+better privacy and security for users as all data would be processed locally. However,
+this would have required significant computational resources and additional technical 
+expertise in being able to train SOTA models. In addition, the given timeline for 
+the capstone we would have severely limited the features we could implement and hurt
+the overall user experience. 
+
+We also considered a monolothic model design where we would use a very large multimodal LLM
+to handle all aspects of the application from speech to text, intent detection, 
+action planning and execution. While this would have simplified the architecture 
+of the application, it would have made it very difficult to add safeguards and 
+test the system effectively. The api costs for such models are also very high and 
+would have made scaling the application challenging.
+
+In the end we chose a modular design which balanced focus for usability and 
+accessibility while also being able to get great results by using a mixture of 
+models approach through our modular architecture.
+
+\end{enumerate}
 
 \end{document}

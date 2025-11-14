@@ -46,8 +46,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+2025-11-13 & 1.0 & Initial draft created and wrote the module decomposition and connections with requirements\\
+2025-11-13 & 1.1 & Finalized the document and created the module hierarchy diagram \\
 \bottomrule
 \end{tabularx}
 
@@ -59,24 +59,41 @@ This section records information for easy reference.
 
 \subsection{Abbreviations and Acronyms}
 
+\noindent Additional symbols, abbreviations, and acronyms specific to this document
+are listed below.
+
+\begin{center}
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  AC & Anticipated Change\\
-  DAG & Directed Acyclic Graph \\
-  M & Module \\
-  MG & Module Guide \\
-  OS & Operating System \\
-  R & Requirement\\
-  SC & Scientific Computing \\
-  SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
-  UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
-  \bottomrule
-\end{tabular}\\
+\begin{tabular}{p{3cm} p{11cm}}
+\toprule
+Symbol / Term & Definition \\
+\midrule
+:= & Assignment operator used for state transitions.\\
+$\rightarrow$ & Function mapping or transition arrow.\\
+$\geq, \leq$ & Greater than or equal to, less than or equal to.\\
+HH & Hardware-Hiding module (e.g., HH-IO, HH-Auto).\\
+BH & Behaviour-Hiding module (e.g., BH-Input, BH-Plan).\\
+SD & Software-Decision module (e.g., SD-Types, SD-Log).\\
+STT & Speech-to-Text (audio input converted to text).\\
+TTS & Text-to-Speech (text output converted to speech).\\
+MCP & Modular Command Protocol agent interface.\\
+UI & User Interface.\\
+SRS & System Requirements Specification.\\
+V\&V & Verification and Validation Plan.\\
+FUNC.R.\# & Functional requirement number from the SRS.\\
+Hazard ID & Identifier from Hazard Analysis (e.g., H1, H2).\\
+QA & Quality Assurance (software testing process).\\
+Plan & Structured action sequence from BH-Plan.\\
+Intent & Structured interpretation of user command text.\\
+Action & Atomic executable system behaviour.\\
+RiskLevel & Safety classification for user actions.\\
+ExecStatus & Execution result (Pending, Success, or Failed).\\
+InputMode & Input type (VoiceOnly, TextOnly, Mixed).\\
+OutputMode & Output type (VoiceOnly, TextOnly, Both).\\
+\bottomrule
+\end{tabular}
+\end{center}
+
 
 \newpage
 
@@ -157,16 +174,15 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific hardware on which the software is running (e.g., microphone or speaker models).
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format or source of input data (e.g., switching from voice-only to mixed input modes).
+\item[\refstepcounter{acnum} \actheacnum \label{acSTT}:] The speech recognition or text-to-speech library (e.g., replacing Whisper API with a local model).
+\item[\refstepcounter{acnum} \actheacnum \label{acUI}:] The user interface layout or feedback presentation (e.g., visual vs. voice-only output).
+\item[\refstepcounter{acnum} \actheacnum \label{acCommands}:] The set of supported voice commands or MCP tools.
+\item[\refstepcounter{acnum} \actheacnum \label{acThresholds}:] The thresholds for speech detection and timing between input and response.
+\item[\refstepcounter{acnum} \actheacnum \label{acSafety}:] The risk classification policy for safety confirmation (e.g., adding new risk levels or modifying approval logic).
+\item[\refstepcounter{acnum} \actheacnum \label{acStorage}:] The logging format or storage mechanism for session history and user preferences.
 \end{description}
-
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
@@ -178,9 +194,10 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucPipeline}:] The main processing loop of Input $\rightarrow$ Interpret $\rightarrow$ Plan $\rightarrow$ Execute $\rightarrow$ Feedback.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDataStructures}:] The core data structures used for storing Commands, Intents, and Action Plans.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucMCP}:] The communication pattern between modules through the MCP agent interface.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucDecomposition}:] The fundamental decomposition into Hardware-Hiding, Behaviour-Hiding, and Software-Decision modules.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -191,40 +208,57 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+
+  % HH
+  \item [\refstepcounter{mnum} \mthemnum \label{mHHIO}:] 
+  \textbf{HH-IO (Audio Adapter)} – manages microphone input and audio 
+  output across platforms.
+  \item [\refstepcounter{mnum} \mthemnum \label{mHHAuto}:] 
+  \textbf{HH-Auto (System Control)} – performs desktop automation 
+  tasks such as typing, clicking, and launching applications.
+
+  % BH
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHInput}:] 
+  \textbf{BH-Input (Voice \& Text Manager)} – captures user speech, 
+  uses Whisper STT, and normalizes input.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHNLU}:] 
+  \textbf{BH-NLU (Intent Parser)} – interprets text into structured 
+  intents based on command patterns.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHPlan}:] 
+  \textbf{BH-Plan (Task Executor)} – selects MCP tools and executes 
+  user intents.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHSafety}:] 
+  \textbf{BH-Safety (Confirmation Gate)} – validates risky actions and 
+  requests confirmation as needed.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHSession}:] 
+  \textbf{BH-Session (Context Manager)} – stores history, session 
+  context, and undo information.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHFeedback}:] 
+  \textbf{BH-Feedback (Response Manager)} – outputs responses using 
+  TTS or visual text.
+  \item [\refstepcounter{mnum} \mthemnum \label{mBHUI}:] 
+  \textbf{BH-UI (Proxi Interface)} – displays status, confirmation 
+  prompts, and results.
+
+  % SD
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDTypes}:] 
+  \textbf{SD-Types (Core Structures)} – defines ADTs for Command, 
+  Intent, Plan, and related structures.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDRegistry}:] 
+  \textbf{SD-ToolRegistry (Action Map)} – maps intents to MCP 
+  tools/actions.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDStore}:] 
+  \textbf{SD-Store (Local Storage)} – manages persistent data such as 
+  preferences, session history, and logs.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDConfig}:] 
+  \textbf{SD-STT/TTS Config} – defines Whisper + TTS model configuration 
+  and language settings.
+  \item [\refstepcounter{mnum} \mthemnum \label{mSDLog}:] 
+  \textbf{SD-Log (Event Logger)} – records events for debugging and 
+  V\&V traceability.
+
 \end{description}
 
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding Module} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
@@ -232,12 +266,74 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+\begin{itemize}
+    \item \textbf{Multi-modal Input Pipeline}: FUNC.R.1 and FUNC.R.2 required 
+    handling both speech and text input with accurate conversion. This led to a 
+    coordinated design where \textbf{BH-Input} manages high-level input processing, 
+    \textbf{HH-IO} handles hardware-level audio operations, and \textbf{BH-UI} 
+    provides the interface layer, with \textbf{SD-STT/TTS Config} ensuring proper 
+    speech configuration.
+
+    \item \textbf{Natural Language Understanding Chain}: FUNC.R.3's intent interpretation  
+    requirement resulted in a processing chain where \textbf{BH-NLU} performs core 
+    parsing, supported by \textbf{BH-Input} for pre-processed text and \textbf{SD-Types} 
+    for structured data definitions.
+
+    \item \textbf{Comprehensive Task Execution Framework}: FUNC.R.4's planning and 
+    execution requirement necessitated a multi-module approach where \textbf{BH-Plan} 
+    coordinates execution, \textbf{SD-ToolRegistry} maps intents to tools, \textbf{HH-Auto} 
+    performs low-level actions, \textbf{BH-Session} maintains context, and \textbf{BH-Safety} 
+    ensures secure operation.
+
+    \item \textbf{Distributed Logging Architecture}: FUNC.R.7's comprehensive logging 
+    requirement is satisfied by making \textbf{SD-Log} a central service used by 
+    nearly all modules, with \textbf{SD-Store} handling persistent storage of log data.
+
+    \item \textbf{High-Level Interaction Abstraction}: FUNC.R.8's requirement to 
+    avoid low-level OS details is achieved through a layered architecture where 
+    \textbf{BH-UI}, \textbf{BH-Input}, and \textbf{BH-Feedback} provide natural 
+    language interfaces, while \textbf{BH-Plan} and \textbf{SD-Types} maintain 
+    high-level abstractions that shield users from system complexities.
+
+    \item \textbf{Safety-Critical Confirmation System}: FUNC.R.9's confirmation 
+    requirement led to the \textbf{BH-Safety} module that intercepts privileged 
+    actions, coordinated with \textbf{BH-UI} for user prompts and multiple SD 
+    modules for data persistence and auditing.
+
+    \item \textbf{Speed and Latency (SAL.R.1, SAL.R.2)}: To meet the 2-second 
+    response time requirement, we designed \textbf{BH-Input} with efficient audio
+     buffering and \textbf{BH-Feedback} with immediate acknowledgment patterns. 
+     The modular architecture allows parallel processing where possible, and 
+     \textbf{HH-Auto} is optimized for quick execution of common actions.
+
+    \item \textbf{Safety-Critical Operations (SAF.R.1, SAF.R.2)}: The \textbf{BH-Safety} 
+    module was specifically created to enforce confirmation requirements for file 
+    and system changes. \textbf{BH-Session} maintains action history to support 
+    single-step undo functionality, working with \textbf{SD-Store} for persistent 
+    state management.
+
+    \item \textbf{Precision and Accuracy (POA.R.1, POA.R.2)}: Accuracy requirements 
+    drove the separation of \textbf{BH-Input} for robust speech processing and 
+    \textbf{SD-STT/TTS Config} for fine-tuning recognition parameters. The modular 
+    design allows swapping STT engines without affecting other system components.
+
+    \item \textbf{Robustness and Fault Tolerance (ROFT.R.1, ROFT.R.2)}: \textbf{SD-Log} 
+    provides comprehensive error logging without disrupting operation, while each 
+    BH module implements graceful error handling. The use of \textbf{SD-Types} ensures 
+    data consistency even with invalid inputs.
+
+    \item \textbf{Capacity Requirements (CAP.R.1, CAP.R.2)}: The modular design enables 
+    efficient resource management, with \textbf{BH-Plan} optimizing tool execution 
+    and \textbf{SD-ToolRegistry} enabling lazy loading of infrequently used components 
+    to maintain low CPU usage during extended operation.
+
+    \item \textbf{Scalability and Extensibility (SOE.R.1, SOE.R.2)}: The plugin-like 
+    architecture of \textbf{SD-ToolRegistry} allows new tools to be added seamlessly, 
+    while the clear interfaces between modules ensure that new features can be 
+    integrated without major refactoring. The 200ms loading requirement is met 
+    through efficient registry design and minimal initialization overhead.
+
+\end{itemize}
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -255,111 +351,297 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules (\mref{mHHIO})-(\mref{mHHAuto})}
 
+\subsubsection{HH-IO: Audio Adapter (\mref{mHHIO})}
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:]The data structure and algorithm used to interface with 
+microphone and speaker hardware.
+\item[Services:]Provides audio hardware I/O operations including operning and 
+closing devices, recording audio and playing audio.
+\item[Implemented By:] OpenAI Whisper
+\item[Type Of Module:] Library 
 \end{description}
 
-\subsection{Behaviour-Hiding Module}
 
+\subsubsection{HH-Auto: System Control (\mref{mHHAuto})}
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Secrets:]OS specific automations (mouse, keyboard control) implementation.
+Hides differences between Windows, MacOS and Linux.
+\item[Services:]Move Cursor, click, type, open and close applications.
+\item[Implemented By:] PyAutoGUI
+\item[Type Of Module:] Library 
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsection{Behaviour-Hiding Modules (\mref{mBHInput})-(\mref{mBHUI})}
 
+\subsubsection{BH-Input: Voice and Text Manager (\mref{mBHInput})}
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] Speech To Text model configuration, text normalization rules and
+buffering strategies.
+\item[Services:]Handles speech variation, different speech patterns, varied 
+accents and filters background noise.
+\item[Implemented By:] Project Proxi
 \end{description}
 
-\subsubsection{Etc.}
-
-
-\subsection{Software Decision Module}
-
+\subsubsection{BH-NLU: Intent Parser (\mref{mBHNLU})}
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] Rules and internal parameters for interpretation of noisy or 
+imperfect text into structured intent objects.
+\item[Services:]Coverts normalized text into intents with metadata fields.
+\item[Implemented By:] Project Proxi
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{BH-Plan: Task Executor (\mref{mBHPlan})}
+\begin{description}
+\item[Secrets:] Decision-making logic for selecting correct MCP agent based on 
+intent. Execution plan and task table. Error handlers and request handlers.
+\item[Services:] Create an execution plan based on intent. Execute plan using 
+MCP agent and track task to completion.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{BH-Safety: Confirmation Gate (\mref{mBHSafety})}
+\begin{description}
+\item[Secrets:] Risk Analysis PolicyTable, Irreversible Detection algorithm,
+timeout actions. 
+\item[Services:] Implements accidental command protections. Classifies action 
+risks, decides appropriate policy and prompts user for confirmation when 
+action is deemed high risk.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsubsection{BH-Session: Context Manager (\mref{mBHSession})}
+\begin{description}
+\item[Secrets:]Session History Table, short-term conversational context for AI 
+model, previous action tree.
+\item[Services:]Tracks all previous sessions and previous actions completed for
+each session. Maintains continuity across user requests.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+
+\subsubsection{BBH-Feedback: Response Manager (\mref{mBHFeedback})}
+\begin{description}
+\item[Secrets:]Output action logic, Text-to-speech configuration, message delivery
+monitor.
+\item[Services:]Manages applications to open and actions to do based on user 
+input. Maintains messages and prompts to be shown to the user. Converts messages
+to speech and outputs through speakers if required.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsubsection{BH-UI: Proxi Interface (\mref{mBHUI})}
+\begin{description}
+\item[Secrets:]View Groups, Information Presentation Rules and prompt timing 
+rules.
+\item[Services:]Updates UI State, displays messages, presents user prompts and 
+show voice feedback prompts.
+\item[Implemented By:]Project Proxi
+\end{description}
+
+
+\subsection{Software Decision Module (\mref{mSDTypes})-(\mref{mSDLog})}
+
+\subsubsection{SD-Types: Core Structures (\mref{mSDTypes})}
+\begin{description}
+\item[Secrets:] Internal representaiton of commands, actions, risks, policies 
+and tool metadata.
+\item[Services:] Defines shared Classes and Objects used system-wide.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-ToolRegistry: Action Map (\mref{mSDRegistry})}
+\begin{description}
+\item[Secrets:]Maps to link action intents to MCP tools, MCP Agents and system 
+automation routines.
+\item[Services:]Provides appropriate MCP agent or tool for a given intent.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-Store: Local Storage (\mref{mSDStore})}
+\begin{description}
+\item[Secrets:]User Settings, Accessibility Settings, Session History, Action 
+Tree, AI model context.
+\item[Services:]Saves and loads user settings and previously saved states from 
+memory. 
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-STT/TTS Config (\mref{mSDConfig})}
+\begin{description}
+\item[Secrets:] Stores API keys, configurations and fallback options for OpenAI 
+Whisper model.
+\item[Services:]Passes Whisper/TTS parameters to BH-Input and parses API output 
+to BH-Feedback.
+\item[Implemented By:] Project Proxi
+\end{description}
+
+\subsubsection{SD-Log: Event Logger (\mref{mSDLog})}
+\begin{description}
+\item[Secrets:]Diagnostic log formatter, parser and storage algorithm.
+\item[Services:]Stores and sends diagnostic logs in the event of failure.
+\item[Implemented By:] Project Proxi
+\end{description}
+
 
 \section{Traceability Matrix} \label{SecTM}
 
-This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
+This section shows three traceability matrices: between the modules and the
+functional requirements plus nonfunctional requirements, and between the modules 
+and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
 \toprule
-\textbf{Req.} & \textbf{Modules}\\
+\textbf{Requirement (SRS)} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FUNC.R.1 - Accept input via speech and text
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mBHUI}, \mref{mSDConfig} \\
+FUNC.R.2 - Convert speech to text (STT)
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mSDConfig}, \mref{mSDLog} \\
+FUNC.R.3 - Interpret user intent from NL input
+  & \mref{mBHNLU}, \mref{mBHInput}, \mref{mSDTypes}, \mref{mSDLog} \\
+FUNC.R.4 - Plan and execute tasks via agents/tools
+  & \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDTypes},
+    \mref{mHHAuto}, \mref{mBHSession}, \mref{mBHSafety}, \mref{mSDLog} \\
+FUNC.R.5 - Provide textual/spoken feedback
+  & \mref{mBHFeedback}, \mref{mBHUI}, \mref{mSDConfig}, \mref{mSDLog} \\
+FUNC.R.6 - Maintain short-term conversational memory
+  & \mref{mBHSession}, \mref{mSDStore}, \mref{mBHInput},
+    \mref{mBHPlan}, \mref{mSDLog} \\
+FUNC.R.7 - Log user interactions and task results
+  & \mref{mSDLog}, \mref{mSDStore}, \mref{mBHSession},
+    \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHFeedback},
+    \mref{mBHUI}, \mref{mBHSafety}, \mref{mHHIO}, \mref{mHHAuto} \\
+FUNC.R.8 - High-level interaction (no low-level OS details)
+  & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHPlan},
+    \mref{mBHFeedback}, \mref{mHHAuto}, \mref{mSDTypes} \\
+FUNC.R.9 - Confirm privileged/system-level actions
+  & \mref{mBHSafety}, \mref{mBHUI}, \mref{mBHPlan},
+    \mref{mSDTypes}, \mref{mSDLog}, \mref{mSDStore} \\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Requirements and Modules}
+\caption{Traceability between functional requirements and modules}
 \label{TblRT}
 \end{table}
 
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
 \toprule
-\textbf{AC} & \textbf{Modules}\\
+\textbf{Nonfunctional Requirement} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+APP.1--APP.5 (Appearance) 
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mBHInput}, \mref{mSDConfig}, \mref{mSDStore} \\
+STY.1--STY.3 (Style) 
+  & \mref{mBHUI}, \mref{mBHFeedback} \\
+EOU.R.1--EOU.R.3 (Ease of use) 
+  & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHFeedback}, \mref{mBHSession} \\
+PER.R.1--PER.R.2 (Personalization) 
+  & \mref{mBHInput}, \mref{mBHSession}, \mref{mSDStore}, \mref{mSDConfig} \\
+LEA.R.1--LEA.R.2 (Learning support) 
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mBHInput}, \mref{mSDStore} \\
+UAP.R.1--UAP.R.3 (Understandability and politeness) 
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mBHPlan}, \mref{mBHSafety} \\
+ACC.R.1--ACC.R.2 (Accessibility) 
+  & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHFeedback}, \mref{mHHIO}, \mref{mSDConfig} \\
+SAL.R.1--SAL.R.2 (Speed and latency) 
+  & \mref{mHHIO}, \mref{mBHInput}, \mref{mBHPlan}, \mref{mSDConfig}, \mref{mSDLog} \\
+SAF.R.1--SAF.R.2 (Safety-critical behaviour) 
+  & \mref{mBHSafety}, \mref{mBHPlan}, \mref{mBHUI}, \mref{mHHAuto}, \mref{mSDTypes}, \mref{mSDStore}, \mref{mSDLog} \\
+POA.R.1--POA.R.2 (Precision/accuracy) 
+  & \mref{mBHInput}, \mref{mSDConfig}, \mref{mSDLog} \\
+ROFT.R.1--ROFT.R.2 (Robustness/fault-tolerance) 
+  & \mref{mSDLog}, \mref{mSDStore}, \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHSession} \\
+CAP.R.1--CAP.R.2 (Capacity) 
+  & \mref{mHHIO}, \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHSession}, \mref{mSDStore}, \mref{mSDConfig} \\
+SOE.R.1--SOE.R.2 (Scalability/extensibility) 
+  & \mref{mSDTypes}, \mref{mSDRegistry}, \mref{mSDStore}, \mref{mBHPlan} \\
+LON.R.1--LON.R.2 (Longevity) 
+  & \mref{mSDStore}, \mref{mSDLog}, \mref{mBHSession}, \mref{mBHUI} \\
+EPE.R.1--EPE.R.4 (Expected physical environment) 
+  & \mref{mHHIO}, \mref{mBHInput}, \mref{mSDConfig} \\
+WER.R.1--WER.R.2 (Wider environment) 
+  & \mref{mBHPlan}, \mref{mHHAuto}, \mref{mSDRegistry}, \mref{mSDConfig} \\
+IAS.R.1--IAS.R.4 (Interfaces with adjacent systems) 
+  & \mref{mBHInput}, \mref{mBHFeedback}, \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDConfig}, \mref{mSDLog} \\
+PRD.R.1--PRD.R.3 (Productization) 
+  & \mref{mSDStore}, \mref{mSDConfig}, \mref{mSDTypes} \\
+REL.R.1--REL.R.2 (Release) 
+  & \mref{mSDLog}, \mref{mSDStore} \\
+ACS-01--ACS-02 (Access control) 
+  & \mref{mBHUI}, \mref{mBHPlan}, \mref{mBHSafety}, \mref{mSDConfig}, \mref{mSDStore} \\
+INT-01 (Integrity) 
+  & \mref{mSDStore}, \mref{mSDLog} \\
+PRIV-01 (Privacy) 
+  & \mref{mBHInput}, \mref{mBHPlan}, \mref{mSDStore}, \mref{mSDConfig}, \mref{mSDLog} \\
+IMM-01--IMM-02 (Immunity) 
+  & \mref{mSDConfig}, \mref{mSDLog} \\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
+\caption{Traceability between nonfunctional requirements and modules}
+\label{TblNFRRT}
+\end{table}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
+\toprule
+\textbf{Nonfunctional Requirements Continued} & \textbf{Modules}\\
+\midrule
+CULR-01--CULR-02 (Cultural) 
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mBHInput} \\
+LGL-01--LGL-02 (Legal) 
+  & \mref{mSDStore}, \mref{mSDLog}, \mref{mBHUI} \\
+STDCOMP-01--STDCOMP-02 (Standards compliance) 
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mSDTypes}, \mref{mSDStore} \\
+\bottomrule
+\end{tabular}
+\caption{Traceability between nonfunctional requirements and modules continued}
+\label{TblNFRRT}
+\end{table}
+
+
+The following matrix links anticipated changes (ACs) from
+Section~\ref{SecChange} to the modules that hide the corresponding design
+decisions.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{0.32\textwidth} p{0.58\textwidth}}
+\toprule
+\textbf{Anticipated Change} & \textbf{Modules}\\
+\midrule
+\acref{acHardware} - Hardware platform (microphone, speakers, OS automation)
+  & \mref{mHHIO}, \mref{mHHAuto} \\
+\acref{acInput} - Input format / source (voice-only vs mixed voice + text)
+  & \mref{mBHInput}, \mref{mBHUI}, \mref{mHHIO} \\
+\acref{acSTT} - STT/TTS/LLM provider or library
+  & \mref{mBHInput}, \mref{mBHFeedback}, \mref{mHHIO}, \mref{mSDConfig} \\
+\acref{acUI} - UI layout and feedback presentation
+  & \mref{mBHUI}, \mref{mBHFeedback}, \mref{mSDStore} \\
+\acref{acCommands} - Supported voice commands and MCP tools
+  & \mref{mBHNLU}, \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDTypes} \\
+\acref{acThresholds} - Speech detection and timing thresholds
+  & \mref{mBHInput}, \mref{mHHIO}, \mref{mSDConfig} \\
+\acref{acSafety} - Risk classification and safety policy
+  & \mref{mBHSafety}, \mref{mBHUI}, \mref{mSDTypes}, \mref{mSDStore}, \mref{mSDLog} \\
+\acref{acStorage} - Logging and storage of history/preferences
+  & \mref{mSDStore}, \mref{mSDLog}, \mref{mBHSession} \\
+\bottomrule
+\end{tabular}
+\caption{Traceability between anticipated changes and modules}
 \label{TblACT}
 \end{table}
+
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
@@ -374,18 +656,9 @@ the modules. It can be seen that the graph is a directed acyclic graph
 system, and modules in the higher level of the hierarchy are essentially simpler
 because they use modules from the lower levels.
 
-\wss{The uses relation is not a data flow diagram.  In the code there will often
-be an import statement in module A when it directly uses module B.  Module B
-provides the services that module A needs.  The code for module A needs to be
-able to see these services (hence the import statement).  Since the uses
-relation is transitive, there is a use relation without an import, but the
-arrows in the diagram typically correspond to the presence of import statement.}
-
-\wss{If module A uses module B, the arrow is directed from A to B.}
-
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -394,18 +667,86 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+This section goes over the user interfaces. The UI is designed to have a voice 
+first interaction while also having keyboard and mouse input as secondary
+options. 
+
+\subsection{Main Desktop Panel}
+
+The primary interface is a desktop window that can be visible
+while the user works in other applications. It can also run in background and 
+will listen to user. It gives:
+
+\begin{itemize}
+  \item A clear indication of whether the program is idle, listening, 
+    processing, or waiting for any confirmation. 
+  \item A single prominent control to start/stop voice capture.
+  \item A transcript area showing recent commands and responses
+  (captioning of spoken feedback).
+  \item Simple, high-level controls for undoing, approving, or cancelling
+    actions.
+\end{itemize}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{MainUI.png}
+  \caption{Mockup of the main Proxi interface}
+  \label{FigMainUI}
+\end{figure}
+
+\subsection{Layout and Elements}
+
+The window is divided into three regions:
+
+\begin{description}
+  \item[Top bar:] Shows the application name (Proxi Voice Assistant)
+    and a status label (Idle, Listening, Processing, etc.)
+  \item[Center:] A large Mic control to start/stop capture and a transcript area 
+    that displays the most recent user command and Proxi's response.
+  \item[Bottom row:] Action buttons for Undo, Approve, and Cancel, plus a 
+    Settings control.
+\end{description}
+
+\subsection{Accessibility Notes}
+
+\begin{description}
+  \item[Voice parity:] Every visible action (Listen, Undo, Approve, Cancel)
+    also has an equivalent voice command handled by the BH modules.
+  \item[Keyboard access:] All controls are reachable via keyboard focus and
+    shortcuts so users do not need a mouse.
+  \item[Captioning:] Spoken feedback is always mirrored as text in the
+    transcript area to satisfy captioning requirements.
+\end{description}
 
 \section{Design of Communication Protocols}
+\label{SecComm}
 
-\wss{If appropriate}
+\noindent
+No custom low-level communication protocols are defined.
+
+\subsection{Internal Communication}
+
+All modules run in a single desktop application and communicate through normal 
+procedure calls and shared data structures. No network protocols are used 
+in internal modules.
+
+\subsection{External Services}
+
+\begin{itemize}
+  \item \textbf{STT/TTS/LLM services}: 
+  \mref{mBHInput} and \mref{mBHFeedback} call external AI services over standard 
+  HTTPS with JSON payloads. Provider details are in \mref{mSDConfig}.
+
+  \item \textbf{MCP tools and automation}: \mref{mBHPlan} uses MCP tools and 
+  desktop automation using the Model Context Protocol, which exchanges JSON 
+  requests and responses through a local and reliable channel. Tool mapping is 
+  maintained by \mref{mSDRegistry}.
+\end{itemize}
 
 \section{Timeline}
 
-\wss{Schedule of tasks and who is responsible}
+GitHub Projects is used for project management. Tasks, milestones and assignee 
+information can be found in the \href{https://github.com/users/gkpodder/projects/2/views/1}{Kanban Board}.
 
-\wss{You can point to GitHub if this information is included there}
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
