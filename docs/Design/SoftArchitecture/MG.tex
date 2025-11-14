@@ -249,12 +249,40 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
+\begin{itemize}
+    \item \textbf{Multi-modal Input Pipeline}: FUNC.R.1 and FUNC.R.2 required 
+    handling both speech and text input with accurate conversion. This led to a 
+    coordinated design where \textbf{BH-Input} manages high-level input processing, 
+    \textbf{HH-IO} handles hardware-level audio operations, and \textbf{BH-UI} 
+    provides the interface layer, with \textbf{SD-STT/TTS Config} ensuring proper 
+    speech configuration.
+
+    \item \textbf{Natural Language Understanding Chain}: FUNC.R.3's intent interpretation  
+    requirement resulted in a processing chain where \textbf{BH-NLU} performs core 
+    parsing, supported by \textbf{BH-Input} for pre-processed text and \textbf{SD-Types} 
+    for structured data definitions.
+
+    \item \textbf{Comprehensive Task Execution Framework}: FUNC.R.4's planning and 
+    execution requirement necessitated a multi-module approach where \textbf{BH-Plan} 
+    coordinates execution, \textbf{SD-ToolRegistry} maps intents to tools, \textbf{HH-Auto} 
+    performs low-level actions, \textbf{BH-Session} maintains context, and \textbf{BH-Safety} 
+    ensures secure operation.
+
+    \item \textbf{Distributed Logging Architecture}: FUNC.R.7's comprehensive logging 
+    requirement is satisfied by making \textbf{SD-Log} a central service used by 
+    nearly all modules, with \textbf{SD-Store} handling persistent storage of log data.
+
+    \item \textbf{High-Level Interaction Abstraction}: FUNC.R.8's requirement to 
+    avoid low-level OS details is achieved through a layered architecture where 
+    \textbf{BH-UI}, \textbf{BH-Input}, and \textbf{BH-Feedback} provide natural 
+    language interfaces, while \textbf{BH-Plan} and \textbf{SD-Types} maintain 
+    high-level abstractions that shield users from system complexities.
+
+    \item \textbf{Safety-Critical Confirmation System}: FUNC.R.9's confirmation 
+    requirement led to the \textbf{BH-Safety} module that intercepts privileged 
+    actions, coordinated with \textbf{BH-UI} for user prompts and multiple SD 
+    modules for data persistence and auditing.
+\end{itemize}
 
 \section{Module Decomposition} \label{SecMD}
 
