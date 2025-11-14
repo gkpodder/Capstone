@@ -422,28 +422,28 @@ requirements are referenced using their identifiers from the SRS
 \toprule
 \textbf{Requirement (SRS)} & \textbf{Modules}\\
 \midrule
-FUNC.R.1 -- Accept input via speech and text
+FUNC.R.1 - Accept input via speech and text
   & \mref{mBHInput}, \mref{mHHIO}, \mref{mBHUI}, \mref{mSDConfig} \\
-FUNC.R.2 -- Convert speech to text (STT)
+FUNC.R.2 - Convert speech to text (STT)
   & \mref{mBHInput}, \mref{mHHIO}, \mref{mSDConfig}, \mref{mSDLog} \\
-FUNC.R.3 -- Interpret user intent from NL input
+FUNC.R.3 - Interpret user intent from NL input
   & \mref{mBHNLU}, \mref{mBHInput}, \mref{mSDTypes}, \mref{mSDLog} \\
-FUNC.R.4 -- Plan and execute tasks via agents/tools
+FUNC.R.4 - Plan and execute tasks via agents/tools
   & \mref{mBHPlan}, \mref{mSDRegistry}, \mref{mSDTypes},
     \mref{mHHAuto}, \mref{mBHSession}, \mref{mBHSafety}, \mref{mSDLog} \\
-FUNC.R.5 -- Provide textual / spoken feedback
+FUNC.R.5 - Provide textual/spoken feedback
   & \mref{mBHFeedback}, \mref{mBHUI}, \mref{mSDConfig}, \mref{mSDLog} \\
-FUNC.R.6 -- Maintain short-term conversational memory
+FUNC.R.6 - Maintain short-term conversational memory
   & \mref{mBHSession}, \mref{mSDStore}, \mref{mBHInput},
     \mref{mBHPlan}, \mref{mSDLog} \\
-FUNC.R.7 -- Log user interactions and task results
+FUNC.R.7 - Log user interactions and task results
   & \mref{mSDLog}, \mref{mSDStore}, \mref{mBHSession},
     \mref{mBHInput}, \mref{mBHPlan}, \mref{mBHFeedback},
     \mref{mBHUI}, \mref{mBHSafety}, \mref{mHHIO}, \mref{mHHAuto} \\
-FUNC.R.8 -- High-level interaction (no low-level OS details)
+FUNC.R.8 - High-level interaction (no low-level OS details)
   & \mref{mBHUI}, \mref{mBHInput}, \mref{mBHPlan},
     \mref{mBHFeedback}, \mref{mHHAuto}, \mref{mSDTypes} \\
-FUNC.R.9 -- Confirm privileged / system-level actions
+FUNC.R.9 - Confirm privileged/system-level actions
   & \mref{mBHSafety}, \mref{mBHUI}, \mref{mBHPlan},
     \mref{mSDTypes}, \mref{mSDLog}, \mref{mSDStore} \\
 \bottomrule
