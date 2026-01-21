@@ -2,25 +2,28 @@
 Tests for the SubAgent module.
 """
 
-from sub_agent import SubAgent
-import pytest
 from unittest.mock import Mock, MagicMock, patch
+import pytest
+from sub_agent import SubAgent
 import sys
 import os
 
-# Add src to path
+# Add src to path BEFORE importing
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 
 class TestSubAgent:
     """Test cases for SubAgent class."""
 
-    def test_init(self, mock_api_key):
+    @patch('sub_agent.OpenAI')
+    def test_init(self, mock_openai_class, mock_api_key):
         """Test sub-agent initialization."""
+        mock_client = MagicMock()
+        mock_openai_class.return_value = mock_client
         agent = SubAgent(mock_api_key, "gpt-4o-mini")
-        assert agent.api_key == mock_api_key
         assert agent.model == "gpt-4o-mini"
         assert agent.client is not None
+        mock_openai_class.assert_called_once_with(api_key=mock_api_key)
 
     @patch('sub_agent.OpenAI')
     def test_execute_task_success(self, mock_openai_class, mock_api_key, mock_openai_response):

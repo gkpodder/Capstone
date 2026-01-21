@@ -2,26 +2,29 @@
 Tests for the Planner module.
 """
 
-from planner import Planner
-import pytest
-import json
 from unittest.mock import Mock, MagicMock, patch
+import json
+import pytest
+from planner import Planner
 import sys
 import os
 
-# Add src to path
+# Add src to path BEFORE importing
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 
 class TestPlanner:
     """Test cases for Planner class."""
 
-    def test_init(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_init(self, mock_openai_class, mock_api_key):
         """Test planner initialization."""
+        mock_client = MagicMock()
+        mock_openai_class.return_value = mock_client
         planner = Planner(mock_api_key, "gpt-4o-mini")
-        assert planner.api_key == mock_api_key
         assert planner.model == "gpt-4o-mini"
         assert planner.client is not None
+        mock_openai_class.assert_called_once_with(api_key=mock_api_key)
 
     @patch('planner.OpenAI')
     def test_create_plan_success(self, mock_openai_class, mock_api_key, mock_openai_response):
@@ -136,14 +139,18 @@ class TestPlanner:
         with pytest.raises(Exception, match="API Error"):
             planner.create_plan("Test task", [])
 
-    def test_format_tools_empty(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_format_tools_empty(self, mock_openai_class, mock_api_key):
         """Test formatting empty tools list."""
+        mock_openai_class.return_value = MagicMock()
         planner = Planner(mock_api_key)
         result = planner._format_tools([])
         assert result == "No tools available."
 
-    def test_format_tools_single(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_format_tools_single(self, mock_openai_class, mock_api_key):
         """Test formatting single tool."""
+        mock_openai_class.return_value = MagicMock()
         planner = Planner(mock_api_key)
         tools = [
             {
@@ -157,8 +164,10 @@ class TestPlanner:
         assert "A test tool" in result
         assert "test_server" in result
 
-    def test_format_tools_multiple(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_format_tools_multiple(self, mock_openai_class, mock_api_key):
         """Test formatting multiple tools."""
+        mock_openai_class.return_value = MagicMock()
         planner = Planner(mock_api_key)
         tools = [
             {"name": "tool1", "description": "First tool"},
@@ -170,8 +179,10 @@ class TestPlanner:
         assert "First tool" in result
         assert "Second tool" in result
 
-    def test_format_tools_no_description(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_format_tools_no_description(self, mock_openai_class, mock_api_key):
         """Test formatting tools without description."""
+        mock_openai_class.return_value = MagicMock()
         planner = Planner(mock_api_key)
         tools = [{"name": "tool1"}]
         result = planner._format_tools(tools)

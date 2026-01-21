@@ -2,24 +2,26 @@
 Tests for the main Agent class.
 """
 
-from sub_agent import SubAgent
-from mcp_client import MCPClient
-from planner import Planner
-from agent import Agent
-import pytest
 from unittest.mock import Mock, MagicMock, patch
+import pytest
+from agent import Agent
+from planner import Planner
+from mcp_client import MCPClient
+from sub_agent import SubAgent
 import sys
 import os
 
-# Add src to path
+# Add src to path BEFORE importing
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 
 class TestAgent:
     """Test cases for Agent class."""
 
-    def test_init_with_api_key(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_init_with_api_key(self, mock_openai_class, mock_api_key):
         """Test agent initialization with API key."""
+        mock_openai_class.return_value = MagicMock()
         agent = Agent(api_key=mock_api_key)
         assert agent.api_key == mock_api_key
         assert agent.model == "gpt-4o-mini"
@@ -27,9 +29,11 @@ class TestAgent:
         assert agent.mcp_clients == {}
         assert agent.sub_agents == []
 
+    @patch('planner.OpenAI')
     @patch.dict(os.environ, {'OPENAI_API_KEY': 'env-api-key'})
-    def test_init_from_env(self):
+    def test_init_from_env(self, mock_openai_class):
         """Test agent initialization from environment variable."""
+        mock_openai_class.return_value = MagicMock()
         agent = Agent()
         assert agent.api_key == 'env-api-key'
 
@@ -39,9 +43,11 @@ class TestAgent:
             with pytest.raises(ValueError, match="OpenAI API key required"):
                 Agent()
 
+    @patch('planner.OpenAI')
     @patch('agent.MCPClient')
-    def test_connect_mcp(self, mock_mcp_client_class, mock_api_key):
+    def test_connect_mcp(self, mock_mcp_client_class, mock_openai_class, mock_api_key):
         """Test connecting to MCP server."""
+        mock_openai_class.return_value = MagicMock()
         mock_client = MagicMock()
         mock_mcp_client_class.return_value = mock_client
 
@@ -54,9 +60,11 @@ class TestAgent:
             "/path/to/server", ["arg1"])
         mock_client.connect.assert_called_once()
 
+    @patch('planner.OpenAI')
     @patch('agent.MCPClient')
-    def test_connect_mcp_no_args(self, mock_mcp_client_class, mock_api_key):
+    def test_connect_mcp_no_args(self, mock_mcp_client_class, mock_openai_class, mock_api_key):
         """Test connecting to MCP server without args."""
+        mock_openai_class.return_value = MagicMock()
         mock_client = MagicMock()
         mock_mcp_client_class.return_value = mock_client
 
@@ -65,14 +73,18 @@ class TestAgent:
 
         mock_mcp_client_class.assert_called_once_with("/path/to/server", [])
 
-    def test_get_available_tools_empty(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_get_available_tools_empty(self, mock_openai_class, mock_api_key):
         """Test getting tools when no MCP servers connected."""
+        mock_openai_class.return_value = MagicMock()
         agent = Agent(api_key=mock_api_key)
         tools = agent.get_available_tools()
         assert tools == []
 
-    def test_get_available_tools(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_get_available_tools(self, mock_openai_class, mock_api_key):
         """Test getting tools from connected MCP servers."""
+        mock_openai_class.return_value = MagicMock()
         mock_client1 = MagicMock()
         mock_client1.list_tools.return_value = [
             {"name": "tool1", "description": "Tool 1"},
@@ -96,8 +108,10 @@ class TestAgent:
         assert tools[2]["name"] == "tool3"
         assert tools[2]["mcp_server"] == "server2"
 
-    def test_get_available_tools_with_error(self, mock_api_key):
+    @patch('planner.OpenAI')
+    def test_get_available_tools_with_error(self, mock_openai_class, mock_api_key):
         """Test getting tools when one server fails."""
+        mock_openai_class.return_value = MagicMock()
         mock_client1 = MagicMock()
         mock_client1.list_tools.return_value = [{"name": "tool1"}]
 
