@@ -50,6 +50,7 @@
                 and connections with requirements\\
 2025-11-13 & 1.1 & Finalized the document and created the module hierarchy
                 diagram \\
+2026-01-21 & 1.2 & Rev 0, implemeneted TA feedback \\
 \bottomrule
 \end{tabularx}
 
@@ -793,18 +794,18 @@ logging infrastructure.}
 
 \begin{tabularx}{\textwidth}{|l|l|l|X|}
 \hline
-\textbf{Week} & \textbf{Module(s)} & \textbf{Lead(s)} & \textbf{Details} 
+\textbf{Date} & \textbf{Module(s)} & \textbf{Lead(s)} & \textbf{Details} 
 \\ \hline
-0 & M13, M14 & Ajay & \textbf{Setup:} Environment configuration and 
+Nov 15 - Nov 29  & M13, M14 & Ajay & \textbf{Setup:} Environment configuration and 
 implementation of \texttt{log\_event()} for system-wide traceability 
 (FUNC.R.7). \\ \hline
-1 & M10 & Gourob & \textbf{Type-Definition:} Coding of global 
+Nov 30 - Dec 9 & M10 & Gourob & \textbf{Type-Definition:} Coding of global 
 ADTs (\texttt{Command}, \texttt{Intent}, \texttt{Plan}) to ensure type-safety 
 across the pipeline. \\ \hline
-2 & M1 & Amanbeer & \textbf{Signal-Capture:} Low-level implementation 
+Dec 10 - Dec 19 & M1 & Amanbeer & \textbf{Signal-Capture:} Low-level implementation 
 of \texttt{init\_audio()} and \texttt{start\_capture()} using hardware-hiding 
 drivers. \\ \hline
-3 & M1 & Amanbeer & \textbf{Feedback-Link:} Implementation 
+Dec 20 - Dec 31 & M1 & Amanbeer & \textbf{Feedback-Link:} Implementation 
 of \texttt{play\_feedback()} to route synthetic audio to system output devices. 
 \\ \hline
 \end{tabularx}
@@ -817,14 +818,14 @@ persistent storage.}
 \hline
 \textbf{Week} & \textbf{Module(s)} & \textbf{Lead(s)} & \textbf{Details} 
 \\ \hline
-4 & M3 & Savinay & \textbf{Stream-to-Text:} Integration of Whisper STT; 
+Jan 1 - Jan 9 & M3 & Savinay & \textbf{Stream-to-Text:} Integration of Whisper STT; 
 implementation of VAD (Voice Activity Detection) logic. \\ \hline
-5 & M3, M4 & Savinay, Gourob & \textbf{Normalization:} Unifying Voice and Text 
+Jan 10 - Jan 19 & M3, M4 & Savinay, Gourob & \textbf{Normalization:} Unifying Voice and Text 
 inputs into a common \texttt{Command} object via \texttt{get\_input()}. \\ 
 \hline
-6 & M4 & Gourob & \textbf{Semantic-Parser:} Development of rules to map natural 
+Jan 20 - Jan 31 & M4 & Gourob & \textbf{Semantic-Parser:} Development of rules to map natural 
 language strings to structured \texttt{Intent} objects. \\ \hline
-7 & M11, M12 & Ajay & \textbf{Action-Map:} Building the \texttt{SD-ToolRegistry} 
+Feb 1 - Feb 9 & M11, M12 & Ajay & \textbf{Action-Map:} Building the \texttt{SD-ToolRegistry} 
 to link parsed intents to specific system automation tools. \\ \hline
 \end{tabularx}
 
@@ -835,14 +836,14 @@ to link parsed intents to specific system automation tools. \\ \hline
 \begin{tabularx}{\textwidth}{|l|l|l|X|}
 \hline
 \textbf{Week} & \textbf{Module(s)} & \textbf{Lead(s)} & \textbf{Details} \\ \hline
-8 & M5 & Gourob & \textbf{Logic-Sequence:} Implementation of recursive planning 
+Feb 10 - Feb 19 & M5 & Gourob & \textbf{Logic-Sequence:} Implementation of recursive planning 
 to decompose intents into atomic \texttt{Action} sequences. \\ \hline
-9 & M2 & Amanbeer & \textbf{OS-Abstraction:} Development of keyboard and 
+Feb 20 - Feb 28 & M2 & Amanbeer & \textbf{OS-Abstraction:} Development of keyboard and 
 mouse automation wrappers (click, type, launch) for Windows/macOS. \\ \hline
-10 & M6 & Savinay & \textbf{Gate-Keeper:} Mandatory implementation of 
+Mar 1 - Mar 9 & M6 & Savinay & \textbf{Gate-Keeper:} Mandatory implementation of 
 \texttt{validate\_plan()} to intercept high-risk/irreversible actions 
 (FUNC.R.9). \\ \hline
-11 & M7 & Ajay & \textbf{Context-Sync:} Implementing conversational memory to 
+Mar 10 - Mar 19 & M7 & Ajay & \textbf{Context-Sync:} Implementing conversational memory to 
 track history and support "undo" operations. \\ \hline
 \end{tabularx}
 
@@ -852,17 +853,17 @@ track history and support "undo" operations. \\ \hline
 \begin{tabularx}{\textwidth}{|l|l|l|X|}
 \hline
 \textbf{Week} & \textbf{Module(s)} & \textbf{Lead(s)} & \textbf{Details} \\ \hline
-12 & M9 & Savinay & \textbf{View-Render:} Finalizing the Desktop Panel; rendering 
+Mar 20 - Mar 30 & M9 & Savinay & \textbf{View-Render:} Finalizing the Desktop Panel; rendering 
 transcript overlays and real-time status indicators. \\ \hline
-13 & M8 & Amanbeer & \textbf{Voice-Synth:} Integration of TTS to convert system 
+Mar 31 - Apr 9 & M8 & Amanbeer & \textbf{Voice-Synth:} Integration of TTS to convert system 
 responses into spoken audio via the M1 interface. \\ \hline
-14 & All & Full Team & \textbf{V\&V:} Execution of the Confidence Protocol; 
+Apr 10 - Apr 19 & All & Full Team & \textbf{V\&V:} Execution of the Confidence Protocol; 
 testing latency (SAL.R.1) and safety-interception reliability. \\ \hline
 \end{tabularx}
 
 \subsection{Verification Milestones}
 To ensure implementation confidence, the following milestones must be met by 
-Week 14:
+Apr 20 - Apr 25:
 \begin{enumerate}
     \item \textbf{Control Loop Integrity:} Successful movement from 
     \texttt{M1 (Audio)} to \texttt{M2 (Automation)} for a "hello world" command
