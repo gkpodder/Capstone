@@ -1686,15 +1686,95 @@ challenging.
 In the end we chose a modular design which balanced focus for usability and
 accessibility while also being able to get great results by using a mixture of
 models approach through our modular architecture.
+\end{enumerate}
+
+\section*{Team Module Reflection}
+
+\begin{enumerate}
 
 \item \textbf{After you have implemented another team's module, which means this
-  isn't filled in until after the original deadline). What did you learn by
-  implementing another team's module? Were all the details you needed in the
-  documentation, or did you need to make assumptions, or ask the other team
-  questions?  If your team also had another team implement one of your modules,
-  what was this experience like?  Are there things in your documentation you
-  could have changed to make the process go more smoothly for when an
-  ``outsider'' completes some of the implementation?}
+isn't filled in until after the original deadline). What did you learn by
+implementing another team's module? Were all the details you needed in the
+documentation, or did you need to make assumptions, or ask the other team
+questions?  If your team also had another team implement one of your modules,
+what was this experience like?  Are there things in your documentation you
+could have changed to make the process go more smoothly for when an
+``outsider'' completes some of the implementation?}
+
+By implementing another team's module, we learned how dependent a correct
+implementation is on clear contracts and integration details, not just the
+routine list. When the implementer is not the author, any ambiguity turns
+into extra time spent reading, guessing intent, or coordinating with the
+other team. This also made it clear that ``small'' missing details (types,
+validation rules, and ownership of state) can change the architecture of
+the implementation.
+
+For the module we implemented (Text Buffer), the other team's MIS/MG were
+helpful for understanding the intended responsibilities and the core API.
+In particular, the documentation clearly stated the main operations
+(create, modify, move, delete), the state concept (a mapping from TextID
+to TextObject), and the exceptions expected (Invalid Location, Text Not
+Found). However, not all the details needed for a clean, drop-in
+implementation were present. We still had to make assumptions in order to
+complete it. Examples include:
+\begin{itemize}
+  \item What exactly counts as a valid location (finite coordinates only,
+        canvas bounds, snapping, negative values, etc.).
+  \item The concrete structure of \texttt{location} and \texttt{formatting}
+        in code, and whether formatting is stored inside TextObject or
+        handled by another part of the system.
+  \item ID strategy details: whether TextID must align with other object
+        IDs, whether IDs must persist through undo/redo, and how uniqueness
+        is guaranteed across sessions.
+  \item How this module is expected to interact with global state, because
+        the docs referenced usage of geometry state, but it was unclear
+        whether TextBuffer directly mutates state or reports changes for a
+        mutator layer to apply.
+\end{itemize}
+Because these details were not fully specified, we either chose the most
+reasonable interpretation (based on the MIS and the surrounding system
+design), or we would need to ask the other team to confirm expectations
+before final integration. In short, the documentation provided the ``what''
+but not always the ``how'' needed for consistent integration.
+
+Our team also experienced the reverse situation when another team
+implemented one of our modules, the Proxi UI interface. Their feedback
+made the documentation gaps very obvious. They reported that there were
+no API endpoint implementations and no clear guidance on UI and backend
+integration. They also noted that there was no specific documentation for
+UI flows and design guidance. Finally, they pointed out an important scope
+issue: UI is not just a small module, it is a full feature that is often
+critical and requires continuous integration and development, which can be
+beyond the scope of implementing a single module from MIS/MG alone. Even
+with these challenges, they still made a best-effort implementation to
+align with our MIS, MG, and SRS, and they asked us to add clarifications
+or requirements through the PR thread.
+
+This experience was valuable because it showed us what an outsider needs
+most: explicit integration contracts, concrete data formats, and examples.
+If we could revise our documentation to make outsider implementation go
+more smoothly, we would make the following changes:
+\begin{itemize}
+  \item Add a clear UI-to-backend integration section, including endpoint
+        list, request/response schemas, error cases, and authentication or
+        state assumptions.
+  \item Document UI flows explicitly: key screens, user actions, expected
+        state changes, and any navigation or validation rules.
+  \item Provide a small set of acceptance tests or scenarios (``given/when/
+        then'' style) so outsiders can verify behaviour without guessing.
+  \item Clarify module boundaries and ownership of state (what the UI must
+        implement versus what depends on other subsystems), and explicitly
+        list any dependencies that must exist first.
+  \item Include minimal reference implementations or stubs (for example,
+        mock endpoints or placeholder services) so the UI can be developed
+        and tested before the backend is complete.
+\end{itemize}
+
+Overall, implementing another team's module and having another team
+implement ours reinforced the same lesson: MIS/MG documentation must be
+precise about assumptions, types, validation, and integration. Without
+that, outsiders can still implement something, but they will need to make
+assumptions, ask questions, and iterate more through PR feedback.
 
 
 
