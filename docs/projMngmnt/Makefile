@@ -3,11 +3,14 @@
 
 PROJECT=POC_Team_Contrib
 TEX=pdflatex
+PROJECT2=Rev0_Team_Contrib
 BIBTEX=bibtex
 BUILDTEX=$(TEX) $(PROJECT).tex
+BUILDTEX2=$(TEX) $(PROJECT2).tex
 
 all:
 	$(BUILDTEX)
+	$(BUILDTEX2)
 #	$(BIBTEX) $(PROJECT)
 #	$(BUILDTEX)
 	$(BUILDTEX)
